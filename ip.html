@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Time</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <script>
+        // Function to format date in GMT-3 with specified format
+        function getGMTMinus3Time() {
+            const now = new Date();
+            const gmtMinus3Offset = -3 * 60; // GMT-3 in minutes
+            const localTime = new Date(now.getTime() + (gmtMinus3Offset * 60 * 1000));
+            
+            const day = String(localTime.getUTCDate()).padStart(2, '0');
+            const month = String(localTime.getUTCMonth() + 1).padStart(2, '0');
+            const year = localTime.getUTCFullYear();
+            const hours = String(localTime.getUTCHours()).padStart(2, '0');
+            const minutes = String(localTime.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(localTime.getUTCSeconds()).padStart(2, '0');
+            
+            return `${day}-${month}-${year}_${hours}:${minutes}:${seconds}`;
+        }
+
+        // Fetch public IP and display with time
+        async function fetchIPAndTime() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const ip = data.ip;
+                const time = getGMTMinus3Time();
+                document.body.innerText = `${ip},${time}`;
+            } catch (error) {
+                document.body.innerText = `Error fetching IP: ${error.message}`;
+            }
+        }
+
+        // Run when the page loads
+        window.onload = fetchIPAndTime;
+    </script>
+</body>
+</html>
