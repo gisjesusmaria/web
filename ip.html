@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>IP and Time</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"></link>
 </head>
 <body>
     <script>
@@ -23,6 +23,10 @@
             return `${day}-${month}-${year}_${hours}:${minutes}:${seconds}`;
         }
 
+        // Check if format=text is in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTextFormat = urlParams.get('format') === 'text';
+
         // Fetch public IP and display with time
         async function fetchIPAndTime() {
             try {
@@ -32,10 +36,10 @@
                 });
                 const ip = await response.text();
                 const time = getGMTMinus3Time();
-                // Set the body to plain text output
-                document.body.innerText = `${ip},${time}`;
+                // Output plain text if format=text, otherwise show with label
+                document.body.innerText = isTextFormat ? `${ip},${time}` : `IP and Time: ${ip},${time}`;
             } catch (error) {
-                document.body.innerText = `Error,${getGMTMinus3Time()}`;
+                document.body.innerText = isTextFormat ? `Error,${getGMTMinus3Time()}` : `Error fetching IP: ${error.message}`;
             }
         }
 
