@@ -42,7 +42,7 @@
                 // Create a temporary link to trigger download
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = 'ip_time.csv';
+                link.download = 'ip.csv';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -59,4 +59,5 @@
     </script>
 </body>
 </html>
+
 
