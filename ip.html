@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>IP and Time</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"></link>
+    <title>Download IP and Time CSV</title>
 </head>
 <body>
     <script>
@@ -23,12 +22,8 @@
             return `${day}-${month}-${year}_${hours}:${minutes}:${seconds}`;
         }
 
-        // Check if format=text is in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const isTextFormat = urlParams.get('format') === 'text';
-
-        // Fetch public IP and display with time
-        async function fetchIPAndTime() {
+        // Fetch public IP and trigger CSV download
+        async function fetchIPAndDownloadCSV() {
             try {
                 const response = await fetch('https://api.ipify.org?format=text', {
                     method: 'GET',
@@ -36,15 +31,30 @@
                 });
                 const ip = await response.text();
                 const time = getGMTMinus3Time();
-                // Output plain text if format=text, otherwise show with label
-                document.body.innerText = isTextFormat ? `${ip},${time}` : `IP and Time: ${ip},${time}`;
+                
+                // Create CSV content
+                const csvContent = `${ip},${time}`;
+                
+                // Create a Blob with CSV content
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+                
+                // Create a temporary link to trigger download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'ip_time.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Display fallback message in case download doesn't work
+                document.body.innerText = 'CSV file should have downloaded. If not, try again.';
             } catch (error) {
-                document.body.innerText = isTextFormat ? `Error,${getGMTMinus3Time()}` : `Error fetching IP: ${error.message}`;
+                document.body.innerText = 'Error fetching IP';
             }
         }
 
         // Run when the page loads
-        fetchIPAndTime();
+        fetchIPAndDownloadCSV();
     </script>
 </body>
 </html>
