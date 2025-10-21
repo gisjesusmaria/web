@@ -2,45 +2,95 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
-    <title>IP and Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP para App Inventor</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico"></link>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        h1 {
+            color: #0d6efd;
+        }
+        p {
+            font-size: 1.1em;
+            word-wrap: break-word;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Obteniendo datos...</h1>
+        <p>Por favor, espera.</p>
+    </div>
+
     <script>
-        // Function to format date in GMT-3 with specified format
+        // Función para formatear la fecha en GMT-3 con el formato especificado
+        // Esta es la misma función que tenías.
         function getGMTMinus3Time() {
             const now = new Date();
-            const gmtMinus3Offset = -3 * 60; // GMT-3 in minutes
+            // Desplazamiento para GMT-3 en minutos
+            const gmtMinus3Offset = -3 * 60;
             const localTime = new Date(now.getTime() + (gmtMinus3Offset * 60 * 1000));
-            
+
             const day = String(localTime.getUTCDate()).padStart(2, '0');
             const month = String(localTime.getUTCMonth() + 1).padStart(2, '0');
             const year = localTime.getUTCFullYear();
             const hours = String(localTime.getUTCHours()).padStart(2, '0');
             const minutes = String(localTime.getUTCMinutes()).padStart(2, '0');
             const seconds = String(localTime.getUTCSeconds()).padStart(2, '0');
-            
+
             return `${day}-${month}-${year}_${hours}:${minutes}:${seconds}`;
         }
 
-        // Fetch public IP and set as plain text
-        async function fetchIPAndTime() {
+        // Obtiene la IP pública y envía los datos a App Inventor
+        async function fetchIPAndSendData() {
+            const container = document.querySelector('.container');
             try {
-                const response = await fetch('https://api.ipify.org?format=text', {
-                    method: 'GET',
-                    headers: { 'Accept': 'text/plain' }
-                });
+                const response = await fetch('https://api.ipify.org?format=text');
+                if (!response.ok) {
+                    throw new Error('La respuesta de la red no fue exitosa.');
+                }
                 const ip = await response.text();
                 const time = getGMTMinus3Time();
-                document.body.innerText = `${ip},${time}`;
+                const csvContent = `${ip},${time}`;
+
+                // Comprueba si se está ejecutando dentro de un WebViewer de App Inventor
+                if (window.AppInventor && typeof window.AppInventor.setWebViewString === 'function') {
+                    // Envía la cadena de texto a la aplicación
+                    window.AppInventor.setWebViewString(csvContent);
+                    container.innerHTML = `<h1>✅ Datos enviados a App Inventor</h1><p>${csvContent}</p>`;
+                } else {
+                    // Mensaje para cuando se abre en un navegador normal
+                    container.innerHTML = `<h1>Resultado Obtenido</h1><p>${csvContent}</p><hr><p><strong>Nota:</strong> Esta página está diseñada para usarse con App Inventor. Abre esta URL en el componente <em>WebViewer</em> de tu app para recibir los datos automáticamente.</p>`;
+                }
             } catch (error) {
-                document.body.innerText = `Error,${getGMTMinus3Time()}`;
+                const errorMessage = 'Error al obtener la IP. Verifica tu conexión a internet.';
+                console.error('Error:', error);
+                 if (window.AppInventor && typeof window.AppInventor.setWebViewString === 'function') {
+                    window.AppInventor.setWebViewString(`ERROR: ${errorMessage}`);
+                }
+                container.innerHTML = `<h1>❌ Error</h1><p>${errorMessage}</p>`;
             }
         }
 
-        // Run when the page loads
-        fetchIPAndDownloadCSV();
+        // Ejecutar la función cuando se cargue la página
+        window.onload = fetchIPAndSendData;
     </script>
 </body>
 </html>
