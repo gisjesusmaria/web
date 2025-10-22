@@ -3,60 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- El título se actualizará dinámicamente con los datos CSV. -->
     <title>,</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"></link>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: monospace; 
+            font-size: 1.2rem;
+            padding: 20px;
+            white-space: pre-wrap; 
+        }
+    </style>
 </head>
 <body>
-    <!-- Este mensaje es para los usuarios que abran la página en un navegador web normal. -->
-    <p>Los datos solicitados se han generado y colocado en el título de esta página.</p>
 
     <script>
-        // Este script obtiene la IP pública y la fecha/hora actual,
-        // y luego las combina en una sola cadena de texto.
-        // Esa cadena se establece como el título del documento HTML.
-
-        // Función para formatear la fecha y hora
-        function getFormattedDateTime() {
+        
+        function getGMTMinus3Time() {
             const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0'); // Los meses son base 0
-            const year = now.getFullYear();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const gmtMinus3Offset = -3 * 60;
+            const localTime = new Date(now.getTime() + (gmtMinus3Offset * 60 * 1000));
+
+            const day = String(localTime.getUTCDate()).padStart(2, '0');
+            const month = String(localTime.getUTCMonth() + 1).padStart(2, '0');
+            const year = localTime.getUTCFullYear();
+            const hours = String(localTime.getUTCHours()).padStart(2, '0');
+            const minutes = String(localTime.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(localTime.getUTCSeconds()).padStart(2, '0');
+            
             return `${day}-${month}-${year}_${hours}:${minutes}:${seconds}`;
         }
 
-        // Función principal para obtener datos y establecer el título de la página
-        async function generateAndSetTitle() {
+        async function generateAndWriteData() {
             try {
-                // 1. Obtener la IP pública
                 const response = await fetch('https://api.ipify.org?format=text');
                 if (!response.ok) {
                     throw new Error('No se pudo obtener la IP.');
                 }
                 const ip = await response.text();
-
-                // 2. Obtener la fecha y hora formateada
-                const dateTime = getFormattedDateTime();
-
-                // 3. Crear la cadena de texto final
+                const dateTime = getGMTMinus3Time();                
                 const dataString = `${ip},${dateTime}`;
-
-                // 4. Establecer la cadena de datos como el título del documento.
-                document.title = dataString;
+                document.body.textContent = dataString;
+                document.title = dataString; 
 
             } catch (err) {
                 console.error("Error al generar los datos:", err);
-                // Si hay un error, se mostrará en el título.
-                document.title = `Error: ${err.message}`;
+                const errorMsg = `Error: ${err.message}`;
+                document.body.textContent = errorMsg;
+                document.title = errorMsg;
             }
         }
 
-        // Ejecutar la función tan pronto como la página se cargue
-        window.onload = generateAndSetTitle;
+        window.onload = generateAndWriteData;
     </script>
 </body>
 </html>
-
-
