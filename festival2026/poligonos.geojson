@@ -11,7 +11,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -46,7 +47,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 1
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -81,7 +83,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 1,
+        "tempId": 2
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -124,7 +127,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 3
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -159,7 +163,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 4
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -198,7 +203,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 5
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -233,7 +239,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 6
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -284,7 +291,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 7
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -319,7 +327,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 0,
+        "tempId": 8
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -354,7 +363,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 9
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -389,7 +399,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 0,
+        "tempId": 10
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -428,7 +439,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 11
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -463,7 +475,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 0,
+        "tempId": 12
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -498,7 +511,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 13
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -533,7 +547,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 14
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -568,7 +583,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 0,
+        "tempId": 15
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -611,7 +627,8 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 1,
+        "tempId": 16
       },
       "geometry": {
         "type": "MultiPolygon",
