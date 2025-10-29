@@ -389,7 +389,7 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1
+        "Disponible": 0
       },
       "geometry": {
         "type": "MultiPolygon",
