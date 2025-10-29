@@ -127,7 +127,7 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 1,
+        "Disponible": 0,
         "tempId": 3
       },
       "geometry": {
