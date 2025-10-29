@@ -81,7 +81,7 @@
     {
       "type": "Feature",
       "properties": {
-        "Disponible": 0
+        "Disponible": 1
       },
       "geometry": {
         "type": "MultiPolygon",
