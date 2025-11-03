@@ -11541,12 +11541,12 @@
       "properties": {
         "id": 35,
         "nomenc": "01-A-28",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "10 x 10",
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11577,7 +11577,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 156
+        "_index": 156,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -11771,11 +11776,11 @@
         "id": 234,
         "nomenc": "02-C-01",
         "medidas": "16.78 x 4.80",
-        "rubro": null,
+        "rubro": "",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11806,7 +11811,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 159
+        "_index": 159,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
