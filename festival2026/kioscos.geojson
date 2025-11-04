@@ -2124,11 +2124,11 @@
         "id": 125,
         "nomenc": "02-A-73",
         "medidas": "5 x 5",
-        "rubro": null,
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "5000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -2159,7 +2159,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 26
+        "_index": 26,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
