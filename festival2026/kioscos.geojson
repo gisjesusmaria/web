@@ -15156,11 +15156,11 @@
         "id": 235,
         "nomenc": "02-C-02",
         "medidas": "16.78 x 4.80",
-        "rubro": null,
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "25145000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15196,6 +15196,11 @@
           "importe": "15200",
           "fecha": "2025-11-03",
           "comprobante": "123"
+        },
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
         }
       },
       "geometry": {
