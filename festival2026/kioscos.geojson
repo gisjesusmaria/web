@@ -15116,7 +15116,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 205
+        "_index": 205,
+        "pago1": {
+          "importe": "15200",
+          "fecha": "2025-11-03",
+          "comprobante": "123"
+        }
       },
       "geometry": {
         "type": "Polygon",
