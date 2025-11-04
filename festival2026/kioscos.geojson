@@ -496,11 +496,11 @@
         "id": 45,
         "nomenc": "02-A8-01",
         "medidas": "24 x 5.48",
-        "rubro": null,
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -531,7 +531,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 6
+        "_index": 6,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
