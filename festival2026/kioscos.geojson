@@ -15379,11 +15379,11 @@
         "id": 239,
         "nomenc": "02-C-06",
         "medidas": "18.37 x 6.78",
-        "rubro": null,
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "28000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15414,7 +15414,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 209
+        "_index": 209,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
