@@ -11579,7 +11579,7 @@
         "pago10.comprobante": null,
         "_index": 156,
         "titular": {
-          "nombre": "",
+          "nombre": "aaa",
           "dni": "",
           "telefono": ""
         }
