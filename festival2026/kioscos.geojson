@@ -3279,11 +3279,11 @@
         "id": 245,
         "nomenc": "03-G-01",
         "medidas": "4 x 2",
-        "rubro": null,
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "25000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -3314,7 +3314,17 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 42
+        "_index": 42,
+        "titular": {
+          "nombre": "hhh",
+          "dni": "345",
+          "telefono": "3525"
+        },
+        "pago1": {
+          "importe": "7500261.12",
+          "fecha": "2025-11-04",
+          "comprobante": "123456"
+        }
       },
       "geometry": {
         "type": "Polygon",
