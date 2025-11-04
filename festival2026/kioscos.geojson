@@ -15748,6 +15748,11 @@
           "nombre": "hh",
           "dni": "333",
           "telefono": "444"
+        },
+        "pago1": {
+          "importe": "7500000",
+          "fecha": "2025-11-04",
+          "comprobante": "123456"
         }
       },
       "geometry": {
