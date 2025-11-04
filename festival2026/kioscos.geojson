@@ -551,6 +551,11 @@
           "importe": "1500",
           "fecha": "2025-11-04",
           "comprobante": "21"
+        },
+        "pago4": {
+          "importe": "2000000.17",
+          "fecha": "2025-11-04",
+          "comprobante": "12"
         }
       },
       "geometry": {
