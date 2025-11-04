@@ -14091,11 +14091,11 @@
         "id": 94,
         "nomenc": "02-A-36",
         "medidas": "7.50 x 5",
-        "rubro": null,
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "20000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -14126,7 +14126,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 190
+        "_index": 190,
+        "titular": {
+          "nombre": "hh",
+          "dni": "333",
+          "telefono": "444"
+        }
       },
       "geometry": {
         "type": "Polygon",
