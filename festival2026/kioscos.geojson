@@ -3999,11 +3999,11 @@
         "id": 54,
         "nomenc": "02-A5-15",
         "medidas": "9 x 5.26",
-        "rubro": null,
+        "rubro": "",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -4034,7 +4034,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 52
+        "_index": 52,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": ""
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -11644,7 +11649,7 @@
         "pago10.comprobante": null,
         "_index": 156,
         "titular": {
-          "nombre": "aaa",
+          "nombre": "hh",
           "dni": "",
           "telefono": ""
         }
