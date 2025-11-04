@@ -15708,11 +15708,11 @@
         "id": 243,
         "nomenc": "02-C-10",
         "medidas": "16.78 x 4.80",
-        "rubro": null,
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "10000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15743,7 +15743,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 213
+        "_index": 213,
+        "titular": {
+          "nombre": "hh",
+          "dni": "333",
+          "telefono": "444"
+        }
       },
       "geometry": {
         "type": "Polygon",
