@@ -556,6 +556,11 @@
           "importe": "2000000.17",
           "fecha": "2025-11-04",
           "comprobante": "12"
+        },
+        "pago5": {
+          "importe": "3000000",
+          "fecha": "2025-11-05",
+          "comprobante": "999"
         }
       },
       "geometry": {
