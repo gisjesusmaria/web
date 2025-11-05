@@ -8721,11 +8721,11 @@
         "id": 145,
         "nomenc": "03-D-05",
         "medidas": "5 x 3.50",
-        "rubro": null,
+        "rubro": "hh",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "15000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -8756,7 +8756,12 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "_index": 116
+        "_index": 116,
+        "titular": {
+          "nombre": "salas",
+          "dni": "12345678",
+          "telefono": "3525"
+        }
       },
       "geometry": {
         "type": "Polygon",
