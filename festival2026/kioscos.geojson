@@ -11913,8 +11913,8 @@
         "pago10.comprobante": null,
         "_index": 159,
         "titular": {
-          "nombre": "",
-          "dni": "",
+          "nombre": "juan",
+          "dni": "112233",
           "telefono": ""
         }
       },
