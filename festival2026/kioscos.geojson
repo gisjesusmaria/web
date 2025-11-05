@@ -13882,6 +13882,11 @@
           "nombre": "javier",
           "dni": "789",
           "telefono": ""
+        },
+        "pago1": {
+          "importe": "14000000",
+          "fecha": "2025-11-05",
+          "comprobante": "632"
         }
       },
       "geometry": {
