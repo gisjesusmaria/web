@@ -15964,6 +15964,16 @@
           "importe": "4000000",
           "fecha": "2025-11-06",
           "comprobante": "Bonificación 10%"
+        },
+        "pago2": {
+          "importe": "5000000",
+          "fecha": "2025-11-06",
+          "comprobante": "777"
+        },
+        "pago9": {
+          "importe": "2000000",
+          "fecha": "2025-11-06",
+          "comprobante": "Bonificación 5%"
         }
       },
       "geometry": {
