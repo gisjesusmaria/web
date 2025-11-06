@@ -15954,6 +15954,16 @@
           "dni": "333",
           "telefono": "3525",
           "esdejesusmaria": "SI"
+        },
+        "pago1": {
+          "importe": "3500000",
+          "fecha": "2025-11-06",
+          "comprobante": "123456"
+        },
+        "pago10": {
+          "importe": "4000000",
+          "fecha": "2025-11-06",
+          "comprobante": "Bonificación 10%"
         }
       },
       "geometry": {
