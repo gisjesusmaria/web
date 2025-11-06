@@ -15911,12 +15911,12 @@
       "properties": {
         "id": 255,
         "nomenc": "02-A8",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "",
+        "rubro": "",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15948,7 +15948,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 207
+        "_index": 207,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": "",
+          "esdejesusmaria": "SI"
+        }
       },
       "geometry": {
         "type": "Polygon",
