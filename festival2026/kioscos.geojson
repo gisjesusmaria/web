@@ -18540,9 +18540,9 @@
         "nomenc": "DP-HIELO-02",
         "medidas": "2 x 2",
         "rubro": "Hielo",
-        "montoadj": 9000000,
+        "montoadj": "9000000",
         "titular": {
-          "nombre": "ruebn",
+          "nombre": "ruben",
           "dni": "996633",
           "telefono": "3525"
         },
