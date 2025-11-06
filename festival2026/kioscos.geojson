@@ -15911,12 +15911,12 @@
       "properties": {
         "id": 255,
         "nomenc": "02-A8",
-        "medidas": "",
-        "rubro": "",
+        "medidas": "25 x 15",
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": "",
+        "montoadj": "40000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15950,9 +15950,9 @@
         "esdejesusmaria": "NO",
         "_index": 207,
         "titular": {
-          "nombre": "",
-          "dni": "",
-          "telefono": "",
+          "nombre": "juan",
+          "dni": "333",
+          "telefono": "3525",
           "esdejesusmaria": "SI"
         }
       },
