@@ -15963,7 +15963,7 @@
         "pago10": {
           "importe": "4000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃ³n 10%"
+          "comprobante": "BonificaciÃÂ³n 10%"
         },
         "pago2": {
           "importe": "5000000",
@@ -15973,7 +15973,7 @@
         "pago9": {
           "importe": "2000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃ³n 5%"
+          "comprobante": "BonificaciÃÂ³n 5%"
         }
       },
       "geometry": {
@@ -16276,6 +16276,16 @@
           "dni": "112233",
           "telefono": "3525",
           "esdejesusmaria": "NO"
+        },
+        "pago1": {
+          "importe": "4500000",
+          "fecha": "2025-11-06",
+          "comprobante": "123456"
+        },
+        "pago9": {
+          "importe": "1000000",
+          "fecha": "2025-11-07",
+          "comprobante": "Bonificación 5%"
         }
       },
       "geometry": {
