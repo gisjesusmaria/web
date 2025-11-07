@@ -16204,6 +16204,11 @@
           "dni": "445566",
           "telefono": "3525",
           "esdejesusmaria": "NO"
+        },
+        "pago1": {
+          "importe": "4700000",
+          "fecha": "2025-11-07",
+          "comprobante": "123456"
         }
       },
       "geometry": {
