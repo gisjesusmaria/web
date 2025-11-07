@@ -16161,12 +16161,12 @@
       "properties": {
         "id": 258,
         "nomenc": "02-A5",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "25 x 15",
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "17000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16198,7 +16198,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 210
+        "_index": 210,
+        "titular": {
+          "nombre": "javier",
+          "dni": "445566",
+          "telefono": "3525",
+          "esdejesusmaria": "NO"
+        }
       },
       "geometry": {
         "type": "Polygon",
