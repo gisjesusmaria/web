@@ -15963,7 +15963,7 @@
         "pago10": {
           "importe": "4000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃÂ³n 10%"
+          "comprobante": "BonificaciÃÂÃÂ³n 10%"
         },
         "pago2": {
           "importe": "5000000",
@@ -15973,7 +15973,7 @@
         "pago9": {
           "importe": "2000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃÂ³n 5%"
+          "comprobante": "BonificaciÃÂÃÂ³n 5%"
         }
       },
       "geometry": {
@@ -16089,12 +16089,12 @@
       "properties": {
         "id": 257,
         "nomenc": "02-A6",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "10 x 10",
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "12500000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16126,7 +16126,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 209
+        "_index": 209,
+        "titular": {
+          "nombre": "hh",
+          "dni": "333",
+          "telefono": "3525",
+          "esdejesusmaria": "NO"
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -16296,7 +16302,7 @@
         "pago9": {
           "importe": "1000000",
           "fecha": "2025-11-07",
-          "comprobante": "Bonificación 5%"
+          "comprobante": "BonificaciÃ³n 5%"
         },
         "pago2": {
           "importe": "2000000",
