@@ -16840,6 +16840,11 @@
           "importe": "3500000",
           "fecha": "2025-11-10",
           "comprobante": "Bonificacion 10%"
+        },
+        "pago1": {
+          "importe": "29750000",
+          "fecha": "2025-11-10",
+          "comprobante": "123"
         }
       }
     }
