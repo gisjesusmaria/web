@@ -2014,6 +2014,11 @@
           "importe": "850000",
           "fecha": "2025-11-10",
           "comprobante": "Bonificacion 5%"
+        },
+        "pago3": {
+          "importe": "2449799.79",
+          "fecha": "2025-11-10",
+          "comprobante": "21"
         }
       },
       "geometry": {
