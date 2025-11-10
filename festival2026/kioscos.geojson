@@ -16053,16 +16053,16 @@
           "telefono": "333",
           "esdejesusmaria": "SI"
         },
-        "pago1": {},
-        "pago2": {},
-        "pago3": {},
-        "pago4": {},
-        "pago5": {},
-        "pago6": {},
-        "pago7": {},
-        "pago8": {},
-        "pago9": {},
-        "pago10": {}
+        "pago1": {
+          "importe": "4500000",
+          "fecha": "2025-11-10",
+          "comprobante": "123456"
+        },
+        "pago10": {
+          "importe": "5000000",
+          "fecha": "2025-11-10",
+          "comprobante": "Bonificación 10%"
+        }
       },
       "geometry": {
         "type": "Polygon",
