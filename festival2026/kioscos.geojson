@@ -16934,6 +16934,44 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 267,
+        "nomenc": "prueba4",
+        "medidas": "10 x 12",
+        "rubro": "Indumentaria",
+        "montoadj": 19000000,
+        "titular.nombre": "yuan",
+        "titular.dni": "66222333",
+        "titular.tel": "3525",
+        "esdejesusmaria": "NO",
+        "_index": 220
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09301225138034,
+              -30.97452306040983
+            ],
+            [
+              -64.09282843711415,
+              -30.97459322513849
+            ],
+            [
+              -64.09290625629254,
+              -30.974745056833704
+            ],
+            [
+              -64.09309812081857,
+              -30.974678342936762
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
