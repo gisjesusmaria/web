@@ -518,11 +518,11 @@
         "id": 8,
         "nomenc": "04-E-08",
         "medidas": "4 x 3",
-        "rubro": null,
+        "rubro": "",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -554,7 +554,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 7
+        "_index": 7,
+        "titular": {
+          "nombre": "",
+          "dni": "",
+          "telefono": "",
+          "esdejesusmaria": "NO"
+        }
       },
       "geometry": {
         "type": "Polygon",
