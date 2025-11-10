@@ -50,7 +50,7 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 0
+        "_index": 1
       },
       "geometry": {
         "type": "Polygon",
@@ -16731,6 +16731,44 @@
             [
               -64.09291583807556,
               -30.974391318463688
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 266,
+        "_index": 266,
+        "nomenc": "prueba2",
+        "medidas": "15 x 20",
+        "rubro": "Indumentaria",
+        "montoadj": 14500500,
+        "titular.nombre": "rosa",
+        "titular.dni": "11777888",
+        "titular.tel": "35251",
+        "esdejesusmaria": "SI"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.093059307801,
+              -30.974241265707402
+            ],
+            [
+              -64.09292513680379,
+              -30.974287275507177
+            ],
+            [
+              -64.09297410921778,
+              -30.974376994552955
+            ],
+            [
+              -64.09311297619988,
+              -30.974325808697422
             ]
           ]
         ]
