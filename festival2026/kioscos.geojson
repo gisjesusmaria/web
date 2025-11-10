@@ -16972,6 +16972,44 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 268,
+        "nomenc": "prueba5",
+        "medidas": "25 x 10",
+        "rubro": "Indumentaria",
+        "montoadj": 22500500,
+        "titular.nombre": "rosa",
+        "titular.dni": "29222999",
+        "titular.tel": "352511111",
+        "esdejesusmaria": "NO",
+        "_index": 221
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09332754414184,
+              -30.97534164307796
+            ],
+            [
+              -64.09322959931387,
+              -30.975385351884373
+            ],
+            [
+              -64.0932906471176,
+              -30.975509001688923
+            ],
+            [
+              -64.09341274272508,
+              -30.975465292939088
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
