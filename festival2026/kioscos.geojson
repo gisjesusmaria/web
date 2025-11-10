@@ -1959,9 +1959,9 @@
         "nomenc": "01-A-28",
         "medidas": "25 x 15",
         "rubro": "Indumentaria",
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
+        "titular.nombre": "juan",
+        "titular.dni": "333",
+        "titular.tel": "3525",
         "montoadj": "17000000",
         "pago1.importe": null,
         "pago1.fecha": null,
@@ -1993,14 +1993,8 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
-        "_index": 27,
-        "titular": {
-          "nombre": "juan",
-          "dni": "333",
-          "telefono": "3525",
-          "esdejesusmaria": "SI"
-        }
+        "esdejesusmaria": "SI",
+        "_index": 27
       },
       "geometry": {
         "type": "Polygon",
@@ -16775,6 +16769,44 @@
             [
               -64.09311297619988,
               -30.974325808697422
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 267,
+        "_index": 267,
+        "nomenc": "prueba3",
+        "medidas": "10 x 10",
+        "rubro": "Indumentaria",
+        "montoadj": 17500000,
+        "titular.nombre": "alexis",
+        "titular.dni": "33444555",
+        "titular.tel": "3355",
+        "esdejesusmaria": "SI"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09372157396636,
+              -30.973979138041077
+            ],
+            [
+              -64.0934545736819,
+              -30.974088411579412
+            ],
+            [
+              -64.09356191047966,
+              -30.97430120705822
+            ],
+            [
+              -64.09385037812369,
+              -30.97421838941477
             ]
           ]
         ]
