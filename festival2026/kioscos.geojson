@@ -16854,6 +16854,46 @@
           "comprobante": "123"
         }
       }
+    },
+    {
+      "type": "Feature",
+      "id": 218,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09441754121006,
+              -30.973621635091618
+            ],
+            [
+              -64.09419481735466,
+              -30.97371595576957
+            ],
+            [
+              -64.09425385259344,
+              -30.97390459684584
+            ],
+            [
+              -64.09452487800783,
+              -30.973812576855195
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nomenc": "prueba2",
+        "medidas": "20 x 20",
+        "rubro": "Indumentaria",
+        "montoadj": 14000000,
+        "titular": {
+          "nombre": "pedro",
+          "dni": "11222444",
+          "telefono": "3525",
+          "esdejesusmaria": "NO"
+        },
+        "_index": 218
+      }
     }
   ]
 }
