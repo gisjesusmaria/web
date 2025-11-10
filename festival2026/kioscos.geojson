@@ -1994,7 +1994,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "SI",
-        "_index": 27
+        "_index": 27,
+        "pago1": {
+          "importe": "4500000",
+          "fecha": "2025-11-10",
+          "comprobante": "123456"
+        },
+        "pago10": {
+          "importe": "1700000",
+          "fecha": "2025-11-10",
+          "comprobante": "Bonificacion 10%"
+        }
       },
       "geometry": {
         "type": "Polygon",
