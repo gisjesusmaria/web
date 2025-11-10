@@ -16051,8 +16051,18 @@
           "nombre": "fernando",
           "dni": "445566",
           "telefono": "333",
-          "esdejesusmaria": "NO"
-        }
+          "esdejesusmaria": "SI"
+        },
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
