@@ -15963,7 +15963,7 @@
         "pago10": {
           "importe": "4000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃÂÃÂÃÂÃÂ³n 10%"
+          "comprobante": "BonificaciÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³n 10%"
         },
         "pago2": {
           "importe": "5000000",
@@ -15973,7 +15973,7 @@
         "pago9": {
           "importe": "2000000",
           "fecha": "2025-11-06",
-          "comprobante": "BonificaciÃÂÃÂÃÂÃÂ³n 5%"
+          "comprobante": "BonificaciÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³n 5%"
         }
       },
       "geometry": {
@@ -16009,12 +16009,12 @@
       "properties": {
         "id": 256,
         "nomenc": "02-A7",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "25 x 15",
+        "rubro": "Gastronomia",
         "titular.nombre": null,
         "titular.dni": null,
         "titual.tel": null,
-        "montoadj": null,
+        "montoadj": "50000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16046,7 +16046,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 208
+        "_index": 208,
+        "titular": {
+          "nombre": "fernando",
+          "dni": "445566",
+          "telefono": "333",
+          "esdejesusmaria": "NO"
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -16302,7 +16308,7 @@
         "pago9": {
           "importe": "1000000",
           "fecha": "2025-11-07",
-          "comprobante": "BonificaciÃÂ³n 5%"
+          "comprobante": "BonificaciÃÂÃÂ³n 5%"
         },
         "pago2": {
           "importe": "2000000",
