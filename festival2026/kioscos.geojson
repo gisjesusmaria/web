@@ -1957,12 +1957,12 @@
       "properties": {
         "id": 35,
         "nomenc": "01-A-28",
-        "medidas": null,
-        "rubro": null,
+        "medidas": "25 x 15",
+        "rubro": "Indumentaria",
         "titular.nombre": null,
         "titular.dni": null,
         "titular.tel": null,
-        "montoadj": null,
+        "montoadj": "17000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -1994,7 +1994,13 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 27
+        "_index": 27,
+        "titular": {
+          "nombre": "juan",
+          "dni": "333",
+          "telefono": "3525",
+          "esdejesusmaria": "SI"
+        }
       },
       "geometry": {
         "type": "Polygon",
