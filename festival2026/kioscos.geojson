@@ -16723,6 +16723,44 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 266,
+        "_index": 266,
+        "nomenc": "prueba2",
+        "medidas": "20 x 20",
+        "rubro": "Hielo",
+        "montoadj": 30000000,
+        "titular.nombre": "pedro",
+        "titular.dni": "99888777",
+        "titular.tel": "3333",
+        "esdejesusmaria": "NO"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.0920198740055,
+              -30.974420603020462
+            ],
+            [
+              -64.09206482128958,
+              -30.974520674118633
+            ],
+            [
+              -64.09195010508695,
+              -30.974568984266387
+            ],
+            [
+              -64.09189643668806,
+              -30.974453384943494
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
