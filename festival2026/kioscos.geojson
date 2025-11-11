@@ -4389,7 +4389,10 @@
         "pago4.comprobante": "12",
         "pago5.importe": "3000000",
         "pago5.fecha": "2025-11-11",
-        "pago5.comprobante": "999"
+        "pago5.comprobante": "999",
+        "pago6.importe": "4500000.12",
+        "pago6.fecha": "2025-11-11",
+        "pago6.comprobante": "2"
       },
       "geometry": {
         "type": "Polygon",
