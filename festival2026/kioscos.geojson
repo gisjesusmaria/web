@@ -14244,7 +14244,16 @@
         "titular.tel": "3525503418",
         "montoadj": "10000",
         "esdejesusmaria": "SI",
-        "_index": 239
+        "_index": 239,
+        "pago1.importe": "10000",
+        "pago1.fecha": "2025-11-14",
+        "pago1.comprobante": "1234",
+        "pago9.importe": "500",
+        "pago9.fecha": "2025-11-11",
+        "pago9.comprobante": "Bonificacion 5%",
+        "pago10.importe": "1000",
+        "pago10.fecha": "2025-11-11",
+        "pago10.comprobante": "Bonificacion 10%"
       },
       "geometry": {
         "type": "Polygon",
