@@ -4371,7 +4371,13 @@
         "pago1.fecha": "2025-11-11",
         "pago1.comprobante": "123456",
         "esdejesusmaria": "SI",
-        "_index": 141
+        "_index": 141,
+        "pago2.importe": "1500000",
+        "pago2.fecha": "2025-11-11",
+        "pago2.comprobante": "9852",
+        "pago9.importe": "1250000",
+        "pago9.fecha": "2025-11-11",
+        "pago9.comprobante": "Bonificacion 5%"
       },
       "geometry": {
         "type": "Polygon",
