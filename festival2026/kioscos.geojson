@@ -4386,7 +4386,10 @@
         "pago10.comprobante": "Bonificacion 10%",
         "pago4.importe": "2000000.17",
         "pago4.fecha": "2025-11-11",
-        "pago4.comprobante": "12"
+        "pago4.comprobante": "12",
+        "pago5.importe": "3000000",
+        "pago5.fecha": "2025-11-11",
+        "pago5.comprobante": "999"
       },
       "geometry": {
         "type": "Polygon",
