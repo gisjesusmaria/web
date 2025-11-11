@@ -16692,7 +16692,13 @@
         "titular.nombre": "rosa",
         "titular.dni": "1133399",
         "titular.tel": "3355",
-        "esdejesusmaria": "NO"
+        "esdejesusmaria": "NO",
+        "pago1.importe": "7500000",
+        "pago1.fecha": "2025-11-11",
+        "pago1.comprobante": "123456",
+        "pago9.importe": "1350000",
+        "pago9.fecha": "2025-11-11",
+        "pago9.comprobante": "Bonificacion 5%"
       },
       "geometry": {
         "type": "Polygon",
