@@ -9751,7 +9751,10 @@
         "pago1.fecha": "2025-11-11",
         "pago1.comprobante": "123456",
         "esdejesusmaria": "SI",
-        "_index": 178
+        "_index": 178,
+        "pago2.importe": "200000",
+        "pago2.fecha": "2025-11-11",
+        "pago2.comprobante": "123457"
       },
       "geometry": {
         "type": "Polygon",
