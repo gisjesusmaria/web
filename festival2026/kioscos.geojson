@@ -16476,12 +16476,12 @@
       "properties": {
         "id": 263,
         "nomenc": "02-A9",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "4,0 x 3,0",
+        "rubro": "Gastronomia",
+        "titular.nombre": "Luis Perez",
+        "titular.dni": "123345666",
+        "titular.tel": "123412345",
+        "montoadj": "50123123",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16512,7 +16512,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 263
       },
       "geometry": {
