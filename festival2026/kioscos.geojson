@@ -16688,7 +16688,7 @@
         "nomenc": "prueba",
         "medidas": "20 x 20",
         "rubro": "Indumentaria",
-        "montoadj": 27000000,
+        "montoadj": "27000000",
         "titular.nombre": "rosa",
         "titular.dni": "1133399",
         "titular.tel": "3355",
@@ -16969,6 +16969,78 @@
             [
               -64.09565129923229,
               -30.974155200370607
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 270,
+        "nomenc": "prueba6",
+        "medidas": "20 x 20",
+        "rubro": "Indumentaria",
+        "titular.nombre": "juan jose",
+        "titular.dni": "19555666",
+        "titular.tel": "213132",
+        "montoadj": "19500000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 270
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09159587670126,
+              -30.974471237315345
+            ],
+            [
+              -64.09166967074975,
+              -30.97464837449604
+            ],
+            [
+              -64.09144963031429,
+              -30.97474039368095
+            ],
+            [
+              -64.09134497693645,
+              -30.974537951357068
+            ],
+            [
+              -64.09159587670126,
+              -30.974471237315345
             ]
           ]
         ]
