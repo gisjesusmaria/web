@@ -16697,6 +16697,74 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 265,
+        "nomenc": "prueba",
+        "medidas": "20 x 20",
+        "rubro": "Gastonomia",
+        "titular.nombre": "rosa",
+        "titular.dni": "22333444",
+        "titular.tel": "341235",
+        "montoadj": "40000000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 265
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09340809941561,
+              -30.97529911135863
+            ],
+            [
+              -64.09321355146965,
+              -30.975370425748483
+            ],
+            [
+              -64.09332893852725,
+              -30.97558954462907
+            ],
+            [
+              -64.09340809941561,
+              -30.97529911135863
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
