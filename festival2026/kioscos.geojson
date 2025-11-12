@@ -1093,12 +1093,12 @@
       "properties": {
         "id": 23,
         "nomenc": "01-A-01",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "4.00x3.00",
+        "rubro": "productos de panificacion ",
+        "titular.nombre": "DORAO SEBASTIAN JOSE",
+        "titular.dni": "111",
+        "titular.tel": "1111",
+        "montoadj": "2895360.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -1129,7 +1129,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 23
       },
       "geometry": {
