@@ -16833,6 +16833,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 267,
+        "nomenc": "pruebq2",
+        "medidas": "10",
+        "rubro": "frv",
+        "titular.nombre": "dario",
+        "titular.dni": "2222",
+        "titular.tel": "3333",
+        "montoadj": "12000000.01",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 267
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09293857479203,
+              -30.975019680229536
+            ],
+            [
+              -64.09294662505187,
+              -30.97503749737246
+            ],
+            [
+              -64.09297345925131,
+              -30.975030313041028
+            ],
+            [
+              -64.09296641527396,
+              -30.97500962216351
+            ],
+            [
+              -64.09293857479203,
+              -30.975019680229536
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
