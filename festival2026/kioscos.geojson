@@ -16201,12 +16201,12 @@
       "properties": {
         "id": 259,
         "nomenc": "02-A4",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "18,3x2,5",
+        "rubro": "gastronómico ",
+        "titular.nombre": "Adaro Fabiana",
+        "titular.dni": "24029714",
+        "titular.tel": "2333-98776",
+        "montoadj": "120000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16237,7 +16237,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 259
       },
       "geometry": {
