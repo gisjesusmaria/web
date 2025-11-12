@@ -15927,7 +15927,17 @@
         "pago10.comprobante": "Bonificacion 10%",
         "pago3.importe": "4100326.11",
         "pago3.fecha": "2025-11-12",
-        "pago3.comprobante": "21"
+        "pago3.comprobante": "21",
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
