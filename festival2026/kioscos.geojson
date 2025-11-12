@@ -16473,7 +16473,10 @@
         "pago2.fecha": "2025-11-11",
         "pago2.comprobante": "1234566",
         "esdejesusmaria": "SI",
-        "_index": 263
+        "_index": 263,
+        "pago10.importe": "2000000",
+        "pago10.fecha": "2025-11-10",
+        "pago10.comprobante": "Bonificacion 10%"
       },
       "geometry": {
         "type": "Polygon",
