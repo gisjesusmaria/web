@@ -16766,6 +16766,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 269,
+        "nomenc": "prueba4",
+        "medidas": "20 x 20",
+        "rubro": "Indumentaria",
+        "titular.nombre": "juan",
+        "titular.dni": "345234",
+        "titular.tel": "341234",
+        "montoadj": "50000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 269
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09468856783539,
+              -30.97570061365056
+            ],
+            [
+              -64.09438534138165,
+              -30.975806434538995
+            ],
+            [
+              -64.0944470600404,
+              -30.97601577551611
+            ],
+            [
+              -64.09478517095339,
+              -30.97590765440941
+            ],
+            [
+              -64.09468856783539,
+              -30.97570061365056
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
