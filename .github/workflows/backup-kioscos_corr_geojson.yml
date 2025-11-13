@@ -1,0 +1,29 @@
+name: Backup GeoJSON cada hora
+
+on:
+  schedule:
+    #- cron: '0 * * * *'  # Cada hora en punto (UTC)
+    - cron: '*/30 * * * *'  # Cada 30 minutos
+  workflow_dispatch:     # Permite ejecutarlo manualmente
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Crear backup con fecha
+        run: |
+          FECHA=$(date -u +"%Y-%m-%d_%H-%M")
+          mkdir -p backup_kioscos
+          cp kioscos_corr.geojson "backup_kioscos/backup_kioscos_corr_${FECHA}.geojson"
+          echo "Backup creado: backup_kioscos/backup_kioscos_corr_${FECHA}.geojson"
+
+      - name: Commit y push
+        run: |
+          git config --global user.name "Backup Bot"
+          git config --global user.email "backup@bot.com"
+          git add backups/
+          git commit -m "Backup automático: $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No hay cambios"
+          git push
