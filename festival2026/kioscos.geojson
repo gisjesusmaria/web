@@ -8013,12 +8013,12 @@
       "properties": {
         "id": 102,
         "nomenc": "02-A-44",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "7.50 x 5.00",
+        "rubro": "ARTICULOS REGIONALES Y ARTESANIAS.",
+        "titular.nombre": "PAZZI MARTÍN",
+        "titular.dni": "24.992.772",
+        "titular.tel": "3525-532187",
+        "montoadj": "8980875.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -8049,7 +8049,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 102
       },
       "geometry": {
