@@ -16489,7 +16489,7 @@
         "medidas": "20 x 20",
         "rubro": "Indumentaria",
         "titular.nombre": "JUAN JOSE",
-        "titular.dni": "3333",
+        "titular.dni": "33330000",
         "titular.tel": "34123514",
         "montoadj": "25000000",
         "pago1.importe": null,
@@ -16523,7 +16523,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 265
+        "_index": 265,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
