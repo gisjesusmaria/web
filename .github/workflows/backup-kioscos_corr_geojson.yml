@@ -2,9 +2,8 @@ name: Backup de kioscos_corr.geojson cada media hora
 
 on:
   schedule:
-    #- cron: '0 * * * *'  # Cada hora en punto (UTC)
     - cron: '*/30 * * * *'  # Cada 30 minutos
-  workflow_dispatch:     # Permite ejecutarlo manualmente
+  workflow_dispatch:
 
 jobs:
   backup:
@@ -13,17 +12,36 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Crear backup con fecha
+      - name: Crear backup forzado (siempre)
         run: |
+          ORIGEN="festival2026/kioscos_corr.geojson"
+          CARPETA="festival2026/backup_kioscos"
           FECHA=$(date -u +"%Y-%m-%d_%H-%M")
-          mkdir -p festival2026/backup_kioscos
-          cp festival2026/kioscos_corr.geojson "festival2026/backup_kioscos/backup_kioscos_corr_${FECHA}.geojson"
-          echo "Backup creado en backup_kioscos: backup_kioscos_corr_${FECHA}.geojson"
+          BACKUP="$CARPETA/backup_kioscos_corr_${FECHA}.geojson"
 
-      - name: Commit y push
+          # Verificar que el archivo exista
+          if [ ! -f "$ORIGEN" ]; then
+            echo "ERROR: No se encontró $ORIGEN"
+            ls -la festival2026/ || echo "Carpeta festival2026/ no existe"
+            exit 1
+          fi
+
+          # Crear carpeta y copiar
+          mkdir -p "$CARPETA"
+          cp "$ORIGEN" "$BACKUP"
+          echo "Backup creado: $BACKUP"
+
+      - name: Commit y push (forzado)
         run: |
           git config --global user.name "Backup Bot"
           git config --global user.email "backup@bot.com"
+
+          # Agregar carpeta
           git add festival2026/backup_kioscos/
-          git commit -m "Backup automático: $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No hay cambios"
+
+          # Commit SIEMPRE (aunque sea duplicado)
+          git commit -m "Backup automático kioscos_corr: $(date -u +"%Y-%m-%d %H:%M UTC")" --allow-empty
+
+          # Push
           git push
+          echo "Backup subido a GitHub"
