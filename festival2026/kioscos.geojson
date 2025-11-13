@@ -16070,7 +16070,7 @@
         "id": 262,
         "nomenc": "02-A1",
         "medidas": null,
-        "rubro": null,
+        "rubro": "ARTICULOS REGIONALES Y ARTESANIAS.",
         "titular.nombre": null,
         "titular.dni": null,
         "titular.tel": null,
@@ -16105,7 +16105,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO"
+        "esdejesusmaria": "SI"
       },
       "geometry": {
         "type": "Polygon",
