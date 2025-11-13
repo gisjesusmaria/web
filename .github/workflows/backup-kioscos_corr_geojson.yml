@@ -24,6 +24,6 @@ jobs:
         run: |
           git config --global user.name "Backup Bot"
           git config --global user.email "backup@bot.com"
-          git add backups/
+          git add festival2026/backup_kioscos/
           git commit -m "Backup automático: $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No hay cambios"
           git push
