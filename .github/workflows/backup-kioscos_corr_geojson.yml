@@ -1,4 +1,4 @@
-name: Backup GeoJSON cada hora
+name: Backup de kioscos_corr.geojson cada media hora
 
 on:
   schedule:
