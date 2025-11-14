@@ -17357,6 +17357,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 274,
+        "nomenc": "02-A2-33",
+        "medidas": "7.00 x 3.70",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "DELLA CASA ROBERTO HELADERIA",
+        "titular.dni": "27.892.897",
+        "titular.tel": "0351-2346594",
+        "montoadj": "6150000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 274
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09301921725273,
+              -30.976093478218537
+            ],
+            [
+              -64.09299507737161,
+              -30.976100956058573
+            ],
+            [
+              -64.09301519393922,
+              -30.976140070904535
+            ],
+            [
+              -64.09304805099964,
+              -30.97612626566661
+            ],
+            [
+              -64.09301921725273,
+              -30.976093478218537
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
