@@ -16845,6 +16845,82 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 267,
+        "nomenc": "02-A6-11",
+        "medidas": "DIMENCIONES IRREGULARES",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "ZANFORLIN JUAN CARLOS",
+        "titular.dni": "14.659.716",
+        "titular.tel": "3525-502465",
+        "montoadj": "6150000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 267
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.0926229208708,
+              -30.975292035553885
+            ],
+            [
+              -64.09264303743839,
+              -30.975324248054136
+            ],
+            [
+              -64.09260280430318,
+              -30.975341504746236
+            ],
+            [
+              -64.09258000552656,
+              -30.975297212563568
+            ],
+            [
+              -64.09262493252756,
+              -30.97528110631024
+            ],
+            [
+              -64.0926229208708,
+              -30.975292035553885
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
