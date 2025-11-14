@@ -17069,6 +17069,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 270,
+        "nomenc": "02-A6-14",
+        "medidas": "7.00 x 3.70",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "ALBERTO ALEJANDRO",
+        "titular.dni": "24.404.635",
+        "titular.tel": "3525-554419",
+        "montoadj": "6150000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 270
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09252703189851,
+              -30.975117015029365
+            ],
+            [
+              -64.09249216318132,
+              -30.97512909474036
+            ],
+            [
+              -64.09251429140569,
+              -30.975162457743814
+            ],
+            [
+              -64.09254647791386,
+              -30.97515037803703
+            ],
+            [
+              -64.09252703189851,
+              -30.975117015029365
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
