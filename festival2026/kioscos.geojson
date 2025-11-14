@@ -16697,6 +16697,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 265,
+        "nomenc": "01-1-A",
+        "medidas": "4.00 x 3.00",
+        "rubro": "EXPENDIO DE PRODUCTOS DE PANIFICACION.",
+        "titular.nombre": "DORAO SEBASTIAN",
+        "titular.dni": "26.725.905",
+        "titular.tel": "3525-492452",
+        "montoadj": "2895360",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 265
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09224808216096,
+              -30.97321246790119
+            ],
+            [
+              -64.09225713461639,
+              -30.97323087544655
+            ],
+            [
+              -64.09222796559334,
+              -30.97323662780375
+            ],
+            [
+              -64.09221723675728,
+              -30.973217932641575
+            ],
+            [
+              -64.09224808216096,
+              -30.97321246790119
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
