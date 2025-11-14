@@ -15833,12 +15833,12 @@
       "properties": {
         "id": 256,
         "nomenc": "02-A7",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "7.00 x 3.70",
+        "rubro": "PARRILLA SIN RESTRICCIONES.",
+        "titular.nombre": "ROLDAN CARLOS ENRIQUE",
+        "titular.dni": "7.960.841",
+        "titular.tel": "3525-300312",
+        "montoadj": "27000000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15869,7 +15869,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 256
       },
       "geometry": {
