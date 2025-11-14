@@ -15985,12 +15985,12 @@
       "properties": {
         "id": 258,
         "nomenc": "02-A5",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "5.26 x 18.00",
+        "rubro": "PARRILLA SIN RESTRICCIONES.",
+        "titular.nombre": "ALBERTO ALEJANDRO",
+        "titular.dni": "24.404.635",
+        "titular.tel": "3525-554419",
+        "montoadj": "30375000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16021,7 +16021,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 258
       },
       "geometry": {
