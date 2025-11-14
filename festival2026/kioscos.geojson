@@ -17213,6 +17213,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 272,
+        "nomenc": "02-A2-32",
+        "medidas": "7.00 x 3.70",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "DURAN CESAR IGNACIO",
+        "titular.dni": "25.634.484",
+        "titular.tel": "3525-512112",
+        "montoadj": "6150000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 272
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.0930473804474,
+              -30.976143464213543
+            ],
+            [
+              -64.09302525222301,
+              -30.976157269448972
+            ],
+            [
+              -64.09304536879064,
+              -30.976188331221397
+            ],
+            [
+              -64.09307688474657,
+              -30.976179702952276
+            ],
+            [
+              -64.0930473804474,
+              -30.976143464213543
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
