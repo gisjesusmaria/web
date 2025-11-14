@@ -15761,12 +15761,12 @@
       "properties": {
         "id": 255,
         "nomenc": "02-A8",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "5.48 x 24.00",
+        "rubro": "PARRILLA SIN RESTRICCIONES.",
+        "titular.nombre": "CAPELLO DANIEL RUMILDO",
+        "titular.dni": "22.585.290",
+        "titular.tel": "3525-535470",
+        "montoadj": "27000000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15797,7 +15797,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 255
       },
       "geometry": {
