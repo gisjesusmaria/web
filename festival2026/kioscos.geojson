@@ -16769,6 +16769,82 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 266,
+        "nomenc": "02-A6-10",
+        "medidas": "DIMENCIONES IRREGLULARES",
+        "rubro": "PARRILLA SIN RESTRICCIONES.",
+        "titular.nombre": "ZURITA RAMON",
+        "titular.dni": "8.130.376",
+        "titular.tel": "3525-432425",
+        "montoadj": "6150000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "SI",
+        "_index": 266
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09265644848347,
+              -30.975345209014957
+            ],
+            [
+              -64.09267254173756,
+              -30.975375695828866
+            ],
+            [
+              -64.09262828528882,
+              -30.975393527734347
+            ],
+            [
+              -64.09261085093021,
+              -30.975351536467716
+            ],
+            [
+              -64.0926504135132,
+              -30.97533773111575
+            ],
+            [
+              -64.09265644848347,
+              -30.975345209014957
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
