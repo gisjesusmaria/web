@@ -13,12 +13,12 @@
       "properties": {
         "id": 7,
         "nomenc": "04-E-07",
-        "medidas": "4.00 x 3.00",
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "FOOD TRUCK.",
+        "titular.nombre": "PESCHUTTA IGNACIO",
+        "titular.dni": "33602179",
+        "titular.tel": "3525-644528",
+        "montoadj": "3150000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -49,7 +49,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 7
       },
       "geometry": {
