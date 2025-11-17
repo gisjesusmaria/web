@@ -11901,12 +11901,12 @@
       "properties": {
         "id": 201,
         "nomenc": "DP-ARTESANOS-09",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "3.00 x 3.00",
+        "rubro": "EMPRENDEDORES / ARTESANOS.",
+        "titular.nombre": "FLORENCIA BESSONE",
+        "titular.dni": "29841565",
+        "titular.tel": "3513 02-0822",
+        "montoadj": "700000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11937,7 +11937,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 201
       },
       "geometry": {
