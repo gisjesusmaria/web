@@ -12261,12 +12261,12 @@
       "properties": {
         "id": 206,
         "nomenc": "DP-ARTESANOS-16",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "3.00 x 3.00",
+        "rubro": "EMPRENDEDORES / ARTESANOS.",
+        "titular.nombre": "RODAS RUBEN",
+        "titular.dni": "26330140",
+        "titular.tel": "3525601894",
+        "montoadj": "700000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -12297,7 +12297,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 206
       },
       "geometry": {
