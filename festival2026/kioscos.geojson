@@ -11341,12 +11341,12 @@
       "properties": {
         "id": 194,
         "nomenc": "DP-ARTESANOS-17",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "3.00 x 3.00",
+        "rubro": "EMPRENDEDORES / ARTESANOS.",
+        "titular.nombre": "RODEYRO MARIA CANDELA",
+        "titular.dni": "25957249",
+        "titular.tel": "351-3996654",
+        "montoadj": "700000.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11377,7 +11377,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 194
       },
       "geometry": {
