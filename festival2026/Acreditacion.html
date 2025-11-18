@@ -1,0 +1,1368 @@
+<!-- 18112025_1051 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acreditación Festival de Doma 2026</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <!-- SONIDOS DEL CONTROL DE ACCESO -->
+    <audio id="soundScan"    src="https://raw.githubusercontent.com/gisjesusmaria/web/main/sounds/scan-beep.mp3"    preload="auto"></audio>
+    <audio id="soundSuccess" src="https://raw.githubusercontent.com/gisjesusmaria/web/main/sounds/success.mp3"      preload="auto"></audio>
+    <audio id="soundError"   src="https://raw.githubusercontent.com/gisjesusmaria/web/main/sounds/error-buzz.mp3"   preload="auto"></audio>    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 400px;
+            height: auto;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header h1 .emoji {
+            font-size: 1.3em;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .sub-options {
+            margin-left: 30px;
+            margin-top: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sub-options.active {
+            display: flex;
+        }
+
+        .sub-option-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            background: #f8f9ff;
+            border: 2px solid #e8eaf6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sub-option-item:hover {
+            border-color: #667eea;
+            background: #fff;
+        }
+
+        .sub-option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .sub-option-item label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.95em;
+            flex: 1;
+        }
+
+        .dominios-section {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .dominios-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+
+
+
+        .btn-consult {
+            background: #4CAF50;
+            color: white;
+            padding: 14px 26px;        /* un poco más grande */
+            border: none;
+            border-radius: 10px;
+            font-size: 1.15em;         /* ← antes 0.95em → ahora más grande y claro */
+            font-weight: 700;          /* negrita para que resalte */
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            float: right;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+
+        .btn-consult:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-download {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .success-container {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .success-container.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .success-container h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .success-container p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+
+        .credential-card {
+            background: white !important;
+            padding: 40px !important;
+            border-radius: 20px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+        }
+
+        .credential-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .credential-header img {
+            max-width: 250px;
+            margin-bottom: 15px;
+        }
+
+        .credential-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .credential-field {
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .credential-field strong {
+            color: #667eea;
+            display: block;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+
+        .credential-field span {
+            color: #333;
+            font-size: 1.25em;        /* antes era 1em → ahora +4px aprox */
+            font-weight: 600;         /* un poquito más grueso para que se lea mejor */
+        }
+
+        .credential-field strong {
+            color: #667eea;
+            display: block;
+            font-size: 0.9em;         /* los títulos los dejamos un poco más chicos para que no compitan */
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+        .credential-header h3 {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #333;
+            margin-top: 15px;
+        }
+
+
+        .qr-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        #qrcode, #qrcodeConsult {
+            display: inline-block !important;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .consult-container {
+            display: none;
+            padding: 40px 30px;
+        }
+
+        .consult-container.active {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            display: none;
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c62828;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5em; }
+            .form-container { padding: 30px 20px; }
+            .credential-info { grid-template-columns: 1fr; }
+            .buttons-container { grid-template-columns: 1fr; }
+            .logo-container img { max-width: 280px; }
+        }
+
+        .inactive-title {
+            color: #c62828 !important;
+            font-weight: bold;
+        }   
+        
+        
+        /* ================== FIX DEFINITIVO PARA CELULARES CON FUENTE GRANDE ================== */
+        @media (max-width: 768px) {
+            /* La tarjeta al consultar / éxito
+            #consultResultContainer .credential-card,
+            #successContainer .credential-card {
+                padding: 20px !important;
+                margin: 15px auto !important;
+                max-width: 96vw !important;
+                box-sizing: border-box;
+            }
+
+            /* El grid pasa a 1 columna (ya lo tenías) pero con tamaño de fuente controlado */
+            #consultResultContainer .credential-info,
+            #successContainer .credential-info {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+                font-size: 15px !important;           /* tamaño fijo, no se agranda nunca */
+            }
+
+            /* Los textos dentro de los campos no se vuelven gigantes */
+            .credential-field span {
+                font-size: 16px !important;
+                line-height: 1.4 !important;
+                word-break: break-word;
+            }
+
+            /* El QR siempre queda completo y centrado */
+            #qrcode img,
+            #qrcodeConsult img {
+                width: 220px !important;
+                height: 220px !important;
+                max-width: 70vw !important;
+                padding: 15px !important;
+                background: white !important;
+                border-radius: 12px !important;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            /* Evita que el botón naranja se desborde */
+            #btnLeerQR {
+                width: 90% !important;
+                max-width: 340px !important;
+                margin: 0 auto !important;
+                display: block !important;
+            }
+        }    
+            
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad de Jesús María">
+            </div>
+            <!-- <h1><span class="emoji">Horse Face</span> Festival de Doma 2026</h1> -->
+            <h1><span class="emoji">🏇</span> Festival de Doma 2026</h1>
+            <p>Municipalidad de Jesús María - Acreditación</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+            <div class="clearfix">
+                <button type="button" class="btn-consult" id="btnConsultar">Consultar Acreditación</button>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <form id="acreditacionForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo *</label>
+                    <input type="text" id="nombre" name="nombre" class="uppercase-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cuil">CUIL *</label>
+                    <input type="text" id="cuil" name="cuil" placeholder="XX-XXXXXXXX-X" maxlength="13" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cargo">Cargo / Institución *</label>
+                    <input type="text" id="cargo" name="cargo" class="uppercase-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="localidad">Localidad *</label>
+                    <input type="text" id="localidad" name="localidad" class="uppercase-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dominio">Dominio del Vehículo *</label>
+                    <input type="text" id="dominio" name="dominio" placeholder="ABC123" class="uppercase-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaVisita">Fecha de Visita *</label>
+                    <input type="date" id="fechaVisita" name="fechaVisita" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Experiencias de Interés *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="circuito1" name="circuitos" value="Festival desde adentro">
+                            <label for="circuito1">Festival desde adentro 20 a 00 hs. (Charlas y recorridos con áreas de Comercio, Gobierno y Seguridad)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="circuito2" name="circuitos" value="Experiencia Jesús María">
+                            <label for="circuito2">Experiencia Jesús María 9 a 12 hs. (Recorridos turísticos)</label>
+                        </div>
+                        <div class="sub-options" id="subOptions">
+                            <div class="sub-option-item">
+                                <input type="checkbox" id="circuito3" name="subcircuitos" value="Rincones festivaleros">
+                                <label for="circuito3">1. Rincones festivaleros</label>
+                            </div>
+                            <div class="sub-option-item">
+                                <input type="checkbox" id="circuito4" name="subcircuitos" value="Rincones Jesuíticos e históricos">
+                                <label for="circuito4">2. Rincones Jesuíticos e históricos</label>
+                            </div>
+                            <div class="sub-option-item">
+                                <input type="checkbox" id="circuito5" name="subcircuitos" value="Rincones naturales">
+                                <label for="circuito5">3. Rincones naturales (Parque del Oeste/ Riberas Este)</label>
+                            </div>
+                            <div class="sub-option-item">
+                                <input type="checkbox" id="circuito6" name="subcircuitos" value="Bus regional">
+                                <label for="circuito6">4. Bus regional (incluye a Colonia Caroya y Sinsacate)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cantidadAcompanantes">Cantidad de Acompañantes</label>
+                    <input type="number" id="cantidadAcompanantes" name="cantidadAcompanantes" min="0" value="0">
+                </div>
+
+                <div class="dominios-section">
+                    <h3>Dominios Adicionales (Opcional)</h3>
+                    <div class="form-group">
+                        <label for="dominioAdicional1">Dominio Adicional 1</label>
+                        <input type="text" id="dominioAdicional1" name="dominioAdicional1" placeholder="ABC123" class="uppercase-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="dominioAdicional2">Dominio Adicional 2</label>
+                        <input type="text" id="dominioAdicional2" name="dominioAdicional2" placeholder="ABC123" class="uppercase-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="dominioAdicional3">Dominio Adicional 3</label>
+                        <input type="text" id="dominioAdicional3" name="dominioAdicional3" placeholder="ABC123" class="uppercase-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono (10 dígitos) *</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="3515123456" maxlength="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mail">Email *</label>
+                    <input type="email" id="mail" name="mail" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrar Acreditación</button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Registrando sus datos...</p>
+            </div>
+        </div>
+
+        <div class="success-container" id="successContainer">
+            <div class="success-icon">✅</div>
+            <h2>¡Registro Exitoso!</h2>
+            <p>Sus datos han sido registrados correctamente.</p>
+            
+            <div class="credential-card" id="credentialCard">
+                <div class="credential-header">
+                    <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
+                    <h3>Acreditación Festival de Doma 2026</h3>
+                </div>
+                <div class="credential-info" id="credentialInfo"></div>
+                <div class="qr-section">
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="btn btn-download" id="downloadImage">📷 Descargar Imagen</button>
+                <button class="btn btn-download" id="downloadPDF">📄 Descargar PDF</button>                
+            </div>
+            <button class="btn btn-primary" id="newRegistration" style="margin-top: 10px;">Nueva Inscripción</button>
+        </div>
+
+        <div class="consult-container" id="consultContainer">
+            <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Consultar Acreditación</h2>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+
+                <button type="button" class="btn btn-secondary" id="btnLeerQR" style="padding: 14px 30px; font-size: 1.2em; background: #FF5722 !important; box-shadow: 0 4px 15px rgba(255,87,34,0.5);">
+                    Escanear QR
+                </button>         
+
+            </div>
+
+            <!-- Contenedor del lector (se muestra solo al hacer clic) -->
+            <div id="qr-reader" style="width: 100%; max-width: 500px; margin: 20px auto; display: none;"></div>
+            <div id="qr-result" style="text-align: center; margin: 15px 0; font-weight: bold; color: #c62828;"></div>
+
+
+            <div class="error-message" id="errorMessageConsult"></div>
+            
+            <form id="consultForm">
+                <div class="form-group">
+                    <label for="cuilConsulta">CUIL *</label>
+                    <input type="text" id="cuilConsulta" name="cuilConsulta" placeholder="XX-XXXXXXXX-X" maxlength="13" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaConsulta">Fecha de Visita *</label>
+                    <input type="date" id="fechaConsulta" name="fechaConsulta" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Buscar Acreditación</button>
+                <button type="button" class="btn btn-secondary" id="btnVolver" style="margin-top: 10px;">Volver al Formulario</button>
+            </form>
+
+            <div class="loading" id="loadingConsult">
+                <div class="spinner"></div>
+                <p>Buscando acreditación...</p>
+            </div>
+        </div>
+
+        <div class="success-container" id="consultResultContainer">
+            <!-- <div class="success-icon">Checkmark</div> -->
+            <div class="success-icon">✅</div>
+            <h2>Acreditación Encontrada</h2>
+            
+            <div class="credential-card" id="consultCredentialCard">
+                <div class="credential-header">
+                    <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
+                    <h3>Acreditación Festival de Doma 2026</h3>
+                </div>
+                <div class="credential-info" id="consultCredentialInfo"></div>
+                <div class="qr-section">
+                    <div id="qrcodeConsult"></div>
+                </div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="btn btn-download" id="downloadImageConsult">📷 Descargar Imagen</button>
+                <button class="btn btn-download" id="downloadPDFConsult">📄 Descargar PDF</button>                
+            </div>
+            <button class="btn btn-primary" id="newConsult" style="margin-top: 10px;">Nueva Consulta</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('acreditacionForm');
+        const formContainer = document.getElementById('formContainer');
+        const successContainer = document.getElementById('successContainer');
+        const consultContainer = document.getElementById('consultContainer');
+        const consultResultContainer = document.getElementById('consultResultContainer');
+        const loading = document.getElementById('loading');
+        const loadingConsult = document.getElementById('loadingConsult');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorMessageConsult = document.getElementById('errorMessageConsult');
+
+
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG/exec';
+
+
+
+
+
+        let currentFormData = null;
+
+        // Mayúsculas automáticas
+        document.querySelectorAll('.uppercase-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                this.value = this.value.toUpperCase();
+                this.setSelectionRange(start, end);
+            });
+        });
+
+        // Formato CUIL
+        function setupCuilFormat(id) {
+            const input = document.getElementById(id);
+            input.addEventListener('input', function() {
+                let v = this.value.replace(/\D/g, '');
+                if (v.length > 11) v = v.substring(0,11);
+                let f = '';
+                if (v.length > 0) f = v.substring(0,2);
+                if (v.length > 2) f += '-' + v.substring(2,10);
+                if (v.length > 10) f += '-' + v.substring(10,11);
+                this.value = f;
+            });
+        }
+        setupCuilFormat('cuil');
+        setupCuilFormat('cuilConsulta');
+
+
+
+        // TELÉFONO: corrige en tiempo real + controla los 10 dígitos + quita el globito cuando está bien
+        document.getElementById('telefono').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '').substring(0,10);
+            if (this.value.length === 10) {
+                this.setCustomValidity('');        // quita el globito y permite enviar
+            } else {
+                this.setCustomValidity('El teléfono debe contener exactamente 10 dígitos');
+            }
+        });        
+
+        // Fecha mínima hoy
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaVisita').min = today;
+        document.getElementById('fechaConsulta').min = today;
+
+        // Sub-opciones
+        document.getElementById('circuito2').addEventListener('change', function() {
+            document.getElementById('subOptions').classList.toggle('active', this.checked);
+            if (!this.checked) document.querySelectorAll('input[name="subcircuitos"]').forEach(cb => cb.checked = false);
+        });
+
+        // Botones de navegación
+        document.getElementById('btnConsultar').onclick = () => {
+            formContainer.style.display = 'none';
+            consultContainer.classList.add('active');
+
+            // ←←← NUEVA LÍNEA: limpia mensaje anterior del QR
+            document.getElementById('qr-result').textContent = '';            
+        };
+
+
+        document.getElementById('btnVolver').onclick = () => {
+            consultContainer.classList.remove('active');
+            formContainer.style.display = 'block';
+            document.getElementById('consultForm').reset();
+            errorMessageConsult.classList.remove('active');
+
+            // ←←← NUEVA LÍNEA: limpia el mensaje del QR
+            document.getElementById('qr-result').textContent = '';
+
+        };
+
+        // Formatear fecha
+        function formatDate(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00');
+            return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+        }
+
+
+        // ←←← REEMPLAZÁ TODA la función generateQR por esta (funciona 100 %)
+        function generateQR(container, cuil, fecha) {
+            container.innerHTML = '';
+            const qrText = `${cuil},${fecha}`;
+            
+            new QRCode(container, {
+                text: qrText,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // ←←← TRUCO DEFINITIVO: después de generar el QR, lo convertimos a <img>
+            setTimeout(() => {
+                const canvas = container.querySelector('canvas');
+                if (canvas) {
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.width = '256px';
+                    img.style.height = '256px';
+                    img.style.borderRadius = '15px';
+                    img.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                    img.style.background = 'white';
+                    img.style.padding = '20px';
+                    container.innerHTML = '';
+                    container.appendChild(img);
+                }
+            }, 200);
+        }        
+
+        // 
+        //const a2noseusa = "xCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG"; 
+
+        // Mostrar credencial (MODIFICADA PARA MOSTRAR LOS 3 DOMINIOS ADICIONALES)
+        function showCredential(data, infoId, qrId) {
+            const info = document.getElementById(infoId);
+            const fecha = formatDate(data.fechaVisita);
+
+            // Aseguramos que los campos vacíos muestren "-" o simplemente vacío
+            const dom1 = data.dominio || '';
+            const domAd1 = data.dominioAdicional1 || '';
+            const domAd2 = data.dominioAdicional2 || '';
+            const domAd3 = data.dominioAdicional3 || '';
+
+            info.innerHTML = `
+                <div class="credential-field"><strong>CUIL:</strong><span>${data.cuil}</span></div>
+                <div class="credential-field"><strong>Nombre:</strong><span>${data.nombre}</span></div>
+                <div class="credential-field"><strong>Cargo/Institución:</strong><span>${data.cargo}</span></div>
+                <div class="credential-field"><strong>Localidad:</strong><span>${data.localidad}</span></div>
+                <div class="credential-field"><strong>Dominio:</strong><span>${dom1 || '-'}</span></div>
+                <div class="credential-field"><strong>Dominio Adicional 1:</strong><span>${domAd1 || '-'}</span></div>
+                <div class="credential-field"><strong>Dominio Adicional 2:</strong><span>${domAd2 || '-'}</span></div>
+                <div class="credential-field"><strong>Dominio Adicional 3:</strong><span>${domAd3 || '-'}</span></div>
+                <div class="credential-field"><strong>Fecha de Visita:</strong><span>${fecha}</span></div>
+            `;
+            setTimeout(() => generateQR(document.getElementById(qrId), data.cuil, fecha), 100);
+        }
+
+
+        // === REGISTRO ===
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            errorMessage.classList.remove('active');
+
+            if (document.querySelectorAll('input[name="circuitos"]:checked').length === 0) {
+                errorMessage.textContent = 'Por favor, seleccione al menos una experiencia de interés.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+
+
+
+
+
+
+            // VALIDACIÓN TELÉFONO 100% FUNCIONAL (con globito nativo y sin quedarse colgado)
+            const telefonoInput = document.getElementById('telefono');
+
+            // Limpiamos y dejamos solo números (máximo 10)
+            let tel = telefonoInput.value.replace(/\D/g, '').substring(0,10);
+            telefonoInput.value = tel;
+
+            if (tel.length !== 10) {
+                telefonoInput.setCustomValidity('El teléfono debe contener exactamente 10 dígitos');
+                telefonoInput.reportValidity();
+                errorMessage.textContent = 'El teléfono debe contener exactamente 10 dígitos numéricos.';
+                errorMessage.classList.add('active');
+                return;
+            } else {
+                // ¡¡AQUÍ ESTABA EL PROBLEMA!! → limpiamos el error para que deje pasar
+                telefonoInput.setCustomValidity('');
+                // también limpiamos nuestro mensaje rojo
+                errorMessage.classList.remove('active');
+            }            
+
+
+            const email = document.getElementById('mail').value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errorMessage.textContent = 'Por favor, ingrese un email válido.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+            currentFormData = {
+                nombre: document.getElementById('nombre').value,
+                cuil: document.getElementById('cuil').value,
+                cargo: document.getElementById('cargo').value,
+                localidad: document.getElementById('localidad').value,
+                dominio: document.getElementById('dominio').value,
+                fechaVisita: document.getElementById('fechaVisita').value,
+                circuito1: document.getElementById('circuito1').checked ? 'SI' : 'NO',
+                //circuito2: document.getElementById('circuito2').checked ? 'SI' : 'NO',
+                circuito3: document.getElementById('circuito3').checked ? 'SI' : 'NO',
+                circuito4: document.getElementById('circuito4').checked ? 'SI' : 'NO',
+                circuito5: document.getElementById('circuito5').checked ? 'SI' : 'NO',
+                circuito6: document.getElementById('circuito6').checked ? 'SI' : 'NO',
+                cantidadAcompanantes: document.getElementById('cantidadAcompanantes').value || '0',
+                dominioAdicional1: document.getElementById('dominioAdicional1').value || '',
+                dominioAdicional2: document.getElementById('dominioAdicional2').value || '',
+                dominioAdicional3: document.getElementById('dominioAdicional3').value || '',
+                telefono: tel,
+                mail: email
+            };
+
+            form.style.display = 'none';
+            loading.classList.add('active');
+            
+            document.getElementById('btnConsultar').style.display = 'none';
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(currentFormData)
+                });
+
+                setTimeout(() => {
+                    loading.classList.remove('active');
+                    formContainer.style.display = 'none';
+                    successContainer.classList.add('active');
+
+                    document.getElementById('btnConsultar').style.display = 'block';
+
+                    setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
+                }, 1500);
+            } catch(err) {
+                loading.classList.remove('active');
+                form.style.display = 'block';
+
+                document.getElementById('btnConsultar').style.display = 'block';
+
+                errorMessage.textContent = 'Error al registrar. Intente nuevamente.';
+                errorMessage.classList.add('active');
+            }
+        });
+
+//AKfycbxCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG
+        // 
+        //const a1 = "https://script.google.com/macros/s/AKfycb";
+        
+        //const p1 = a2noseusa.substring(0, 12);     // "xCuxF2fR6vxt"
+        //const p2 = a2noseusa.substring(12, 25);    // "vL5uk_PnIORyl"
+        //const p3 = a2noseusa.substring(25, 38);    // "nWwNlGiGR3Cbg"
+        //const p4 = a2noseusa.substring(38, 51);    // "_qp_GNJS41GUO"
+        //const p5 = a2noseusa.substring(51);        // "faZXFjF8LaU9DDG"
+
+        //const a3google = "gfh56dfg4h6d4fghdf4ghr65t4645671ghdgfhdfghd31131315";
+        //const SCRIPT_URL = a1 + p1 + p3 + p5 + p2 + p4 + "/exec";
+
+
+
+        // === CONSULTA (NUEVA VERSIÓN CON CONTROL DE ESTADO ACTIVO) ===
+        document.getElementById('consultForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            errorMessageConsult.classList.remove('active');
+
+            const cuil = document.getElementById('cuilConsulta').value;
+            const fecha = document.getElementById('fechaConsulta').value;
+
+            document.getElementById('consultForm').style.display = 'none';
+            loadingConsult.classList.add('active');
+
+            try {
+                const url = `${SCRIPT_URL}?action=consultar&cuil=${encodeURIComponent(cuil)}&fechaVisita=${encodeURIComponent(fecha)}`;
+                const res = await fetch(url);
+                const result = await res.json();
+
+                loadingConsult.classList.remove('active');
+
+                if (result.success && result.found) {
+                    currentFormData = result.data;
+
+                    // NUEVO: controlamos si está activa o inactiva
+                    if (result.data.activo === "1" || result.data.activo === 1) {
+                        // ACREDITACIÓN ACTIVA → todo normal
+                        document.getElementById('consultResultContainer').querySelector('h2').textContent = "Acreditación Encontrada"; 
+                        // document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "Checkmark"; 
+                        document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "✅"; 
+                        document.getElementById('consultResultContainer').querySelector('.success-icon').style.color = "#4CAF50";
+
+                        showCredential(result.data, 'consultCredentialInfo', 'qrcodeConsult');
+
+                        // Habilitamos botones de descarga
+                        document.querySelectorAll('#downloadImageConsult, #downloadPDFConsult').forEach(btn => {
+                            btn.style.display = 'block';
+                            btn.disabled = false;
+                        });
+
+                        playSound('soundSuccess');   // CAMPANITA DE ÉXITO
+
+                    } else {
+                        // ACREDITACIÓN INACTIVA
+                        document.getElementById('consultResultContainer').querySelector('h2').textContent = "ACREDITACIÓN INACTIVA";
+                        document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "❌";
+                        document.getElementById('consultResultContainer').querySelector('.success-icon').style.color = "#c62828";
+
+                        // Mostramos los datos pero SIN QR
+                        const info = document.getElementById('consultCredentialInfo');
+                        const fecha = formatDate(result.data.fechaVisita);
+
+
+                        info.innerHTML = `
+                            <div class="credential-field"><strong>CUIL:</strong><span>${result.data.cuil}</span></div>
+                            <div class="credential-field"><strong>Nombre:</strong><span>${result.data.nombre}</span></div>
+                            <div class="credential-field"><strong>Cargo/Institución:</strong><span>${result.data.cargo}</span></div>
+                            <div class="credential-field"><strong>Localidad:</strong><span>${result.data.localidad}</span></div>
+                            <div class="credential-field"><strong>Dominio:</strong><span>${result.data.dominio || '-'}</span></div>
+                            <div class="credential-field"><strong>Dominio Adicional 1:</strong><span>${result.data.dominioAdicional1 || '-'}</span></div>
+                            <div class="credential-field"><strong>Dominio Adicional 2:</strong><span>${result.data.dominioAdicional2 || '-'}</span></div>
+                            <div class="credential-field"><strong>Dominio Adicional 3:</strong><span>${result.data.dominioAdicional3 || '-'}</span></div>
+                            <div class="credential-field"><strong>Fecha de Visita:</strong><span>${fecha}</span></div>
+                            <div class="credential-field" style="background:#ffebee;color:#c62828;font-weight:bold;">
+                                <strong>ESTADO:</strong><span>INACTIVA</span>
+                            </div>
+                        `;                        
+
+                        // Vaciamos el QR y ocultamos los botones
+                        document.getElementById('qrcodeConsult').innerHTML = '';
+                        document.querySelectorAll('#downloadImageConsult, #downloadPDFConsult').forEach(btn => {
+                            btn.style.display = 'none';
+                        });
+
+                        playSound('soundError');   // BUZZER DE ERROR
+
+                    }
+
+                    consultContainer.classList.remove('active');
+                    consultResultContainer.classList.add('active');
+
+                } else {
+                    document.getElementById('consultForm').style.display = 'block';
+                    errorMessageConsult.textContent = result.message || 'No se encontró la acreditación.';
+                    errorMessageConsult.classList.add('active');
+                }
+            } catch(err) {
+                loadingConsult.classList.remove('active');
+                document.getElementById('consultForm').style.display = 'block';
+                errorMessageConsult.textContent = 'Error al buscar la acreditación.';
+                errorMessageConsult.classList.add('active');
+            }
+        });
+
+
+        async function capture(cardId) {
+            // Esperamos a que el QR esté totalmente renderizado
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1 segundo de espera segura
+            
+            const card = document.getElementById(cardId);
+            
+            // Forzamos a html2canvas a que use CORS y espere todo el contenido
+            const canvas = await html2canvas(card, {
+                scale: 2,
+                useCORS: true,           // necesario para el logo externo
+                allowTaint: false,
+                backgroundColor: '#ffffff',
+                logging: false,
+                // Esto es clave: le decimos que espere a que todos los canvas (el QR) estén listos
+                onclone: function (clonedDoc) {
+                    // Pequño truco: volvemos a generar el QR en el documento clonado por si acaso
+                    const qrElements = clonedDoc.querySelectorAll('#qrcode, #qrcodeConsult');
+                    qrElements.forEach(el => {
+                        if (el.children.length === 0 && el.dataset.qrText) {
+                            new QRCode(el, {
+                                text: el.dataset.qrText,
+                                width: 256,
+                                height: 256,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                        }
+                    });
+                }
+            });
+            return canvas;
+        }
+
+
+
+
+
+
+
+
+        // ====== DESCARGA IMAGEN (perfecta en PC y celular) ======
+        async function downloadAsImage(cardId, filename) {
+            await new Promise(r => setTimeout(r, 1200));
+
+            const card = document.getElementById(cardId);
+            const infoGrid = card.querySelector('.credential-info');
+
+            // Guardamos estilos originales
+            const originalCardStyle = card.style.cssText;
+            const originalInfoStyle = infoGrid.style.cssText;
+
+            // Forzamos un ancho cómodo y 2 columnas SOLO para la captura
+            card.style.cssText = `
+                width: 600px !important;
+                max-width: none !important;
+                margin: 0 auto !important;
+                padding: 40px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            `;
+            infoGrid.style.cssText = `
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 18px !important;
+            `;
+
+            const canvas = await html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                width: 600,
+                logging: false
+            });
+
+            // Restauramos todo como estaba (la pantalla vuelve a verse normal)
+            card.style.cssText = originalCardStyle;
+            infoGrid.style.cssText = originalInfoStyle;
+
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+
+        
+        // ====== DESCARGA PDF – QR NUNCA MÁS CORTADO (versión definitiva) ======
+        async function downloadAsPDF(cardId, filename) {
+            await new Promise(r => setTimeout(r, 1300)); // un poquito más de espera por el QR
+
+            const card = document.getElementById(cardId);
+            const infoGrid = card.querySelector('.credential-info');
+
+            // Guardamos estilos originales
+            const originalCardStyle = card.style.cssText;
+            const originalInfoStyle = infoGrid.style.cssText;
+
+            // Forzamos ancho cómodo y 2 columnas
+            card.style.cssText = `
+                width: 620px !important;
+                max-width: none !important;
+                margin: 0 auto !important;
+                padding: 40px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+                background: white !important;
+            `;
+            infoGrid.style.cssText = `
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 18px !important;
+            `;
+
+            const canvas = await html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                width: 620,
+                height: card.offsetHeight + 100, // ←←← margen extra abajo para que nunca corte el QR
+                logging: false
+            });
+
+            // Restauramos todo
+            card.style.cssText = originalCardStyle;
+            infoGrid.style.cssText = originalInfoStyle;
+
+            // ─────── CREACIÓN DEL PDF (ahora sí queda perfecto) ───────
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            const margin = 15;
+            const maxWidth = pageWidth - 2 * margin;
+            const maxHeight = pageHeight - 2 * margin;
+
+            const imgWidth = canvas.width / 2;   // porque scale=2
+            const imgHeight = canvas.height / 2;
+
+            // Calculamos escala para que entre perfecto
+            const ratio = Math.min(maxWidth / imgWidth, maxHeight / imgHeight);
+            const finalWidth = imgWidth * ratio;
+            const finalHeight = imgHeight * ratio;
+
+            // Centrado vertical y horizontal
+            const x = (pageWidth - finalWidth) / 2;
+            const y = (pageHeight - finalHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
+            pdf.save(filename);
+        }
+
+
+        // Botones descarga
+        document.getElementById('downloadImage').onclick = () => 
+            downloadAsImage('credentialCard', `Acreditacion_${currentFormData.cuil.replace(/[^\w]/g,'_')}.png`);
+        document.getElementById('downloadPDF').onclick = () => 
+            downloadAsPDF('credentialCard', `Acreditacion_${currentFormData.cuil.replace(/[^\w]/g,'_')}.pdf`);
+        document.getElementById('downloadImageConsult').onclick = () => 
+            downloadAsImage('consultCredentialCard', `Acreditacion_${currentFormData.cuil.replace(/[^\w]/g,'_')}.png`);
+        document.getElementById('downloadPDFConsult').onclick = () => 
+            downloadAsPDF('consultCredentialCard', `Acreditacion_${currentFormData.cuil.replace(/[^\w]/g,'_')}.pdf`);
+
+
+        // Nueva inscripción / consulta
+        document.getElementById('newRegistration').onclick = () => {
+            form.reset();
+            successContainer.classList.remove('active');
+            formContainer.style.display = 'block';
+            form.style.display = 'block';
+        };
+        document.getElementById('newConsult').onclick = () => {
+            document.getElementById('consultForm').reset();
+            consultResultContainer.classList.remove('active');
+            consultContainer.classList.add('active');
+            document.getElementById('consultForm').style.display = 'block';
+
+            // ←←← NUEVA LÍNEA: limpia el mensaje del QR
+            document.getElementById('qr-result').textContent = '';
+            
+            // opcional pero queda más limpio: también cierra el escáner si quedó abierto
+            if (scannerActive) {
+                document.getElementById('btnLeerQR').click();
+            }            
+        };
+
+
+
+
+        // ==================== LECTOR QR + SONIDOS ====================
+        let scannerActive = false;
+
+        document.getElementById('btnLeerQR').addEventListener('click', function() {
+            const readerDiv = document.getElementById('qr-reader');
+            const resultDiv = document.getElementById('qr-result');
+            resultDiv.textContent = '';
+            
+            if (scannerActive) {
+                Html5QrcodeScanner.clear();
+                readerDiv.style.display = 'none';
+                this.textContent = 'Escanear QR';
+                scannerActive = false;
+                return;
+            }
+
+            readerDiv.style.display = 'block';
+            this.textContent = 'Cancelar escaneo';
+            scannerActive = true;
+
+            const html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", 
+                { fps: 10, qrbox: { width: 300, height: 300 } },
+                false
+            );
+
+            html5QrcodeScanner.render(
+                (decodedText) => {
+                    // SONIDO 1: BEEP cuando detecta el QR
+                    playSound('soundScan');
+
+                    // Proceso normal...
+                    html5QrcodeScanner.clear();
+                    readerDiv.style.display = 'none';
+                    document.getElementById('btnLeerQR').textContent = 'Escanear QR';
+                    scannerActive = false;
+
+                    const parts = decodedText.trim().split(',');
+                    if (parts.length !== 2) {
+                        resultDiv.textContent = 'Código QR de acreditación inválido';
+                        resultDiv.style.color = '#c62828';
+                        playSound('soundError');           // ← SONIDO ERROR
+                        return;
+                    }
+
+                    const cuil = parts[0].trim();
+                    const fechaStr = parts[1].trim();
+
+                    if (!/^(\d{2}-)?\d{8}-\d$/.test(cuil) && !/^\d{11}$/.test(cuil.replace(/[^\d]/g,''))) {
+                        resultDiv.textContent = 'CUIL no válido en el QR';
+                        resultDiv.style.color = '#c62828';
+                        playSound('soundError');
+                        return;
+                    }
+
+                    const fechaParts = fechaStr.split('/');
+                    if (fechaParts.length !== 3 || fechaParts[0].length !== 2 || fechaParts[1].length !== 2 || fechaParts[2].length !== 4) {
+                        resultDiv.textContent = 'Fecha no válida en el QR';
+                        resultDiv.style.color = '#c62828';
+                        playSound('soundError');
+                        return;
+                    }
+                    const fechaISO = `${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`;
+
+                    document.getElementById('cuilConsulta').value = cuil;
+                    document.getElementById('fechaConsulta').value = fechaISO;
+
+                    resultDiv.textContent = '¡QR leído! Buscando...';
+                    resultDiv.style.color = '#4CAF50';
+
+                    // Dispara la búsqueda
+                    setTimeout(() => {
+                        document.querySelector('#consultForm button[type="submit"]').click();
+                    }, 800);
+                },
+                (error) => {}
+            );
+        });
+
+
+        // Permite cerrar el lector tocando fuera (opcional, queda más pro)
+        document.getElementById('qr-reader').addEventListener('click', function(e) {
+            if (e.target === this && scannerActive) {
+                document.getElementById('btnLeerQR').click();
+            }
+        });
+
+
+        // ====== REPRODUCIR SONIDOS ======
+        function playSound(id) {
+            const audio = document.getElementById(id);
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(() => {}); // evita errores si el usuario no interactuó aún
+            }
+        }
+
+    </script>
+</body>
+</html>
