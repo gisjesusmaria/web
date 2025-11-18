@@ -2545,12 +2545,12 @@
       "properties": {
         "id": 80,
         "nomenc": "02-B-45",
-        "medidas": "5.40 x 3.50",
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "ACOSTA ANTONIO",
+        "titular.dni": "18008771",
+        "titular.tel": "3525-300208",
+        "montoadj": "3330000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -2581,7 +2581,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 80
       },
       "geometry": {
