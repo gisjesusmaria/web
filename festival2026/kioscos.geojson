@@ -4061,12 +4061,12 @@
       "properties": {
         "id": 86,
         "nomenc": "02-B-48",
-        "medidas": "4.00 x 3.00",
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "EXPENDIO DE PIZZAS, PAPAS FRITAS, PANCHOS, PEBETES Y BEBIDAS.",
+        "titular.nombre": "CASTRO ANTONIO GERMAN",
+        "titular.dni": "21399605",
+        "titular.tel": "3525-618701",
+        "montoadj": "3330000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -4097,7 +4097,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 86
       },
       "geometry": {
