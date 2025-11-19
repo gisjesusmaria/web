@@ -746,8 +746,9 @@
         const errorMessageConsult = document.getElementById('errorMessageConsult');
 
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG/exec';
+        //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG/exec';
 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKvYcfvxXLZtgCFXxNPBeNwCk0KJyuU2_PShgg8mpAZTxNQ3dkrGYa03xE7bKmjuSU/exec';
 
 
 
@@ -1030,7 +1031,7 @@
                     // NUEVO: controlamos si está activa o inactiva
                     if (result.data.activo === "1" || result.data.activo === 1) {
                         // ACREDITACIÓN ACTIVA → todo normal
-                        document.getElementById('consultResultContainer').querySelector('h2').textContent = "Acreditación Encontrada"; 
+                        document.getElementById('consultResultContainer').querySelector('h2').textContent = "Acreditación Activa"; 
                         // document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "Checkmark"; 
                         document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "✅"; 
                         document.getElementById('consultResultContainer').querySelector('.success-icon').style.color = "#4CAF50";
@@ -1387,4 +1388,5 @@
 
     </script>
 </body>
+
 </html>
