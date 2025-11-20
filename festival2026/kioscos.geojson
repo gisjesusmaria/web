@@ -12263,10 +12263,10 @@
         "nomenc": "DP-ARTESANOS-16",
         "medidas": "3.00 x 3.00",
         "rubro": "EMPRENDEDORES / ARTESANOS.",
-        "titular.nombre": "RODAS RUBEN",
-        "titular.dni": "26330140",
-        "titular.tel": "3525601894",
-        "montoadj": "700000.00",
+        "titular.nombre": "",
+        "titular.dni": "",
+        "titular.tel": "",
+        "montoadj": null,
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -12297,7 +12297,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "SI",
+        "esdejesusmaria": "NO",
         "_index": 206
       },
       "geometry": {
