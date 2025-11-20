@@ -1,4 +1,4 @@
-<!-- 18112025_1131 -->
+<!-- 20112025_0829 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -746,9 +746,14 @@
         const errorMessageConsult = document.getElementById('errorMessageConsult');
 
 
+
+
         //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCuxF2fR6vxtvL5uk_PnIORylnWwNlGiGR3Cbg_qp_GNJS41GUOfaZXFjF8LaU9DDG/exec';
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKvYcfvxXLZtgCFXxNPBeNwCk0KJyuU2_PShgg8mpAZTxNQ3dkrGYa03xE7bKmjuSU/exec';
+        //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKvYcfvxXLZtgCFXxNPBeNwCk0KJyuU2_PShgg8mpAZTxNQ3dkrGYa03xE7bKmjuSU/exec';
+
+
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmOJP59IVl9gnwkCexNrIJyvB4ryrBm-EmDyJJUbfvgjCU0z_2e_ho925MDyZGWd9/exec';
 
 
 
@@ -972,15 +977,65 @@
                     body: JSON.stringify(currentFormData)
                 });
 
+
+                // setTimeout(() => {
+                //     loading.classList.remove('active');
+                //     formContainer.style.display = 'none';
+                //     successContainer.classList.add('active');
+
+                //     document.getElementById('btnConsultar').style.display = 'block';
+
+                //     setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
+                // }, 1500);
+
+
+
                 setTimeout(() => {
                     loading.classList.remove('active');
                     formContainer.style.display = 'none';
                     successContainer.classList.add('active');
-
                     document.getElementById('btnConsultar').style.display = 'block';
 
+                    // Mostramos la credencial
                     setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
+
+                    // ──────────────────────────────────────────────────────────────
+                    // ENVÍO AUTOMÁTICO DEL CORREO CON LA ACREDITACIÓN
+                    // ──────────────────────────────────────────────────────────────
+                    const cuil = currentFormData.cuil;
+                    const fechaSinFormato = currentFormData.fechaVisita; // viene en formato YYYY-MM-DD
+                    const email = currentFormData.mail;
+
+                    // Convertimos la fecha al formato que espera tu Apps Script (dd/MM/yyyy)
+                    const fechaParts = fechaSinFormato.split('-');
+                    const fecha = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
+
+                    fetch(`${SCRIPT_URL}?action=enviarPorCuilYFecha&cuil=${encodeURIComponent(cuil)}&fecha=${encodeURIComponent(fecha)}&email=${encodeURIComponent(email)}`)
+                        .then(r => r.json())
+                        .then(res => {
+                            if (res && res.status === "success") {
+                                // Opcional: mostrás un mensajito lindo (no molesta)
+                                const notification = document.createElement('div');
+                                notification.textContent = "¡Acreditación enviada a tu correo!";
+                                notification.style.cssText = `
+                                    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                                    background: #4CAF50; color: white; padding: 12px 30px;
+                                    border-radius: 30px; font-weight: bold; z-index: 9999;
+                                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                                `;
+                                document.body.appendChild(notification);
+                                setTimeout(() => notification.remove(), 5000);
+                            }
+                        })
+                        .catch(err => {
+                            console.log("No se pudo enviar el mail (puede ser normal en algunos casos)", err);
+                            // No rompemos la experiencia del usuario si falla el envío
+                        });
+
                 }, 1500);
+
+
+
             } catch(err) {
                 loading.classList.remove('active');
                 form.style.display = 'block';
@@ -1032,7 +1087,6 @@
                     if (result.data.activo === "1" || result.data.activo === 1) {
                         // ACREDITACIÓN ACTIVA → todo normal
                         document.getElementById('consultResultContainer').querySelector('h2').textContent = "Acreditación Activa"; 
-                        // document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "Checkmark"; 
                         document.getElementById('consultResultContainer').querySelector('.success-icon').textContent = "✅"; 
                         document.getElementById('consultResultContainer').querySelector('.success-icon').style.color = "#4CAF50";
 
@@ -1388,5 +1442,4 @@
 
     </script>
 </body>
-
 </html>
