@@ -6319,7 +6319,7 @@
         "id": 171,
         "lote": "109",
         "manzana": "113",
-        "estado": "Adjudicado"
+        "estado": "Disponible"
       },
       "geometry": {
         "type": "Polygon",
