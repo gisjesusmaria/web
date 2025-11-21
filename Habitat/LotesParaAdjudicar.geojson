@@ -5790,7 +5790,7 @@
         "id": 32,
         "lote": "109",
         "manzana": "103",
-        "estado": "Adjudicado"
+        "estado": "Disponible"
       },
       "geometry": {
         "type": "Polygon",
