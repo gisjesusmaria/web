@@ -1,4 +1,4 @@
-<!-- 20112025_0829 -->
+<!-- 25112025_0724 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -525,12 +525,6 @@
 
         /* ───── BOTONES LINDOS PARA EL LECTOR QR ───── */
 
-        /* Ocultamos los botones de la librería */
-        #qr-reader button[id^="html5-qrcode-button"] {
-            display: none !important;
-        }
-
-        /* Contenedor de los botones lindos */
         .qr-custom-buttons {
             display: flex;
             justify-content: center;
@@ -565,7 +559,12 @@
             transform: translateY(-1px);
         }
 
-        /* Caja de la cámara prolija */
+        /* Ocultamos los botones horribles que trae la librería */
+        #qr-reader button[id^="html5-qrcode-button"] {
+            display: none !important;
+        }
+
+        /* Que la zona de cámara se vea prolija */
         #qr-reader__scan_region {
             border-radius: 16px;
             overflow: hidden;
@@ -1395,28 +1394,26 @@
 
 
 
-
-        // ==================== LECTOR QR + SONIDOS (BOTONES LINDOS) ====================
+        // ==================== LECTOR QR + SONIDOS (CON BOTONES LINDOS) ====================
         let scannerActive = false;
         let html5QrcodeScanner = null;
 
-        // Qué hacer cuando se leyó un QR
         function handleDecodedFromQr(decodedText) {
             const readerDiv = document.getElementById('qr-reader');
             const resultDiv = document.getElementById('qr-result');
             const btnLeer = document.getElementById('btnLeerQR');
             const customButtons = document.getElementById('qr-custom-buttons');
 
-            // Sonido OK
+            // SONIDO OK
             playSound('soundScan');
 
-            // Apagamos el scanner
+            // Cerramos el scanner
             if (html5QrcodeScanner) {
                 html5QrcodeScanner.clear().catch(() => {});
                 html5QrcodeScanner = null;
             }
             readerDiv.style.display = 'none';
-            if (customButtons) customButtons.style.display = 'none';
+            customButtons.style.display = 'none';
             btnLeer.textContent = 'Escanear QR';
             scannerActive = false;
 
@@ -1431,7 +1428,6 @@
             const cuil = parts[0].trim();
             const fechaStr = parts[1].trim();
 
-            // Validación CUIL
             if (!/^(\d{2}-)?\d{8}-\d$/.test(cuil) && !/^\d{11}$/.test(cuil.replace(/[^\d]/g,''))) {
                 resultDiv.textContent = 'CUIL no válido en el QR';
                 resultDiv.style.color = '#c62828';
@@ -1439,7 +1435,6 @@
                 return;
             }
 
-            // Validación fecha dd/mm/yyyy
             const fechaParts = fechaStr.split('/');
             if (fechaParts.length !== 3 || fechaParts[0].length !== 2 || fechaParts[1].length !== 2 || fechaParts[2].length !== 4) {
                 resultDiv.textContent = 'Fecha no válida en el QR';
@@ -1449,96 +1444,57 @@
             }
             const fechaISO = `${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`;
 
-            // Paso a los campos del formulario
             document.getElementById('cuilConsulta').value = cuil;
             document.getElementById('fechaConsulta').value = fechaISO;
 
             resultDiv.textContent = '¡QR leído! Buscando...';
             resultDiv.style.color = '#4CAF50';
 
-            // Lanzo la consulta
+            // Dispara la búsqueda
             setTimeout(() => {
-                const submitBtn = document.querySelector('#consultForm button[type="submit"]');
-                if (submitBtn) submitBtn.click();
+                document.querySelector('#consultForm button[type="submit"]').click();
             }, 800);
         }
 
-        // Construir / mostrar los botones lindos
-        function buildOrShowCustomQrButtons() {
+        function setupCustomQrButtons() {
             const readerDiv = document.getElementById('qr-reader');
             const container = document.getElementById('qr-custom-buttons');
-            const resultDiv = document.getElementById('qr-result');
             if (!readerDiv || !container) return;
 
-            // Si ya los armamos una vez, solo los mostramos
+            // Si ya los creamos, no los volvemos a crear
             if (container.dataset.ready === '1') {
                 container.style.display = 'flex';
                 return;
             }
 
-            const btnCamPerm   = readerDiv.querySelector('#html5-qrcode-button-camera-permission');
-            const btnStart     = readerDiv.querySelector('#html5-qrcode-button-camera-start');
-            const btnStop      = readerDiv.querySelector('#html5-qrcode-button-camera-stop');
-            const scanTypeLink = readerDiv.querySelector('#html5-qrcode-anchor-scan-type-change');
-            const fileInput    = readerDiv.querySelector('#html5-qrcode-private-filescan-input');
+            // Botones originales de la librería (los dejamos ocultos y los usamos desde JS)
+            const btnCamPerm = readerDiv.querySelector('#html5-qrcode-button-camera-permission');
+            const btnStart   = readerDiv.querySelector('#html5-qrcode-button-camera-start');
+            const btnStop    = readerDiv.querySelector('#html5-qrcode-button-camera-stop');
+            const btnFile    = readerDiv.querySelector('#html5-qrcode-button-file-selection');
 
             container.innerHTML = '';
 
-            function addBtn(texto, extraClass, onClick) {
+            function addBtn(texto, extraClass, originalBtn) {
+                if (!originalBtn) return;
                 const b = document.createElement('button');
                 b.type = 'button';
                 b.className = 'btn-qr ' + extraClass;
                 b.textContent = texto;
-                b.onclick = onClick;
+                b.onclick = () => originalBtn.click();
                 container.appendChild(b);
             }
 
-            // Habilitar cámara (pide permisos o arranca directo)
-            if (btnCamPerm || btnStart) {
-                addBtn('Habilitar cámara', 'btn-qr-main', () => {
-                    (btnCamPerm || btnStart).click();
-                });
-            }
-
-            // Iniciar / detener escaneo (cuando existan esos botones)
-            if (btnStart) {
-                addBtn('Iniciar escaneo', 'btn-qr-main', () => {
-                    btnStart.click();
-                });
-            }
-
-            if (btnStop) {
-                addBtn('Detener escaneo', 'btn-qr-sec', () => {
-                    btnStop.click();
-                });
-            }
-
-            // Escanear desde imagen
-            if (fileInput) {
-                addBtn('Escanear desde imagen', 'btn-qr-sec', () => {
-                    try {
-                        // Si la librería tiene link para cambiar de modo, lo usamos
-                        if (scanTypeLink && scanTypeLink.textContent.toLowerCase().includes('camera')) {
-                            // Estamos en modo cámara, cambiamos a archivo
-                            scanTypeLink.click();
-                        }
-                        // IMPORTANTE: disparamos directamente el input file (funciona bien en PC y móvil)
-                        fileInput.click();
-                    } catch (e) {
-                        console.error(e);
-                        if (resultDiv) {
-                            resultDiv.textContent = 'No se pudo abrir el selector de imagen';
-                            resultDiv.style.color = '#c62828';
-                        }
-                    }
-                });
-            }
+            // Si no hay botón de permisos, usamos directamente el de "Start"
+            addBtn('Habilitar cámara', 'btn-qr-main', btnCamPerm || btnStart);
+            addBtn('Iniciar escaneo', 'btn-qr-main', btnStart);
+            addBtn('Detener escaneo', 'btn-qr-sec',  btnStop);
+            addBtn('Escanear desde imagen', 'btn-qr-sec', btnFile);
 
             container.dataset.ready = '1';
             container.style.display = 'flex';
         }
 
-        // Botón principal "Escanear QR"
         document.getElementById('btnLeerQR').addEventListener('click', function() {
             const readerDiv = document.getElementById('qr-reader');
             const resultDiv = document.getElementById('qr-result');
@@ -1546,26 +1502,26 @@
 
             resultDiv.textContent = '';
 
-            // Si ya está activo: apagar
+            // Si ya está activo, cerramos todo
             if (scannerActive) {
                 if (html5QrcodeScanner) {
                     html5QrcodeScanner.clear().catch(() => {});
                     html5QrcodeScanner = null;
                 }
                 readerDiv.style.display = 'none';
-                if (customButtons) customButtons.style.display = 'none';
+                customButtons.style.display = 'none';
                 this.textContent = 'Escanear QR';
                 scannerActive = false;
                 return;
             }
 
-            // Encender lector
+            // Abrimos el lector
             readerDiv.style.display = 'block';
             this.textContent = 'Cancelar escaneo';
             scannerActive = true;
 
             html5QrcodeScanner = new Html5QrcodeScanner(
-                "qr-reader",
+                "qr-reader", 
                 { fps: 10, qrbox: { width: 300, height: 300 } },
                 false
             );
@@ -1575,15 +1531,15 @@
                     handleDecodedFromQr(decodedText);
                 },
                 (error) => {
-                    // errores de lectura se ignoran
+                    // ignoramos errores de lectura en silencio
                 }
             );
 
-            // Damos un tiempito para que la librería pinte sus elementos internos
-            setTimeout(buildOrShowCustomQrButtons, 150);
+            // Esperamos un poquito a que la librería pinte sus botones internos
+            setTimeout(setupCustomQrButtons, 600);
         });
 
-        // Cerrar lector tocando fuera del recuadro
+        // Permite cerrar el lector tocando fuera (mantenemos esto)
         document.getElementById('qr-reader').addEventListener('click', function(e) {
             if (e.target === this && scannerActive) {
                 document.getElementById('btnLeerQR').click();
