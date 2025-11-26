@@ -1,4 +1,4 @@
-<!-- 26112025_1119 -->
+<!-- 26112025_1243 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -201,11 +201,32 @@
             opacity: 0.6;
         }
         
-        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
     </style>
 
 </head>
 <body>
+    <!-- PANTALLA DE CARGA LIVIANA -->
+    <div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(243,243,241,0.98);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s;">
+        <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" style="width:70%;max-width:380px;margin-bottom:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+        <div style="font-size:26px;color:#0066cc;font-weight:bold;">Cargando sistema...</div>
+        <div style="margin-top:20px;">
+            <svg width="60" height="60" viewBox="0 0 50 50" style="animation:spin 1s linear infinite;">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
+            </svg>
+        </div>
+    </div>
+
+
+    <div style="margin: 15px auto 10px; text-align:center; max-width:90%;">
+        <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" 
+            alt="Municipalidad de Jesús María" 
+            style="width:100%; max-width:420px; height:auto; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    </div>
+
 
     <h1 id="title">Cargando...</h1>
 
@@ -260,13 +281,45 @@
     setInterval(updateClock, 1000); updateClock();
 
     // CARGAR CONFIG
+    // async function loadConfig() {
+    //     const CONFIG_DEPLOY_ID = 'AKfycbxYIKa2mpB1UzrE9nmmyY7nYEjapJYjuebdClI2MMHl4TJYQ0u99L5B4ht9oBfBLJUm';
+    //     const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
+    //     const r = await fetch(url);
+    //     config = await r.json();
+    //     document.getElementById('title').textContent = config.O || 'Fichajes';
+    //     scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
+    // }
+    // loadConfig();
+
+
+    // CARGAR CONFIG + BLOQUEO TOTAL HASTA QUE TERMINE
     async function loadConfig() {
-        const CONFIG_DEPLOY_ID = 'AKfycbxYIKa2mpB1UzrE9nmmyY7nYEjapJYjuebdClI2MMHl4TJYQ0u99L5B4ht9oBfBLJUm';
-        const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
-        const r = await fetch(url);
-        config = await r.json();
-        document.getElementById('title').textContent = config.O || 'Fichajes';
-        scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
+        // ← BLOQUEAR TODO DESDE EL INICIO
+        document.body.style.pointerEvents = 'none';
+        document.getElementById('loadingOverlay').style.display = 'flex';
+
+        try {
+            const CONFIG_DEPLOY_ID = 'AKfycbxYIKa2mpB1UzrE9nmmyY7nYEjapJYjuebdClI2MMHl4TJYQ0u99L5B4ht9oBfBLJUm';
+            const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
+            const r = await fetch(url);
+            config = await r.json();
+
+            document.getElementById('title').textContent = config.O || 'Fichajes';
+            scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
+
+            // ← CUANDO TERMINA: DESBLOQUEAR Y QUITAR OVERLAY
+            document.body.style.pointerEvents = 'auto';
+            document.getElementById('loadingOverlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 400);
+
+        } catch (err) {
+            alert('Error de conexión. Reintentando...');
+            document.body.style.pointerEvents = 'auto';
+            document.getElementById('loadingOverlay').style.display = 'none';
+            setTimeout(loadConfig, 3000); // reintenta
+        }
     }
     loadConfig();
 
@@ -281,7 +334,41 @@
         clearCanvas();
     });
 
-    // BUSCAR EMPLEADO
+
+
+    // FUNCIÓN CORREGIDA: obtiene el último tipo de fichaje (E o S) según tu hoja real
+    async function getUltimoFichaje(dni, hoja) {
+        if (!config.D || !hoja) return null;
+
+        // const sheetId = config.D;
+        // const sheetName = hoja.trim();
+
+        const sheetId = config.A;
+        const sheetName = config.B;        
+
+        // Seleccionamos solo la columna D (tipo E/S) del último registro ordenado por fecha y hora
+        const query = encodeURIComponent(`SELECT D WHERE E = ${dni} ORDER BY B DESC, C DESC LIMIT 1`);
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
+        
+        console.log(url);
+        
+        try {
+            const resp = await fetch(url);
+            const texto = await resp.text();
+            const lineas = texto.trim().split('\n');
+            
+            if (lineas.length < 2 || !lineas[1].trim()) return null;
+
+            // La primera (y única) columna es D → tipo E/S
+            const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
+            return tipo; // "E" o "S"
+        } catch (e) {
+            console.error("Error consultando último fichaje", e);
+            return null;
+        }
+    }
+
+    // FUNCIÓN buscarEmpleado MODIFICADA Y CORREGIDA
     async function buscarEmpleado(dni) {
         if (!config.D || !config.E) return {error: 'Cargando config...'};
 
@@ -289,14 +376,40 @@
         const resp = await fetch(url);
         const texto = await resp.text();
         const lineas = texto.trim().split('\n');
-        if (lineas.length < 2) return {error: 'DNI no encontrado'};
+        if (lineas.length < 2) return {error: 'Empleado no encontrado'};
 
         const valores = lineas[1].split(/","/).map(v => v.replace(/^"|"$/g, '').trim());
         const [apellido, nombre, condicion, altaBaja, hEntrada, hSalida, hojaEmp] = valores;
 
         if (altaBaja !== 'Alta') return {error: 'Empleado dado de baja'};
-        return {apellido, nombre, condicion, horarioEntrada: hEntrada || '--:--', horarioSalida: hSalida || '--:--', hoja: hojaEmp};
+
+        // ← AQUÍ ESTÁ LA LÓGICA CORRECTA
+        const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
+
+        if (ultimoFichaje === 'E') {
+            // Ya fichó entrada → forzamos SALIDA
+            mode = 'S';
+            document.getElementById('toggleBtn').textContent = 'SALIDA';
+            document.getElementById('toggleBtn').classList.remove('green');
+            document.getElementById('toggleBtn').classList.add('red');
+        } else {
+            // Último fue S o es el primero del día → ENTRADA
+            mode = 'E';
+            document.getElementById('toggleBtn').textContent = 'ENTRADA';
+            document.getElementById('toggleBtn').classList.remove('red');
+            document.getElementById('toggleBtn').classList.add('green');
+        }
+
+        return {
+            apellido, 
+            nombre, 
+            condicion, 
+            horarioEntrada: hEntrada || '--:--', 
+            horarioSalida: hSalida || '--:--', 
+            hoja: hojaEmp
+        };
     }
+
 
     // BUSCAR AL HACER CLICK O ENTER
     const buscar = async () => {
@@ -371,11 +484,36 @@
     }
 
 
-    // FICHAR CON SPINNER Y MENSAJE DE ÉXITO
+
+    // // FICHAR - CON VALIDACIONES, SCROLL Y BLOQUEO DE BOTONES
     // document.getElementById('ficharBtn').onclick = async () => {
     //     if (!employeeData) return;
 
-    //     // Mostrar spinner y mensaje
+    //     // VALIDACIÓN DE FIRMA 100% SEGURA
+    //     const canvas = document.getElementById('signaturePad');
+    //     const context = canvas.getContext('2d');
+    //     const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+    //     let hasPixels = false;
+    //     for (let i = 3; i < imageData.length; i += 4) { // miramos solo el canal alpha
+    //         if (imageData[i] > 20) { // si hay algún píxel con transparencia < 100% → hay firma
+    //             hasPixels = true;
+    //             break;
+    //         }
+    //     }
+    //     if (!hasPixels) {
+    //         alert('¡Por favor firme antes de fichar!');
+    //         return;
+    //     }        
+
+
+    //     // 2. Scroll suave hasta arriba (para que se vea el spinner)
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    //     // 3. Bloquear todos los botones
+    //     setButtonsEnabled(false);
+
+    //     // 4. Mostrar spinner
     //     document.getElementById('spinner').style.display = 'block';
     //     document.getElementById('statusMessage').textContent = '';
     //     document.getElementById('ficharBtn').style.display = 'none';
@@ -409,14 +547,12 @@
     //         const res = await resp.json();
 
     //         if (res.success) {
-    //             // OCULTAR SPINNER
     //             document.getElementById('spinner').style.display = 'none';
-
-    //             // MOSTRAR MENSAJE DE ÉXITO
+                
     //             const msg = document.getElementById('statusMessage');
-    //             msg.textContent = `FICHAJE REGISTRADO CON ÉXITO`;
+    //             msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!`;
     //             msg.style.color = '#0b0';
-    //             msg.style.fontSize = '26px';
+    //             msg.style.fontSize = '28px';
 
     //             // Limpiar todo
     //             document.getElementById('dniInput').value = '';
@@ -425,66 +561,48 @@
     //             document.getElementById('ficharBtn').style.display = 'none';
     //             clearCanvas();
 
-    //             // Desaparecer mensaje después de 5 segundos
-    //             setTimeout(() => {
-    //                 msg.textContent = '';
-    //             }, 5000);
+    //             // Desaparecer mensaje en 5 segundos
+    //             setTimeout(() => { msg.textContent = ''; }, 5000);
 
     //         } else {
-    //             throw new Error('Error en el servidor');
+    //             throw new Error('Error del servidor');
     //         }
     //     } catch (err) {
     //         document.getElementById('spinner').style.display = 'none';
     //         document.getElementById('ficharBtn').style.display = 'block';
-    //         alert('Error al registrar fichaje: ' + err.message);
+    //         alert('Error al registrar fichaje: ' + (err.message || 'Intente nuevamente'));
+    //     } finally {
+    //         // 5. Reactivar botones SIEMPRE (incluso si hay error)
+    //         setButtonsEnabled(true);
     //     }
     // };
 
 
-
-    // FICHAR - CON VALIDACIONES, SCROLL Y BLOQUEO DE BOTONES
+    // FICHAR - CON OBSERVACIONES AUTOMÁTICAS DE TARDANZA
     document.getElementById('ficharBtn').onclick = async () => {
         if (!employeeData) return;
 
-        // 1. Validar que haya firma
-        // const canvas = document.getElementById('signaturePad');
-        // const blank = canvas.toDataURL('image/png', 0.3); // canvas vacío
-        // if (canvas.toDataURL('image/png', 0.3) === blank) {
-        //     alert('¡Por favor firme antes de fichar!');
-        //     return;
-        // }
-
-
-        // VALIDACIÓN DE FIRMA 100% SEGURA
+        // === VALIDACIÓN DE FIRMA (ya la tenías) ===
         const canvas = document.getElementById('signaturePad');
         const context = canvas.getContext('2d');
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
-
         let hasPixels = false;
-        for (let i = 3; i < imageData.length; i += 4) { // miramos solo el canal alpha
-            if (imageData[i] > 20) { // si hay algún píxel con transparencia < 100% → hay firma
-                hasPixels = true;
-                break;
-            }
+        for (let i = 3; i < imageData.length; i += 4) {
+            if (imageData[i] > 20) { hasPixels = true; break; }
         }
         if (!hasPixels) {
             alert('¡Por favor firme antes de fichar!');
             return;
-        }        
+        }
 
-        
-        // 2. Scroll suave hasta arriba (para que se vea el spinner)
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // 3. Bloquear todos los botones
         setButtonsEnabled(false);
-
-        // 4. Mostrar spinner
         document.getElementById('spinner').style.display = 'block';
         document.getElementById('statusMessage').textContent = '';
         document.getElementById('ficharBtn').style.display = 'none';
 
         try {
+            // Subir firma
             const base64 = canvas.toDataURL('image/png', 0.3);
             const firmaResp = await fetch(scriptUrl, {
                 method: 'POST',
@@ -496,17 +614,38 @@
             const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
 
             const ahora = new Date();
+            const horaActual = ahora.toTimeString().substr(0,5); // HH:MM
+
+            // === CÁLCULO AUTOMÁTICO DE OBSERVACIONES ===
+            let observaciones = '';
+
+            if (mode === 'E') {
+                // Entrada: comparar con horarioEntrada (ej: "13:00")
+                const horario = employeeData.horarioEntrada || '00:00';
+                if (horaActual > horario) {
+                    observaciones = 'Entró tarde';
+                }
+            } else {
+                // Salida: comparar con horarioSalida
+                const horario = employeeData.horarioSalida || '23:59';
+                if (horaActual < horario) {
+                    observaciones = 'Salió antes';
+                }
+            }
+
+            // === ENVÍO DEL FICHAJE CON OBSERVACIONES ===
             const payload = {
                 action: 'saveCheckin',
                 date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
-                time: ahora.toTimeString().substr(0,5),
+                time: horaActual,
                 mode: mode,
                 dni: document.getElementById('dniInput').value,
-                name: `${employeeData.nombre} ${employeeData.apellido}`,
+                name: `${employeeData.apellido} ${employeeData.nombre}`,
                 signature: formula,
                 schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
                 condition: employeeData.condicion,
-                hoja: employeeData.hoja
+                hoja: employeeData.hoja,
+                observaciones: observaciones  // ← NUEVO CAMPO
             };
 
             const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
@@ -514,9 +653,8 @@
 
             if (res.success) {
                 document.getElementById('spinner').style.display = 'none';
-                
                 const msg = document.getElementById('statusMessage');
-                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!`;
+                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones ? ' (' + observaciones + ')' : ''}`;
                 msg.style.color = '#0b0';
                 msg.style.fontSize = '28px';
 
@@ -527,9 +665,7 @@
                 document.getElementById('ficharBtn').style.display = 'none';
                 clearCanvas();
 
-                // Desaparecer mensaje en 5 segundos
-                setTimeout(() => { msg.textContent = ''; }, 5000);
-
+                setTimeout(() => { msg.textContent = ''; }, 6000);
             } else {
                 throw new Error('Error del servidor');
             }
@@ -538,7 +674,6 @@
             document.getElementById('ficharBtn').style.display = 'block';
             alert('Error al registrar fichaje: ' + (err.message || 'Intente nuevamente'));
         } finally {
-            // 5. Reactivar botones SIEMPRE (incluso si hay error)
             setButtonsEnabled(true);
         }
     };
