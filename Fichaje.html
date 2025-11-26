@@ -1,4 +1,4 @@
-<!-- 26112025_1103 -->
+<!-- 26112025_1119 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -93,15 +93,34 @@
             min-height: 40px;
             color: #0066cc;
         }
-        #spinner {
+        
+        #spinnerant {
             display: none;
             margin: 25px 0;
         }
-        #spinner svg {
+        #spinnerant svg {
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
         }
+
+
+        #spinner {
+            display: none;
+            margin: 30px 0;
+        }
+        #spinner svg {
+            width: 120px;      /* ← antes era 50px */
+            height: 120px;     /* ← antes era 50px */
+            animation: spin 1.2s linear infinite;
+        }
+        #spinner div {
+            margin-top: 15px;
+            font-size: 26px;   /* ← texto más grande */
+            font-weight: bold;
+            color: #0066cc;
+        }
+
 
         #employeeInfo {
             font-size: clamp(18px, 4.5vw, 26px);
@@ -171,6 +190,18 @@
             body { max-width: 600px; margin: 0 auto; padding-top: 30px; }
             canvas { width: 420px; height: 200px; }
         }
+
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        #dniInput:disabled {
+            opacity: 0.6;
+        }
+        
+        
     </style>
 
 </head>
@@ -186,7 +217,8 @@
         <svg width="50" height="50" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
             <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
         </svg>
-        <div style="margin-top:10px; font-size:18px; color:#0066cc;">Registrando fichaje...</div>
+        <!-- <div style="margin-top:10px; font-size:18px; color:#0066cc;">Registrando fichaje...</div> -->
+        <div style="margin-top:15px; font-size:26px; font-weight:bold; color:#0716eb;">Registrando fichaje...</div>
     </div>
 
     <div id="date"></div>
@@ -325,12 +357,129 @@
     document.getElementById('clearBtn').onclick = clearCanvas;
 
 
+    function setButtonsEnabled(enabled) {
+        const buttons = [
+            document.getElementById('toggleBtn'),
+            document.getElementById('searchBtn'),
+            document.getElementById('clearBtn'),
+            document.getElementById('ficharBtn')
+        ];
+        buttons.forEach(btn => {
+            if (btn) btn.disabled = !enabled;
+        });
+        document.getElementById('dniInput').disabled = !enabled;
+    }
+
 
     // FICHAR CON SPINNER Y MENSAJE DE ÉXITO
+    // document.getElementById('ficharBtn').onclick = async () => {
+    //     if (!employeeData) return;
+
+    //     // Mostrar spinner y mensaje
+    //     document.getElementById('spinner').style.display = 'block';
+    //     document.getElementById('statusMessage').textContent = '';
+    //     document.getElementById('ficharBtn').style.display = 'none';
+
+    //     try {
+    //         const base64 = canvas.toDataURL('image/png', 0.3);
+    //         const firmaResp = await fetch(scriptUrl, {
+    //             method: 'POST',
+    //             body: JSON.stringify({action: 'saveSignature', base64})
+    //         });
+    //         const firma = await firmaResp.json();
+    //         if (!firma.fileId) throw new Error('Error al guardar firma');
+
+    //         const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
+
+    //         const ahora = new Date();
+    //         const payload = {
+    //             action: 'saveCheckin',
+    //             date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
+    //             time: ahora.toTimeString().substr(0,5),
+    //             mode: mode,
+    //             dni: document.getElementById('dniInput').value,
+    //             name: `${employeeData.nombre} ${employeeData.apellido}`,
+    //             signature: formula,
+    //             schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
+    //             condition: employeeData.condicion,
+    //             hoja: employeeData.hoja
+    //         };
+
+    //         const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
+    //         const res = await resp.json();
+
+    //         if (res.success) {
+    //             // OCULTAR SPINNER
+    //             document.getElementById('spinner').style.display = 'none';
+
+    //             // MOSTRAR MENSAJE DE ÉXITO
+    //             const msg = document.getElementById('statusMessage');
+    //             msg.textContent = `FICHAJE REGISTRADO CON ÉXITO`;
+    //             msg.style.color = '#0b0';
+    //             msg.style.fontSize = '26px';
+
+    //             // Limpiar todo
+    //             document.getElementById('dniInput').value = '';
+    //             employeeData = null;
+    //             document.getElementById('employeeInfo').style.display = 'none';
+    //             document.getElementById('ficharBtn').style.display = 'none';
+    //             clearCanvas();
+
+    //             // Desaparecer mensaje después de 5 segundos
+    //             setTimeout(() => {
+    //                 msg.textContent = '';
+    //             }, 5000);
+
+    //         } else {
+    //             throw new Error('Error en el servidor');
+    //         }
+    //     } catch (err) {
+    //         document.getElementById('spinner').style.display = 'none';
+    //         document.getElementById('ficharBtn').style.display = 'block';
+    //         alert('Error al registrar fichaje: ' + err.message);
+    //     }
+    // };
+
+
+
+    // FICHAR - CON VALIDACIONES, SCROLL Y BLOQUEO DE BOTONES
     document.getElementById('ficharBtn').onclick = async () => {
         if (!employeeData) return;
 
-        // Mostrar spinner y mensaje
+        // 1. Validar que haya firma
+        // const canvas = document.getElementById('signaturePad');
+        // const blank = canvas.toDataURL('image/png', 0.3); // canvas vacío
+        // if (canvas.toDataURL('image/png', 0.3) === blank) {
+        //     alert('¡Por favor firme antes de fichar!');
+        //     return;
+        // }
+
+
+        // VALIDACIÓN DE FIRMA 100% SEGURA
+        const canvas = document.getElementById('signaturePad');
+        const context = canvas.getContext('2d');
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+        let hasPixels = false;
+        for (let i = 3; i < imageData.length; i += 4) { // miramos solo el canal alpha
+            if (imageData[i] > 20) { // si hay algún píxel con transparencia < 100% → hay firma
+                hasPixels = true;
+                break;
+            }
+        }
+        if (!hasPixels) {
+            alert('¡Por favor firme antes de fichar!');
+            return;
+        }        
+
+        
+        // 2. Scroll suave hasta arriba (para que se vea el spinner)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // 3. Bloquear todos los botones
+        setButtonsEnabled(false);
+
+        // 4. Mostrar spinner
         document.getElementById('spinner').style.display = 'block';
         document.getElementById('statusMessage').textContent = '';
         document.getElementById('ficharBtn').style.display = 'none';
@@ -364,14 +513,12 @@
             const res = await resp.json();
 
             if (res.success) {
-                // OCULTAR SPINNER
                 document.getElementById('spinner').style.display = 'none';
-
-                // MOSTRAR MENSAJE DE ÉXITO
+                
                 const msg = document.getElementById('statusMessage');
-                msg.textContent = `FICHAJE REGISTRADO CON ÉXITO`;
+                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!`;
                 msg.style.color = '#0b0';
-                msg.style.fontSize = '26px';
+                msg.style.fontSize = '28px';
 
                 // Limpiar todo
                 document.getElementById('dniInput').value = '';
@@ -380,18 +527,19 @@
                 document.getElementById('ficharBtn').style.display = 'none';
                 clearCanvas();
 
-                // Desaparecer mensaje después de 5 segundos
-                setTimeout(() => {
-                    msg.textContent = '';
-                }, 5000);
+                // Desaparecer mensaje en 5 segundos
+                setTimeout(() => { msg.textContent = ''; }, 5000);
 
             } else {
-                throw new Error('Error en el servidor');
+                throw new Error('Error del servidor');
             }
         } catch (err) {
             document.getElementById('spinner').style.display = 'none';
             document.getElementById('ficharBtn').style.display = 'block';
-            alert('Error al registrar fichaje: ' + err.message);
+            alert('Error al registrar fichaje: ' + (err.message || 'Intente nuevamente'));
+        } finally {
+            // 5. Reactivar botones SIEMPRE (incluso si hay error)
+            setButtonsEnabled(true);
         }
     };
 
