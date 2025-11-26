@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichajes Festival Doma 2026</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: #f3f3f1;
+            min-height: 100vh;
+            color: #000;
+        }
+        h1 {
+            font-size: 32px;
+            margin: 15px 0;
+            color: #fa802f;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        #date {
+            font-size: 26px;
+            margin: 10px 0;
+            color: #000;
+            font-weight: bold;
+        }
+        #time {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #0525f7;
+            text-shadow: 0 0 5px rgba(5,37,247,0.3);
+        }
+        #toggleBtn {
+            padding: 18px 50px;
+            font-size: 26px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            margin: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .green {background: #0b0;}
+        .red {background: #c00;}
+
+        .input-group {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+        #dniInput {
+            padding: 14px;
+            font-size: 20px;
+            width: 220px;
+            text-align: center;
+            border: 3px solid #333;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            background: white;
+            outline: none;
+        }
+        #searchBtn {
+            background: #333;
+            color: white;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background 0.2s;
+        }
+        #searchBtn:hover {background: #000;}
+
+        #employeeInfo {
+            font-size: 22px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px auto;
+            max-width: 420px;
+            display: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        canvas {
+            border: 4px solid #333;
+            background: #fff;
+            width: 340px;
+            height: 170px;
+            touch-action: none;
+            margin: 25px auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .btn-group {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        #clearBtn, #ficharBtn {
+            padding: 14px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+        #clearBtn {
+            background: #666;
+            color: white;
+            width: 220px;
+        }
+        #clearBtn:active, #ficharBtn:active {
+            transform: scale(0.95);
+        }
+        #ficharBtn {
+            background: #0066cc;
+            color: white;
+            font-size: 32px;
+            letter-spacing: 10px;
+            padding: 20px 50px;
+            width: 320px;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="title">Cargando...</h1>
+
+    <!-- MENSAJE DE ESTADO (éxito o procesando) -->
+    <div id="statusMessage" style="font-size:22px; font-weight:bold; margin:15px 0; min-height:30px; color:#0066cc;"></div>
+
+    <!-- SPINNER (oculto por defecto) -->
+    <div id="spinner" style="display:none; margin:20px 0;">
+        <svg width="50" height="50" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
+        </svg>
+        <div style="margin-top:10px; font-size:18px; color:#0066cc;">Registrando fichaje...</div>
+    </div>
+
+    <div id="date"></div>
+    <div id="time"></div>
+
+    <button id="toggleBtn" class="green">ENTRADA</button>
+
+    <div class="input-group">
+        <input type="number" id="dniInput" placeholder="Ingrese DNI" autocomplete="off">
+        <button id="searchBtn" title="Buscar">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div id="employeeInfo"></div>
+
+    <canvas id="signaturePad" width="340" height="170"></canvas>
+
+    <div class="btn-group">
+        <button id="clearBtn">Borrar firma</button>
+        <button id="ficharBtn">FICHAR</button>
+    </div>
+
+<script>
+    let config = {};
+    let scriptUrl = '';
+    let mode = 'E';
+    let employeeData = null;
+
+    // RELOJ
+    const updateClock = () => {
+        const n = new Date();
+        document.getElementById('date').textContent = `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()}`;
+        document.getElementById('time').textContent = n.toTimeString().substr(0,8);
+    };
+    setInterval(updateClock, 1000); updateClock();
+
+    // CARGAR CONFIG
+    async function loadConfig() {
+        const CONFIG_DEPLOY_ID = 'AKfycbxYIKa2mpB1UzrE9nmmyY7nYEjapJYjuebdClI2MMHl4TJYQ0u99L5B4ht9oBfBLJUm';
+        const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
+        const r = await fetch(url);
+        config = await r.json();
+        document.getElementById('title').textContent = config.O || 'Fichajes';
+        scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
+    }
+    loadConfig();
+
+    // TOGGLE ENTRADA/SALIDA
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+        mode = mode === 'E' ? 'S' : 'E';
+        document.getElementById('toggleBtn').textContent = mode === 'E' ? 'ENTRADA' : 'SALIDA';
+        document.getElementById('toggleBtn').className = mode === 'E' ? 'green' : 'red';
+        employeeData = null;
+        document.getElementById('employeeInfo').style.display = 'none';
+        document.getElementById('ficharBtn').style.display = 'none';
+        clearCanvas();
+    });
+
+    // BUSCAR EMPLEADO
+    async function buscarEmpleado(dni) {
+        if (!config.D || !config.E) return {error: 'Cargando config...'};
+
+        const url = `https://docs.google.com/spreadsheets/d/${config.D}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(config.E)}&tq=SELECT%20B%2CC%2CE%2CF%2CJ%2CK%2CQ%20WHERE%20D%20%3D%20${dni}`;
+        const resp = await fetch(url);
+        const texto = await resp.text();
+        const lineas = texto.trim().split('\n');
+        if (lineas.length < 2) return {error: 'DNI no encontrado'};
+
+        const valores = lineas[1].split(/","/).map(v => v.replace(/^"|"$/g, '').trim());
+        const [apellido, nombre, condicion, altaBaja, hEntrada, hSalida, hojaEmp] = valores;
+
+        if (altaBaja !== 'Alta') return {error: 'Empleado dado de baja'};
+        return {apellido, nombre, condicion, horarioEntrada: hEntrada || '--:--', horarioSalida: hSalida || '--:--', hoja: hojaEmp};
+    }
+
+    // BUSCAR AL HACER CLICK O ENTER
+    const buscar = async () => {
+        const dni = document.getElementById('dniInput').value.trim();
+        if (!dni) return alert('Ingrese DNI');
+        const emp = await buscarEmpleado(dni);
+        if (emp.error) {
+            alert(emp.error);
+            employeeData = null;
+            document.getElementById('employeeInfo').style.display = 'none';
+            document.getElementById('ficharBtn').style.display = 'none';
+            clearCanvas();
+            return;
+        }
+
+        employeeData = emp;
+        const horario = mode === 'E' ? emp.horarioEntrada : emp.horarioSalida;
+
+        document.getElementById('employeeInfo').innerHTML = 
+            `<strong style="font-size:28px;">${emp.nombre} ${emp.apellido}</strong><br>
+             Horario ${mode==='E'?'Entrada':'Salida'}: <b style="font-size:32px;color:#f76505;">${horario}</b><br>
+             ${emp.condicion} | ${emp.hoja}`;
+        document.getElementById('employeeInfo').style.display = 'block';
+        document.getElementById('ficharBtn').style.display = 'block';
+    };
+
+    document.getElementById('searchBtn').onclick = buscar;
+    document.getElementById('dniInput').addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            buscar();
+        }
+    });
+
+    // FIRMA
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    let dibujando = false;
+    const start = e => { dibujando = true; draw(e); };
+    const end = () => { dibujando = false; ctx.beginPath(); };
+    const draw = e => {
+        if (!dibujando) return;
+        const r = canvas.getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - r.left;
+        const y = (e.clientY || e.touches[0].clientY) - r.top;
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
+        ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+    };
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseout', end);
+    canvas.addEventListener('touchstart', e => {e.preventDefault(); start(e.touches[0]);});
+    canvas.addEventListener('touchmove', e => {e.preventDefault(); draw(e.touches[0]);});
+    canvas.addEventListener('touchend', end);
+
+    const clearCanvas = () => ctx.clearRect(0,0,canvas.width,canvas.height);
+    document.getElementById('clearBtn').onclick = clearCanvas;
+
+    // FICHAR
+    // document.getElementById('ficharBtn').onclick = async () => {
+    //     if (!employeeData) return;
+
+    //     const base64 = canvas.toDataURL('image/png', 0.3);
+    //     const firmaResp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify({action:'saveSignature', base64})});
+    //     const firma = await firmaResp.json();
+    //     if (!firma.fileId) return alert('Error al guardar firma');
+
+    //     const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
+
+    //     const ahora = new Date();
+    //     const payload = {
+    //         action: 'saveCheckin',
+    //         date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
+    //         time: ahora.toTimeString().substr(0,5),
+    //         mode: mode,
+    //         dni: document.getElementById('dniInput').value,
+    //         name: `${employeeData.nombre} ${employeeData.apellido}`,
+    //         signature: formula,
+    //         schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
+    //         condition: employeeData.condicion,
+    //         hoja: employeeData.hoja
+    //     };
+
+    //     const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
+    //     const res = await resp.json();
+
+    //     if (res.success) {
+    //         alert('FICHAJE REGISTRADO CON ÉXITO!');
+    //         document.getElementById('dniInput').value = '';
+    //         employeeData = null;
+    //         document.getElementById('employeeInfo').style.display = 'none';
+    //         document.getElementById('ficharBtn').style.display = 'none';
+    //         clearCanvas();
+    //     } else {
+    //         alert('Error al fichar');
+    //     }
+    // };
+
+
+    // FICHAR CON SPINNER Y MENSAJE DE ÉXITO
+    document.getElementById('ficharBtn').onclick = async () => {
+        if (!employeeData) return;
+
+        // Mostrar spinner y mensaje
+        document.getElementById('spinner').style.display = 'block';
+        document.getElementById('statusMessage').textContent = '';
+        document.getElementById('ficharBtn').style.display = 'none';
+
+        try {
+            const base64 = canvas.toDataURL('image/png', 0.3);
+            const firmaResp = await fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify({action: 'saveSignature', base64})
+            });
+            const firma = await firmaResp.json();
+            if (!firma.fileId) throw new Error('Error al guardar firma');
+
+            const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
+
+            const ahora = new Date();
+            const payload = {
+                action: 'saveCheckin',
+                date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
+                time: ahora.toTimeString().substr(0,5),
+                mode: mode,
+                dni: document.getElementById('dniInput').value,
+                name: `${employeeData.nombre} ${employeeData.apellido}`,
+                signature: formula,
+                schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
+                condition: employeeData.condicion,
+                hoja: employeeData.hoja
+            };
+
+            const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
+            const res = await resp.json();
+
+            if (res.success) {
+                // OCULTAR SPINNER
+                document.getElementById('spinner').style.display = 'none';
+
+                // MOSTRAR MENSAJE DE ÉXITO
+                const msg = document.getElementById('statusMessage');
+                msg.textContent = `FICHAJE REGISTRADO CON ÉXITO`;
+                msg.style.color = '#0b0';
+                msg.style.fontSize = '26px';
+
+                // Limpiar todo
+                document.getElementById('dniInput').value = '';
+                employeeData = null;
+                document.getElementById('employeeInfo').style.display = 'none';
+                document.getElementById('ficharBtn').style.display = 'none';
+                clearCanvas();
+
+                // Desaparecer mensaje después de 5 segundos
+                setTimeout(() => {
+                    msg.textContent = '';
+                }, 5000);
+
+            } else {
+                throw new Error('Error en el servidor');
+            }
+        } catch (err) {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('ficharBtn').style.display = 'block';
+            alert('Error al registrar fichaje: ' + err.message);
+        }
+    };
+
+</script>
+</body>
+</html>
