@@ -1,4 +1,4 @@
-<!-- 27112025_0939 -->
+<!-- 27112025_1231 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -251,7 +251,7 @@
 
     <button id="toggleBtn" class="green">ENTRADA</button>
 
-    <div class="input-group">
+    <!-- <div class="input-group">
         <input type="number" id="dniInput" placeholder="Ingrese DNI" autocomplete="off">
         <button id="searchBtn" title="Buscar">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -259,8 +259,23 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
         </button>
-    </div>
+    </div> -->
 
+
+    <div class="input-group">
+        <input type="number" 
+            id="dniInput" 
+            placeholder="Ingrese DNI" 
+            autocomplete="off"
+            maxlength="8"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,8)">
+        <button id="searchBtn" title="Buscar">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>    
 
     <!-- SPINNER DE BÚSQUEDA (naranja) - APARECE CUANDO BUSCA EL DNI -->
     <div id="searchSpinner" style="display:none; margin:20px 0;">
@@ -592,17 +607,21 @@
 
         try {
             // Subir firma
-            const base64 = canvas.toDataURL('image/png', 0.3);
-            const firmaResp = await fetch(scriptUrl, {
-                method: 'POST',
-                body: JSON.stringify({action: 'saveSignature', base64})
-            });
-            const firma = await firmaResp.json();
-            if (!firma.fileId) throw new Error('Error al guardar firma');
+            // const base64 = canvas.toDataURL('image/png', 0.3);
+            // const firmaResp = await fetch(scriptUrl, {
+            //     method: 'POST',
+            //     body: JSON.stringify({action: 'saveSignature', base64})
+            // });
+            // const firma = await firmaResp.json();
+            // if (!firma.fileId) throw new Error('Error al guardar firma');
 
-            const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
+            // const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
             
-            const urlfirmabk = `https://lh3.googleusercontent.com/d/${firma.fileId}`;
+            // const urlfirmabk = `https://lh3.googleusercontent.com/d/${firma.fileId}`;
+
+            
+            const base64Completo = canvas.toDataURL('image/png', 0.6); // calidad decente
+
 
             const ahora = new Date();
             const horaActual = ahora.toTimeString().substr(0,5); // HH:MM
@@ -655,6 +674,8 @@
                 ipAddress = 'Sin conexión';
             }
 
+            //para ver la firma en el shhet
+            //=SI(H2<>""; IMAGE(H2; 4; 200; 300); "")
 
             // === ENVÍO DEL FICHAJE CON OBSERVACIONES ===
             const payload = {
@@ -664,7 +685,8 @@
                 mode: mode,
                 dni: document.getElementById('dniInput').value,
                 name: `${employeeData.apellido} ${employeeData.nombre}`,
-                signature: formula,
+                //signature: formula,
+                signature: base64Completo,
                 schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
                 condition: employeeData.condicion,
                 hoja: employeeData.hoja,
@@ -672,7 +694,8 @@
                 observaciones: observaciones || 'ok',  // ← envía "OK" si no hay nada
                 hojabk: config.H,
                 nomhojabk: config.I,
-                urlfirmabk: urlfirmabk,
+                //urlfirmabk: urlfirmabk,
+                urlfirmabk: '',
                 ip: ipAddress,
                 dispositivo: `userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`
                 //device: `${deviceInfoGlobal.fingerprint}|${deviceInfoGlobal.ip}|${deviceInfoGlobal.screen}|${deviceInfoGlobal.platform}|${deviceInfoGlobal.connection}`
