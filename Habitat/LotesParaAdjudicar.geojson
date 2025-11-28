@@ -6283,7 +6283,7 @@
         "id": 164,
         "lote": "104",
         "manzana": "113",
-        "estado": "Disponible"
+        "estado": "Adjudicado"
       },
       "geometry": {
         "type": "Polygon",
