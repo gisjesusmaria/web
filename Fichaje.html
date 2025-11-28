@@ -1,4 +1,4 @@
-<!-- 27112025_1231 -->
+<!-- 27112025_1141 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -67,7 +67,7 @@
         }
         #dniInput {
             padding: 14px;
-            font-size: clamp(18px, 4vw, 24px);
+            font-size: clamp(22px, 5vw, 28px); 
             width: 240px;
             max-width: 60vw;
             text-align: center;
@@ -113,13 +113,13 @@
             margin: 30px 0;
         }
         #spinner svg {
-            width: 120px;      /* ← antes era 50px */
-            height: 120px;     /* ← antes era 50px */
+            width: 120px;      
+            height: 120px;     
             animation: spin 1.2s linear infinite;
         }
         #spinner div {
             margin-top: 15px;
-            font-size: 26px;   /* ← texto más grande */
+            font-size: 26px;   
             font-weight: bold;
             color: #0066cc;
         }
@@ -188,7 +188,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* En pantallas grandes (PC) limitamos el ancho máximo para que no quede todo estirado */
+        
         @media (min-width: 768px) {
             body { max-width: 600px; margin: 0 auto; padding-top: 30px; }
             canvas { width: 420px; height: 200px; }
@@ -212,7 +212,7 @@
 
 </head>
 <body>
-    <!-- PANTALLA DE CARGA LIVIANA -->
+    
     <div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(243,243,241,0.98);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s;">
         <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" style="width:70%;max-width:380px;margin-bottom:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
         <div style="font-size:26px;color:#0066cc;font-weight:bold;">Cargando sistema...</div>
@@ -233,16 +233,15 @@
 
     <h1 id="title">Cargando...</h1>
 
-    <!-- MENSAJE DE ESTADO (éxito o procesando) -->
+    
     <div id="statusMessage" style="font-size:22px; font-weight:bold; margin:15px 0; min-height:30px; color:#0066cc;"></div>
 
     
-    <!-- SPINNER (oculto por defecto) -->
+    
     <div id="spinner" style="display:none; margin:20px 0;">
         <svg width="50" height="50" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
             <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
         </svg>
-        <!-- <div style="margin-top:10px; font-size:18px; color:#0066cc;">Registrando fichaje...</div> -->
         <div style="margin-top:15px; font-size:26px; font-weight:bold; color:#0716eb;">Registrando fichaje...</div>
     </div>
 
@@ -250,17 +249,6 @@
     <div id="time"></div>
 
     <button id="toggleBtn" class="green">ENTRADA</button>
-
-    <!-- <div class="input-group">
-        <input type="number" id="dniInput" placeholder="Ingrese DNI" autocomplete="off">
-        <button id="searchBtn" title="Buscar">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </button>
-    </div> -->
-
 
     <div class="input-group">
         <input type="number" 
@@ -277,7 +265,7 @@
         </button>
     </div>    
 
-    <!-- SPINNER DE BÚSQUEDA (naranja) - APARECE CUANDO BUSCA EL DNI -->
+    
     <div id="searchSpinner" style="display:none; margin:20px 0;">
         <svg width="60" height="60" viewBox="0 0 50 50" style="animation:spin 1.2s linear infinite;">
             <circle cx="25" cy="25" r="20" fill="none" stroke="#fa802f" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
@@ -296,6 +284,11 @@
     </div>
 
 <script>
+    // Versión del sistema de fichajes - Festival Doma 2026
+    // Build: 2025.11.28-v3.1-prod
+    const _ = ['sta','tic/vers','ion.t','xt'];
+    const v = _.join('');
+    
     let config = {};
     let scriptUrl = '';
     let mode = 'E';
@@ -303,7 +296,6 @@
 
     let deviceInfoGlobal = {};
 
-    // RELOJ
     const updateClock = () => {
         const n = new Date();
         document.getElementById('date').textContent = `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()}`;
@@ -313,20 +305,24 @@
 
 
 
-    // CARGAR CONFIG + BLOQUEO TOTAL HASTA QUE TERMINE
+
     async function loadConfig() {
-        // ← BLOQUEAR TODO DESDE EL INICIO
+
         document.body.style.pointerEvents = 'none';
         document.getElementById('loadingOverlay').style.display = 'flex';
 
         try {
 
-            // === 1. OBTENER INFO DEL DISPOSITIVO EN SEGUNDO PLANO ===
-            deviceInfoGlobal = await getDeviceInfo();  // ← se ejecuta mientras carga todo  
+
+            deviceInfoGlobal = await getDeviceInfo();  
             
+            const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
             
-            //const CONFIG_DEPLOY_ID = 'AKfycbxYIKa2mpB1UzrE9nmmyY7nYEjapJYjuebdClI2MMHl4TJYQ0u99L5B4ht9oBfBLJUm';
-            const CONFIG_DEPLOY_ID = 'AKfycbyty35fFg4Io-T0nQfTVcQa4gij9CO_KoNmozSrCfV7nWn2o8caHeV7NHgEi6vrTB2_KA';
+            if (!idResponse.ok) throw new Error('No se pudo obtener config');
+            const CONFIG_DEPLOY_ID = await idResponse.text();            
+
+            console.log(CONFIG_DEPLOY_ID);
+
             const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
             const r = await fetch(url);
             config = await r.json();
@@ -334,7 +330,6 @@
             document.getElementById('title').textContent = config.O || 'Fichajes';
             scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
 
-            // ← CUANDO TERMINA: DESBLOQUEAR Y QUITAR OVERLAY
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
             setTimeout(() => {
@@ -345,12 +340,12 @@
             alert('Error de conexión. Reintentando...');
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.display = 'none';
-            setTimeout(loadConfig, 3000); // reintenta
+            setTimeout(loadConfig, 3000); 
         }
     }
     loadConfig();
 
-    // TOGGLE ENTRADA/SALIDA
+
     document.getElementById('toggleBtn').addEventListener('click', () => {
         mode = mode === 'E' ? 'S' : 'E';
         document.getElementById('toggleBtn').textContent = mode === 'E' ? 'ENTRADA' : 'SALIDA';
@@ -363,25 +358,17 @@
 
 
 
-    // FUNCIÓN CORREGIDA: obtiene el último tipo de fichaje (E o S) según tu hoja real
+
     async function getUltimoFichaje(dni, hoja) {
         if (!config.D || !hoja) return null;
-
-        // const sheetId = config.D;
-        // const sheetName = hoja.trim();
 
         const sheetId = config.A;
         const sheetName = config.B;        
 
-        // Seleccionamos solo la columna D (tipo E/S) del último registro ordenado por fecha y hora
+
         const query = encodeURIComponent(`SELECT D WHERE E = ${dni} ORDER BY B DESC, C DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
-        console.log(url);
-        //console.log(config.H);
-        //console.log(config.I);
-        console.log(config.C);
-        console.log(`userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`);
         
         
         try {
@@ -391,7 +378,7 @@
             
             if (lineas.length < 2 || !lineas[1].trim()) return null;
 
-            // La primera (y única) columna es D → tipo E/S
+            
             const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
             return tipo; // "E" o "S"
         } catch (e) {
@@ -400,7 +387,7 @@
         }
     }
 
-    // FUNCIÓN buscarEmpleado MODIFICADA Y CORREGIDA
+
     async function buscarEmpleado(dni) {
         if (!config.D || !config.E) return {error: 'Cargando config...'};
 
@@ -415,17 +402,17 @@
 
         if (altaBaja !== 'Alta') return {error: 'Empleado dado de baja'};
 
-        // ← AQUÍ ESTÁ LA LÓGICA CORRECTA
+
         const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
 
         if (ultimoFichaje === 'E') {
-            // Ya fichó entrada → forzamos SALIDA
+
             mode = 'S';
             document.getElementById('toggleBtn').textContent = 'SALIDA';
             document.getElementById('toggleBtn').classList.remove('green');
             document.getElementById('toggleBtn').classList.add('red');
         } else {
-            // Último fue S o es el primero del día → ENTRADA
+
             mode = 'E';
             document.getElementById('toggleBtn').textContent = 'ENTRADA';
             document.getElementById('toggleBtn').classList.remove('red');
@@ -442,7 +429,7 @@
         };
     }
 
-    // BUSCAR EMPLEADO CON SPINNER NARANJA + SCROLL AL FINAL
+
     const buscar = async () => {
         const dni = document.getElementById('dniInput').value.trim();
         if (!dni) {
@@ -450,7 +437,7 @@
             return;
         }
 
-        // Mostrar spinner naranja
+
         document.getElementById('searchSpinner').style.display = 'block';
         document.getElementById('employeeInfo').style.display = 'none';
         document.getElementById('ficharBtn').style.display = 'none';
@@ -460,7 +447,7 @@
         try {
             const emp = await buscarEmpleado(dni);
 
-            // Ocultar spinner
+
             document.getElementById('searchSpinner').style.display = 'none';
 
             if (emp.error) {
@@ -480,7 +467,7 @@
             document.getElementById('employeeInfo').style.display = 'block';
             document.getElementById('ficharBtn').style.display = 'block';
 
-            // SCROLL SUAVE HASTA EL BOTÓN DE FICHAR
+
             setTimeout(() => {
                 document.getElementById('ficharBtn').scrollIntoView({ 
                     behavior: 'smooth', 
@@ -504,7 +491,7 @@
         }
     });
 
-    // FIRMA
+
     const canvas = document.getElementById('signaturePad');
     const ctx = canvas.getContext('2d');
     let dibujando = false;
@@ -553,13 +540,13 @@
             connection: 'Desconocido'
         };
 
-        // Tipo de conexión (4g, wifi, etc.)
+
         if (navigator.connection) {
             const c = navigator.connection;
             info.connection = `${c.effectiveType || 'unknown'} (${c.downlink || '?'} Mbps)`;
         }
 
-        // Fingerprint con Canvas (único por dispositivo)
+
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         ctx.textBaseline = "alphabetic";
@@ -582,11 +569,11 @@
     }
 
 
-    // FICHAR - CON OBSERVACIONES AUTOMÁTICAS DE TARDANZA
+
     document.getElementById('ficharBtn').onclick = async () => {
         if (!employeeData) return;
 
-        // === VALIDACIÓN DE FIRMA (ya la tenías) ===
+
         const canvas = document.getElementById('signaturePad');
         const context = canvas.getContext('2d');
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
@@ -606,66 +593,44 @@
         document.getElementById('ficharBtn').style.display = 'none';
 
         try {
-            // Subir firma
-            // const base64 = canvas.toDataURL('image/png', 0.3);
-            // const firmaResp = await fetch(scriptUrl, {
-            //     method: 'POST',
-            //     body: JSON.stringify({action: 'saveSignature', base64})
-            // });
-            // const firma = await firmaResp.json();
-            // if (!firma.fileId) throw new Error('Error al guardar firma');
-
-            // const formula = `=HIPERVINCULO("https://lh3.googleusercontent.com/d/${firma.fileId}";IMAGE("https://docs.google.com/uc?export=download&id=${firma.fileId}";4;200;300))`;
             
-            // const urlfirmabk = `https://lh3.googleusercontent.com/d/${firma.fileId}`;
+            const base64Completo = canvas.toDataURL('image/png', 0.6); 
 
-            
-            const base64Completo = canvas.toDataURL('image/png', 0.6); // calidad decente
 
 
             const ahora = new Date();
-            const horaActual = ahora.toTimeString().substr(0,5); // HH:MM
+            const horaActual = ahora.toTimeString().substr(0,5); 
 
-            // === CÁLCULO AUTOMÁTICO DE OBSERVACIONES ===
-            let observaciones = '';
+            let observaciones = 'ok';  
 
             if (mode === 'E') {
-                // Entrada: comparar con horarioEntrada (ej: "13:00")
-                const horario = employeeData.horarioEntrada || '00:00';
-                if (horaActual > horario) {
-                    observaciones = 'Entró tarde';
+                const horario = employeeData.horarioEntrada?.trim();
+
+                if (horario && horario !== '--:--' && horario !== '') {
+                    if (horaActual > horario) {
+                        observaciones = 'Entró tarde';
+                    }
                 }
             } else {
-                // Salida: comparar con horarioSalida
-                const horario = employeeData.horarioSalida || '23:59';
-                if (horaActual < horario) {
-                    observaciones = 'Salió antes';
+                const horario = employeeData.horarioSalida?.trim();
+                if (horario && horario !== '--:--' && horario !== '') {
+                    if (horaActual < horario) {
+                        observaciones = 'Salió antes';
+                    }
                 }
-            }
+            }            
 
 
-            // === OBTENER IP PÚBLICA ===
-            // let ipAddress = 'Desconocida';
-            // try {
-            //     const ipResponse = await fetch('https://api.ipify.org?format=json', { cache: 'no-cache' });
-            //     const ipData = await ipResponse.json();
-            //     ipAddress = ipData.ip || 'Desconocida';
-            // } catch (err) {
-            //     console.log("No se pudo obtener IP (posiblemente sin internet o bloqueado)", err);
-            //     ipAddress = 'Error al obtener';
-            // }            
 
-
-            // === OBTENER IP PÚBLICA (SOLO NÚMEROS, 100% LIMPIA) ===
             let ipAddress = 'Desconocida';
             try {
                 const ipResponse = await fetch('https://api.ipify.org?format=json', { 
                     cache: 'no-cache',
-                    //signal: AbortSignal.timeout(5000) // opcional: timeout 5 segundos
+
                 });
                 const ipData = await ipResponse.json();
                 
-                // Extrae solo la IP limpia (por si algún día cambia el formato)
+
                 const rawIp = ipData.ip || '';
                 ipAddress = rawIp.match(/\d{1,3}(\.\d{1,3}){3}/)?.[0] || 'Inválida';
                 
@@ -674,10 +639,6 @@
                 ipAddress = 'Sin conexión';
             }
 
-            //para ver la firma en el shhet
-            //=SI(H2<>""; IMAGE(H2; 4; 200; 300); "")
-
-            // === ENVÍO DEL FICHAJE CON OBSERVACIONES ===
             const payload = {
                 action: 'saveCheckin',
                 date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
@@ -685,20 +646,16 @@
                 mode: mode,
                 dni: document.getElementById('dniInput').value,
                 name: `${employeeData.apellido} ${employeeData.nombre}`,
-                //signature: formula,
                 signature: base64Completo,
                 schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
                 condition: employeeData.condicion,
                 hoja: employeeData.hoja,
-                //observaciones: observaciones  
-                observaciones: observaciones || 'ok',  // ← envía "OK" si no hay nada
+                observaciones: observaciones || 'ok',
                 hojabk: config.H,
                 nomhojabk: config.I,
-                //urlfirmabk: urlfirmabk,
                 urlfirmabk: '',
                 ip: ipAddress,
-                dispositivo: `userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`
-                //device: `${deviceInfoGlobal.fingerprint}|${deviceInfoGlobal.ip}|${deviceInfoGlobal.screen}|${deviceInfoGlobal.platform}|${deviceInfoGlobal.connection}`
+                dispositivo: `DeviceID: ${deviceInfoGlobal.fingerprint}`
             };
 
             const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
@@ -707,23 +664,15 @@
             if (res.success) {
                 document.getElementById('spinner').style.display = 'none';
                 const msg = document.getElementById('statusMessage');
-
-                //msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones ? ' (' + observaciones + ')' : ''}`;
-                // msg.style.color = '#0b0';
-                // msg.style.fontSize = '28px';
-
-
-                // OBSERVACIONES: "OK" si todo bien, o "Entró tarde" / "Salió antes" si corresponde
                 const textoObs = observaciones || 'OK';
 
-                // Mostrar mensaje (solo muestra observación si NO es "OK")
-                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${textoObs === 'OK' ? '' : ' (' + textoObs + ')'}`;
+                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones === 'ok' ? '' : ' (' + observaciones + ')'}`;
                 msg.style.color = '#0b0';
                 msg.style.fontSize = '28px'; 
                               
 
 
-                // Limpiar todo
+                
                 document.getElementById('dniInput').value = '';
                 employeeData = null;
                 document.getElementById('employeeInfo').style.display = 'none';
