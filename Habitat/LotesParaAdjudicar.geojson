@@ -6067,7 +6067,7 @@
         "id": 143,
         "lote": "113",
         "manzana": "113",
-        "estado": "Disponible"
+        "estado": "Adjudicado"
       },
       "geometry": {
         "type": "Polygon",
