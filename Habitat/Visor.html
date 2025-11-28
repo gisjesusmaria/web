@@ -1,0 +1,274 @@
+<!-- 24112025_1500 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Aires de Campo - Visor Público</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@3.0.0/Control.FullScreen.css" />    
+<style>
+    body,html,#map{
+        margin:0;
+        padding:0;
+        height:100%;
+        width:100%;
+        overflow:hidden
+    }
+    .lote-label{
+        background:transparent!important;
+        border:none!important;
+        box-shadow:none!important;
+        font-weight:bold!important;
+        color:white!important;
+        text-shadow:2px 2px 5px black!important;
+        font-size:18px!important;
+        pointer-events:none;
+        text-align:center;
+    }
+
+
+    .leaflet-control-zoom { display: none !important; }
+
+
+    .leaflet-control-layers { border-radius: 8px !important; }
+    .leaflet-control-layers-toggle {
+        width: 44px !important;
+        height: 44px !important;
+        background-color: rgb(253, 251, 251) !important;
+        background-size: 26px !important;
+        border-radius: 8px !important;
+        backdrop-filter: blur(4px);
+    }
+
+    
+    .leaflet-control-fullscreen a {
+        width: 64px !important;
+        height: 64px !important;
+        background-color: rgba(0,0,0,0.8) !important;
+        background-size: 36px 36px !important;
+        border-radius: 12px !important;
+        border: 3px solid rgba(255,255,255,0.3) !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important;
+    }
+    .leaflet-control-fullscreen a:hover {
+        background-color: rgba(0,0,0,0.95) !important;
+        transform: scale(1.1);
+    }
+
+    .muni-logo-control {
+        text-align: center;
+        margin-top: 8px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .muni-logo-wrapper {
+        background: rgba(255,255,255,0.9);
+        padding: 4px 6px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+
+    .muni-logo-img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease-in-out; 
+    }
+
+
+    .muni-datetime {
+        margin-top: 4px;
+        background: #ffffff;
+        color: #000000;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        display: inline-block;
+        min-width: 150px;
+    }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen@3.0.0/Control.FullScreen.js"></script>
+
+<script>
+
+
+let map = L.map('map', {
+    zoomControl: false,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+        position: 'topleft'
+    }
+}).setView([-30.981827, -64.126476], 19);
+
+const googleSat = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    {maxZoom:22}
+);
+const osm = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:19}
+);
+
+googleSat.addTo(map); 
+
+L.control.layers({
+    "Google Satellite": googleSat,
+    "OpenStreetMap": osm
+}, null, {
+    position: 'topright',
+    collapsed: true
+}).addTo(map);
+
+
+
+let lotesLayer = L.geoJSON(null, {
+    style: f => {
+        const e = (f.properties?.estado || "Disponible").trim();
+        if (e === "Adjudicado") {
+            return {
+                fillColor:"#ff5722",
+                color:"#e64a19",
+                weight:3,
+                fillOpacity:0.95
+            };
+        }
+        if (e === "No disponible") {
+            return {
+                fillColor:"#9c27b0",
+                color:"#7b1fa2",
+                weight:1.5,
+                fillOpacity:0.8
+            };
+        }
+        return {
+            fillColor:"#4caf50",
+            color:"#388e3c",
+            weight:1.5,
+            fillOpacity:0.7
+        };
+    },
+    onEachFeature: (f, layer) => {
+        const p = f.properties || {};
+        if (p.estado === "Disponible" && p.manzana && p.lote) {
+            layer.bindTooltip(`${p.manzana}-${p.lote}`, {
+                permanent: true,
+                direction: 'center',
+                className: 'lote-label'
+            });
+            const ctrl = () => {
+                if (map.getZoom() >= 19) layer.openTooltip();
+                else layer.closeTooltip();
+            };
+            ctrl();
+            map.on('zoomend', ctrl);
+        }
+    }
+}).addTo(map);
+
+
+const MuniLogoControl = L.Control.extend({
+    onAdd: function (map) {
+        const div = L.DomUtil.create('div', 'muni-logo-control');
+        div.innerHTML = `
+            <div class="muni-logo-wrapper">
+                <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png"
+                     alt="Municipalidad de Jesús María" class="muni-logo-img">
+            </div>
+            <div class="muni-datetime" id="muni-datetime"></div>
+        `;
+
+        L.DomEvent.disableClickPropagation(div);
+        return div;
+    },
+    onRemove: function (map) {}
+});
+
+map.addControl(new MuniLogoControl({ position: 'topright' }));
+
+function actualizarFechaHora() {
+    const el = document.getElementById('muni-datetime');
+    if (!el) return;
+
+    const ahora = new Date();
+    const pad = n => String(n).padStart(2, '0');
+
+    const dia = pad(ahora.getDate());
+    const mes = pad(ahora.getMonth() + 1);
+    const anio = ahora.getFullYear();
+    const horas = pad(ahora.getHours());
+    const mins  = pad(ahora.getMinutes());
+    const segs  = pad(ahora.getSeconds());
+
+    el.textContent = `${dia}/${mes}/${anio} - ${horas}:${mins}:${segs}`;
+}
+
+
+actualizarFechaHora();
+
+setInterval(actualizarFechaHora, 1000);
+
+const BACKEND_URL = "https://green-tree-99ab.gisjesusmaria.workers.dev/";
+
+window.lastUsedSha = "";
+
+async function refrescarLotes() {
+    try {
+        const res = await fetch(BACKEND_URL, {
+            cache: 'no-store' 
+        });
+
+        if (!res.ok) {
+            console.error("Error al consultar backend:", res.status, res.statusText);
+            return;
+        }
+
+        const info = await res.json();
+        const latestSha = info.sha;
+        const datos = info.data;  
+
+        if (!window.lastUsedSha) window.lastUsedSha = "";
+
+
+        if (latestSha === window.lastUsedSha) {
+            console.log("Sin cambios aún:", latestSha, new Date().toLocaleTimeString());
+            return;
+        }
+
+
+        const c = map.getCenter();
+        const z = map.getZoom();
+        lotesLayer.clearLayers().addData(datos);
+        map.setView(c, z, { animate:false });
+
+        window.lastUsedSha = latestSha;
+        console.log("¡MAPA ACTUALIZADO!", latestSha, new Date().toLocaleTimeString());
+
+    } catch (e) {
+        console.error("Error al actualizar lotes desde backend:", e);
+    }
+}
+
+
+refrescarLotes();
+
+
+let intervalo = 100000; 
+window.refreshInterval = setInterval(refrescarLotes, intervalo);
+</script>
+
+</body>
+</html>
