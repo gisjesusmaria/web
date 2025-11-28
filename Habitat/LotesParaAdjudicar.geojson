@@ -5675,7 +5675,7 @@
         "id": 4,
         "lote": "108",
         "manzana": "114",
-        "estado": "Disponible"
+        "estado": "Adjudicado"
       },
       "geometry": {
         "type": "Polygon",
