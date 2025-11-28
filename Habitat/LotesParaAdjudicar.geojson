@@ -6031,7 +6031,7 @@
         "id": 141,
         "lote": "115",
         "manzana": "113",
-        "estado": "Disponible"
+        "estado": "Adjudicado"
       },
       "geometry": {
         "type": "Polygon",
