@@ -1,4 +1,4 @@
-<!-- 28112025_1141 -->
+<!-- 02122025_1036 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -67,7 +67,7 @@
         }
         #dniInput {
             padding: 14px;
-            font-size: clamp(22px, 5vw, 28px); 
+            font-size: clamp(20px, 4.5vw, 26px);
             width: 240px;
             max-width: 60vw;
             text-align: center;
@@ -188,7 +188,7 @@
             to { transform: rotate(360deg); }
         }
 
-        
+
         @media (min-width: 768px) {
             body { max-width: 600px; margin: 0 auto; padding-top: 30px; }
             canvas { width: 420px; height: 200px; }
@@ -212,7 +212,7 @@
 
 </head>
 <body>
-    
+
     <div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(243,243,241,0.98);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s;">
         <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" style="width:70%;max-width:380px;margin-bottom:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
         <div style="font-size:26px;color:#0066cc;font-weight:bold;">Cargando sistema...</div>
@@ -296,6 +296,7 @@
 
     let deviceInfoGlobal = {};
 
+    
     const updateClock = () => {
         const n = new Date();
         document.getElementById('date').textContent = `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()}`;
@@ -307,42 +308,54 @@
 
 
     async function loadConfig() {
-
         document.body.style.pointerEvents = 'none';
         document.getElementById('loadingOverlay').style.display = 'flex';
 
         try {
-
-
             deviceInfoGlobal = await getDeviceInfo();  
             
+
             const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
-            
-            if (!idResponse.ok) throw new Error('No se pudo obtener config');
-            const CONFIG_DEPLOY_ID = await idResponse.text();            
+            if (!idResponse.ok) throw new Error('Worker offline');
+            const deployText = await idResponse.text();           
+            const DEPLOY_ID = deployText.trim();                  
 
-            console.log(CONFIG_DEPLOY_ID);
 
-            const url = `https://script.google.com/macros/s/${CONFIG_DEPLOY_ID}/exec?action=getConfig`;
-            const r = await fetch(url);
-            config = await r.json();
 
-            document.getElementById('title').textContent = config.O || 'Fichajes';
-            scriptUrl = `https://script.google.com/macros/s/${config.C}/exec`;
+            scriptUrl = `https://script.google.com/macros/s/${DEPLOY_ID}/exec`;
+
+
+            const cfgResp = await fetch(scriptUrl, { cache: 'no-cache' });
+            if (!cfgResp.ok) throw new Error('Error cargando config');
+            const serverConfig = await cfgResp.json();
+
+
+            config = {
+                A: serverConfig.A,
+                B: serverConfig.B,                
+                D: serverConfig.D,
+                E: serverConfig.E,
+                O: serverConfig.O || 'Fichajes'
+            };
+
+            document.getElementById('title').textContent = config.O;
+
 
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            }, 400);
+            setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 400);
 
         } catch (err) {
+            console.error(err);
             alert('Error de conexión. Reintentando...');
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.display = 'none';
-            setTimeout(loadConfig, 3000); 
+            setTimeout(loadConfig, 3000);
         }
     }
+
+
+
     loadConfig();
 
 
@@ -362,6 +375,7 @@
     async function getUltimoFichaje(dni, hoja) {
         if (!config.D || !hoja) return null;
 
+
         const sheetId = config.A;
         const sheetName = config.B;        
 
@@ -369,6 +383,7 @@
         const query = encodeURIComponent(`SELECT D WHERE E = ${dni} ORDER BY B DESC, C DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
+        console.log(`userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`);
         
         
         try {
@@ -378,16 +393,16 @@
             
             if (lineas.length < 2 || !lineas[1].trim()) return null;
 
-            
+
             const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
-            return tipo; // "E" o "S"
+            return tipo; 
         } catch (e) {
             console.error("Error consultando último fichaje", e);
             return null;
         }
     }
 
-
+    
     async function buscarEmpleado(dni) {
         if (!config.D || !config.E) return {error: 'Cargando config...'};
 
@@ -402,17 +417,17 @@
 
         if (altaBaja !== 'Alta') return {error: 'Empleado dado de baja'};
 
-
+        
         const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
 
         if (ultimoFichaje === 'E') {
-
+        
             mode = 'S';
             document.getElementById('toggleBtn').textContent = 'SALIDA';
             document.getElementById('toggleBtn').classList.remove('green');
             document.getElementById('toggleBtn').classList.add('red');
         } else {
-
+        
             mode = 'E';
             document.getElementById('toggleBtn').textContent = 'ENTRADA';
             document.getElementById('toggleBtn').classList.remove('red');
@@ -429,7 +444,7 @@
         };
     }
 
-
+    
     const buscar = async () => {
         const dni = document.getElementById('dniInput').value.trim();
         if (!dni) {
@@ -437,7 +452,7 @@
             return;
         }
 
-
+    
         document.getElementById('searchSpinner').style.display = 'block';
         document.getElementById('employeeInfo').style.display = 'none';
         document.getElementById('ficharBtn').style.display = 'none';
@@ -447,7 +462,7 @@
         try {
             const emp = await buscarEmpleado(dni);
 
-
+          
             document.getElementById('searchSpinner').style.display = 'none';
 
             if (emp.error) {
@@ -467,7 +482,7 @@
             document.getElementById('employeeInfo').style.display = 'block';
             document.getElementById('ficharBtn').style.display = 'block';
 
-
+            
             setTimeout(() => {
                 document.getElementById('ficharBtn').scrollIntoView({ 
                     behavior: 'smooth', 
@@ -491,7 +506,7 @@
         }
     });
 
-
+    
     const canvas = document.getElementById('signaturePad');
     const ctx = canvas.getContext('2d');
     let dibujando = false;
@@ -540,13 +555,13 @@
             connection: 'Desconocido'
         };
 
-
+        
         if (navigator.connection) {
             const c = navigator.connection;
             info.connection = `${c.effectiveType || 'unknown'} (${c.downlink || '?'} Mbps)`;
         }
 
-
+        
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         ctx.textBaseline = "alphabetic";
@@ -569,11 +584,11 @@
     }
 
 
-
+    
     document.getElementById('ficharBtn').onclick = async () => {
         if (!employeeData) return;
 
-
+        
         const canvas = document.getElementById('signaturePad');
         const context = canvas.getContext('2d');
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
@@ -664,15 +679,13 @@
             if (res.success) {
                 document.getElementById('spinner').style.display = 'none';
                 const msg = document.getElementById('statusMessage');
+
                 const textoObs = observaciones || 'OK';
 
                 msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones === 'ok' ? '' : ' (' + observaciones + ')'}`;
                 msg.style.color = '#0b0';
                 msg.style.fontSize = '28px'; 
                               
-
-
-                
                 document.getElementById('dniInput').value = '';
                 employeeData = null;
                 document.getElementById('employeeInfo').style.display = 'none';
@@ -695,4 +708,3 @@
 </script>
 </body>
 </html>
-
