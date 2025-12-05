@@ -1,4 +1,4 @@
-<!-- 02122025_1036 -->
+<!-- 05122025_0820 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -313,7 +313,6 @@
 
         try {
             deviceInfoGlobal = await getDeviceInfo();  
-            
 
             const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
             if (!idResponse.ok) throw new Error('Worker offline');
@@ -321,25 +320,16 @@
             const DEPLOY_ID = deployText.trim();                  
 
 
-
             scriptUrl = `https://script.google.com/macros/s/${DEPLOY_ID}/exec`;
 
+            const cfgRes = await fetch(scriptUrl + '?action=config', { cache: 'no-cache' });
+            
+            config = await cfgRes.json();
 
-            const cfgResp = await fetch(scriptUrl, { cache: 'no-cache' });
-            if (!cfgResp.ok) throw new Error('Error cargando config');
-            const serverConfig = await cfgResp.json();
+            sheetId = config.A;      
+            sheetName = config.B;    
 
-
-            config = {
-                A: serverConfig.A,
-                B: serverConfig.B,                
-                D: serverConfig.D,
-                E: serverConfig.E,
-                O: serverConfig.O || 'Fichajes'
-            };
-
-            document.getElementById('title').textContent = config.O;
-
+            document.getElementById('title').textContent = config.O || 'Fichajes';
 
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
@@ -451,6 +441,9 @@
             alert('Ingrese DNI');
             return;
         }
+
+        console.log(config.D);
+        console.log(config.E);
 
     
         document.getElementById('searchSpinner').style.display = 'block';
@@ -666,12 +659,12 @@
                 condition: employeeData.condicion,
                 hoja: employeeData.hoja,
                 observaciones: observaciones || 'ok',
-                hojabk: config.H,
-                nomhojabk: config.I,
-                urlfirmabk: '',
                 ip: ipAddress,
                 dispositivo: `DeviceID: ${deviceInfoGlobal.fingerprint}`
             };
+
+            console.log(payload.hojabk);
+            console.log(payload.nomhojabk);
 
             const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
             const res = await resp.json();
