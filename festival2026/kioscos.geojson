@@ -11127,10 +11127,10 @@
         "nomenc": "DP-ARTESANOS-08",
         "medidas": "3.00 x 3.00",
         "rubro": "EMPRENDEDORES / ARTESANOS.",
-        "titular.nombre": "",
-        "titular.dni": "",
-        "titular.tel": "",
-        "montoadj": null,
+        "titular.nombre": "ZULIANI CAMILA SIOMNE",
+        "titular.dni": "38886047",
+        "titular.tel": "3525563738",
+        "montoadj": "700000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11161,7 +11161,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 191
       },
       "geometry": {
