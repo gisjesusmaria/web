@@ -1,4 +1,4 @@
-<!-- 05122025_0820 -->
+<!-- 07122025_2126 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -319,10 +319,10 @@
             const deployText = await idResponse.text();           
             const DEPLOY_ID = deployText.trim();                  
 
-
             scriptUrl = `https://script.google.com/macros/s/${DEPLOY_ID}/exec`;
 
             const cfgRes = await fetch(scriptUrl + '?action=config', { cache: 'no-cache' });
+
             
             config = await cfgRes.json();
 
@@ -330,6 +330,14 @@
             sheetName = config.B;    
 
             document.getElementById('title').textContent = config.O || 'Fichajes';
+
+            console.log(config.A);
+            console.log(config.B);
+            console.log(config.D);
+            console.log(config.E);
+            console.log(config.O);
+            console.log(config.H);
+            console.log(config.I);
 
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
@@ -357,6 +365,8 @@
         document.getElementById('employeeInfo').style.display = 'none';
         document.getElementById('ficharBtn').style.display = 'none';
         clearCanvas();
+
+        document.getElementById('dniInput').disabled = false;
     });
 
 
@@ -370,8 +380,10 @@
         const sheetName = config.B;        
 
 
-        const query = encodeURIComponent(`SELECT D WHERE E = ${dni} ORDER BY B DESC, C DESC LIMIT 1`);
+        const query = encodeURIComponent(`SELECT D WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
+        
+        console.log(url);
         
         console.log(`userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`);
         
@@ -475,6 +487,8 @@
             document.getElementById('employeeInfo').style.display = 'block';
             document.getElementById('ficharBtn').style.display = 'block';
 
+            document.getElementById('dniInput').disabled = true;
+
             
             setTimeout(() => {
                 document.getElementById('ficharBtn').scrollIntoView({ 
@@ -501,18 +515,50 @@
 
     
     const canvas = document.getElementById('signaturePad');
+
+
+    let scaleX = 1;
+    let scaleY = 1;
+
+    function updateScale() {
+        const r = canvas.getBoundingClientRect();
+        scaleX = canvas.width / r.width;
+        scaleY = canvas.height / r.height;
+    }
+    updateScale();
+
+ 
+    window.addEventListener('resize', updateScale);
+
+
     const ctx = canvas.getContext('2d');
     let dibujando = false;
-    const start = e => { dibujando = true; draw(e); };
+    
+  
+
+
+    const start = e => {
+        updateScale();  
+        dibujando = true;
+        draw(e);
+    };
+
+
     const end = () => { dibujando = false; ctx.beginPath(); };
+
+
+
     const draw = e => {
         if (!dibujando) return;
         const r = canvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - r.left;
-        const y = (e.clientY || e.touches[0].clientY) - r.top;
+        let x = (e.clientX || e.touches[0].clientX) - r.left;
+        let y = (e.clientY || e.touches[0].clientY) - r.top;
+        x *= scaleX;  
+        y *= scaleY;  
         ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
         ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
     };
+
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', end);
