@@ -331,13 +331,7 @@
 
             document.getElementById('title').textContent = config.O || 'Fichajes';
 
-            console.log(config.A);
-            console.log(config.B);
-            console.log(config.D);
-            console.log(config.E);
-            console.log(config.O);
-            console.log(config.H);
-            console.log(config.I);
+
 
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
@@ -383,7 +377,7 @@
         const query = encodeURIComponent(`SELECT D WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
-        console.log(url);
+
         
         console.log(`userAgent: ${deviceInfoGlobal.userAgent} | platform: ${deviceInfoGlobal.platform} | fingerprint: ${deviceInfoGlobal.fingerprint} | screen: ${deviceInfoGlobal.screen} | connection: ${deviceInfoGlobal.connection}`);
         
@@ -454,8 +448,6 @@
             return;
         }
 
-        console.log(config.D);
-        console.log(config.E);
 
     
         document.getElementById('searchSpinner').style.display = 'block';
@@ -709,8 +701,7 @@
                 dispositivo: `DeviceID: ${deviceInfoGlobal.fingerprint}`
             };
 
-            console.log(payload.hojabk);
-            console.log(payload.nomhojabk);
+
 
             const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
             const res = await resp.json();
@@ -747,3 +738,4 @@
 </script>
 </body>
 </html>
+
