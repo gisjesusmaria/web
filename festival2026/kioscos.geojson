@@ -12335,10 +12335,10 @@
         "nomenc": "DP-ARTESANOS-15",
         "medidas": "3.00 x 3.00",
         "rubro": "EMPRENDEDORES / ARTESANOS.",
-        "titular.nombre": "",
-        "titular.dni": "",
-        "titular.tel": "",
-        "montoadj": null,
+        "titular.nombre": "RODRIGUEZ ANA",
+        "titular.dni": "36184923",
+        "titular.tel": "3525506401",
+        "montoadj": "700000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -12369,7 +12369,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 207
       },
       "geometry": {
