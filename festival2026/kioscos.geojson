@@ -13706,7 +13706,7 @@
         "titular.nombre": "ALVAREZ MAXIMILIANO ALEJANDRO",
         "titular.dni": "23210975",
         "titular.tel": "3525-535917",
-        "montoadj": "5.500.00",
+        "montoadj": "5500000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -13738,7 +13738,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "SI",
-        "_index": 226
+        "_index": 226,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
