@@ -11906,7 +11906,7 @@
         "titular.nombre": "YACCARINI ROMINA",
         "titular.dni": "24226920",
         "titular.tel": "351-3653569",
-        "montoadj": "700.000",
+        "montoadj": "700",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -11937,7 +11937,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "SI",
+        "esdejesusmaria": "NO",
         "_index": 201
       },
       "geometry": {
