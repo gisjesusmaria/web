@@ -13701,12 +13701,12 @@
       "properties": {
         "id": 226,
         "nomenc": "DP-FUEGOS-03",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "8.00 x 3.00",
+        "rubro": "PARRILLA SIN RESTRICCIONES.",
+        "titular.nombre": "ALVAREZ MAXIMILIANO ALEJANDRO",
+        "titular.dni": "23210975",
+        "titular.tel": "3525-535917",
+        "montoadj": "5.500.00",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -13737,7 +13737,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 226
       },
       "geometry": {
