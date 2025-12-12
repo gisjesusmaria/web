@@ -17429,6 +17429,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 275,
+        "nomenc": "02-A-71A",
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "INDUMENTARIA, BIJOUTERIE Y ACCESORIOS.",
+        "titular.nombre": "SORIA ZULMA",
+        "titular.dni": "19.898.959",
+        "titular.tel": "3858-478345",
+        "montoadj": "6500000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 275
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09348256886007,
+              -30.976063294191764
+            ],
+            [
+              -64.09344233572483,
+              -30.9760770994388
+            ],
+            [
+              -64.09346580505373,
+              -30.97609838252406
+            ],
+            [
+              -64.09350872039796,
+              -30.97607940031311
+            ],
+            [
+              -64.09348256886007,
+              -30.976063294191764
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
