@@ -17501,6 +17501,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 276,
+        "nomenc": "02-A-81",
+        "medidas": "2.50 X 2.00",
+        "rubro": "PRALINE, COPOS DE AZUCAR Y ALFAJORES.",
+        "titular.nombre": "FARIAS MIGUEL ANGEL",
+        "titular.dni": "25457613",
+        "titular.tel": "3516423412",
+        "montoadj": "6481575",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 276
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09341014921665,
+              -30.976289136911774
+            ],
+            [
+              -64.09338600933552,
+              -30.976297189953726
+            ],
+            [
+              -64.09340210258961,
+              -30.976313296035606
+            ],
+            [
+              -64.09342356026173,
+              -30.976304092560575
+            ],
+            [
+              -64.09341014921665,
+              -30.976289136911774
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
