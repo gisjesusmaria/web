@@ -1242,7 +1242,7 @@
         "titular.nombre": "MIRANDA PALOMA ANTONELLA",
         "titular.dni": "45833208",
         "titular.tel": "3543310690",
-        "montoadj": "3150000",
+        "montoadj": "2.992.500",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -1274,7 +1274,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 3
+        "_index": 3,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
