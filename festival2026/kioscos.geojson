@@ -17521,6 +17521,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 277,
+        "nomenc": "03-G-JUEGOS",
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "ENTRETENIMIENTO Y JUEGOS INFLABLES.",
+        "titular.nombre": "DEL VALLE CARLOS",
+        "titular.dni": "27952438",
+        "titular.tel": "2922431909",
+        "montoadj": "3000000",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 277
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09407734870912,
+              -30.97740463490582
+            ],
+            [
+              -64.09390702843666,
+              -30.977471359310233
+            ],
+            [
+              -64.09398078918458,
+              -30.977597905466318
+            ],
+            [
+              -64.0941819548607,
+              -30.97753578282885
+            ],
+            [
+              -64.09407734870912,
+              -30.97740463490582
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
