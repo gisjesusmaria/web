@@ -1,10 +1,11 @@
-<!-- 25112025_1035 -->
+<!-- 11122025_0810 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acreditación experiencia Jesús María 2026</title>
+
+    <title>Acreditación Espacio Jesús María</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -589,6 +590,9 @@
             display: none !important;
         }
 
+
+
+
     </style>
 </head>
 <body>
@@ -598,8 +602,8 @@
                 <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad de Jesús María">
             </div>
             
-            <h1><span class="emoji">🏇</span> Experiencia Jesús María 2026</h1>
-            <p>Municipalidad de Jesús María - Acreditación</p>
+            <h1><span class="emoji">🏇</span> Festival de Doma 2026</h1>
+            <p>Recorridos turísticos y de gestión</p>
         </div>
 
         <div class="form-container" id="formContainer">
@@ -621,12 +625,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cargo">Cargo / Institución *</label>
+                    <label for="cargo">Cargo *</label>
                     <input type="text" id="cargo" name="cargo" class="uppercase-input" required>
                 </div>
 
+                <div class="form-group">  
+                    <label for="institucion">Institución *</label>
+                    <input type="text" id="institucion" name="institucion" class="uppercase-input" required>
+                </div>                
+
                 <div class="form-group">
-                    <label for="localidad">Localidad / Provincia / País *</label>
+                    <label for="localidad">Ciudad *</label>
                     <input type="text" id="localidad" name="localidad" class="uppercase-input" required>
                 </div>
 
@@ -645,29 +654,11 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="circuito1" name="circuitos" value="Festival desde adentro">
-                            <label for="circuito1">Festival desde adentro 20 a 00 hs. (Charlas y recorridos con áreas de Comercio, Gobierno y Seguridad)</label>
+                            <label for="circuito1">Ciudad festivalera 20 a 00 hs. (Charlas y recorridos con áreas de Comercio, Gobierno y Seguridad)</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="circuito2" name="circuitos" value="Experiencia Jesús María">
-                            <label for="circuito2">Experiencia Jesús María 9 a 12 hs. (Recorridos turísticos)</label>
-                        </div>
-                        <div class="sub-options" id="subOptions">
-                            <div class="sub-option-item">
-                                <input type="checkbox" id="circuito3" name="subcircuitos" value="Rincones festivaleros">
-                                <label for="circuito3">1. Rincones festivaleros</label>
-                            </div>
-                            <div class="sub-option-item">
-                                <input type="checkbox" id="circuito4" name="subcircuitos" value="Rincones Jesuíticos e históricos">
-                                <label for="circuito4">2. Rincones Jesuíticos e históricos</label>
-                            </div>
-                            <div class="sub-option-item">
-                                <input type="checkbox" id="circuito5" name="subcircuitos" value="Rincones naturales">
-                                <label for="circuito5">3. Rincones naturales (Parque del Oeste/ Riberas Este)</label>
-                            </div>
-                            <div class="sub-option-item">
-                                <input type="checkbox" id="circuito6" name="subcircuitos" value="Bus regional">
-                                <label for="circuito6">4. Bus regional (incluye a Colonia Caroya y Sinsacate)</label>
-                            </div>
+                            <label for="circuito2">Experiencia Jesús María 9 a 12 hs. (Recorridos turísticos y de gestión municipal)</label>
                         </div>
                     </div>
                 </div>
@@ -699,6 +690,7 @@
                     <input type="tel" id="telefono" name="telefono" placeholder="3515123456" maxlength="16" required>
                 </div>
 
+
                 <div class="form-group">
                     <label for="mail">Email *</label>
                     <input type="email" id="mail" name="mail" placeholder="ejemplo@correo.com" required>
@@ -721,7 +713,8 @@
             <div class="credential-card" id="credentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-                    <h3>Acreditación Festival de Doma 2026</h3>
+
+                    <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="credentialInfo"></div>
                 <div class="qr-section">
@@ -788,7 +781,8 @@
             <div class="credential-card" id="consultCredentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-                    <h3>Acreditación Festival de Doma 2026</h3>
+
+                    <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="consultCredentialInfo"></div>
                 <div class="qr-section">
@@ -819,7 +813,7 @@
 
         const SCRIPT_URL = "https://acreditacion.gisjesusmaria.workers.dev"
 
-        
+       
 
         let currentFormData = null;
 
@@ -849,17 +843,22 @@
         setupCuilFormat('cuil');
         setupCuilFormat('cuilConsulta');
 
-  
+
+
         document.getElementById('telefono').addEventListener('input', function() {
             let v = this.value.trim();
+
 
             const hasPlus = v.startsWith('+');
 
             if (hasPlus) {
+                
                 let digits = v.slice(1).replace(/\D/g, '');
+                
                 digits = digits.substring(0, 15);
                 v = '+' + digits;
             } else {
+                
                 v = v.replace(/\D/g, '').substring(0, 10);
             }
 
@@ -868,12 +867,14 @@
             const digitsCount = hasPlus ? v.length - 1 : v.length;
 
             if (hasPlus) {
+                
                 if (digitsCount >= 11) {
                     this.setCustomValidity('');
                 } else {
                     this.setCustomValidity('Con el signo + debe ingresar al menos 11 dígitos numéricos.');
                 }
             } else {
+                
                 if (digitsCount === 10) {
                     this.setCustomValidity('');
                 } else {
@@ -966,8 +967,9 @@
             info.innerHTML = `
                 <div class="credential-field"><strong>CUIL:</strong><span>${data.cuil}</span></div>
                 <div class="credential-field"><strong>Nombre:</strong><span>${data.nombre}</span></div>
-                <div class="credential-field"><strong>Cargo/Institución:</strong><span>${data.cargo}</span></div>
-                <div class="credential-field"><strong>Localidad:</strong><span>${data.localidad}</span></div>
+                <div class="credential-field"><strong>Cargo:</strong><span>${data.cargo}</span></div>
+                <div class="credential-field"><strong>Institución:</strong><span>${data.institucion || '-'}</span></div>
+                <div class="credential-field"><strong>Ciudad:</strong><span>${data.localidad}</span></div>
                 <div class="credential-field"><strong>Dominio:</strong><span>${dom1 || '-'}</span></div>
                 <div class="credential-field"><strong>Dominio Adicional 1:</strong><span>${domAd1 || '-'}</span></div>
                 <div class="credential-field"><strong>Dominio Adicional 2:</strong><span>${domAd2 || '-'}</span></div>
@@ -988,18 +990,21 @@
                 errorMessage.classList.add('active');
                 return;
             }
+
+
+            
             
             const telefonoInput = document.getElementById('telefono');
             let rawTel = telefonoInput.value.trim();
             const hasPlus = rawTel.startsWith('+');
 
-
+            
             let digits = hasPlus
                 ? rawTel.slice(1).replace(/\D/g, '')
                 : rawTel.replace(/\D/g, '');
 
             if (hasPlus) {
-
+                
                 if (digits.length < 11) {
                     telefonoInput.setCustomValidity('Con el signo + no puede ingresar menos de 11 dígitos.');
                     telefonoInput.reportValidity();
@@ -1007,11 +1012,11 @@
                     errorMessage.classList.add('active');
                     return;
                 }
-
+                
                 digits = digits.substring(0, 15);
                 telefonoInput.value = '+' + digits;
             } else {
-
+                
                 if (digits.length !== 10) {
                     telefonoInput.setCustomValidity('El teléfono debe contener exactamente 10 dígitos numéricos sin el signo +.');
                     telefonoInput.reportValidity();
@@ -1022,7 +1027,7 @@
                 telefonoInput.value = digits.substring(0, 10);
             }
 
-
+            
             telefonoInput.setCustomValidity('');
             errorMessage.classList.remove('active');
 
@@ -1039,19 +1044,20 @@
                 nombre: document.getElementById('nombre').value,
                 cuil: document.getElementById('cuil').value,
                 cargo: document.getElementById('cargo').value,
+                institucion: document.getElementById('institucion').value,
                 localidad: document.getElementById('localidad').value,
                 dominio: document.getElementById('dominio').value,
                 fechaVisita: document.getElementById('fechaVisita').value,
                 circuito1: document.getElementById('circuito1').checked ? 'SI' : 'NO',
-                circuito3: document.getElementById('circuito3').checked ? 'SI' : 'NO',
-                circuito4: document.getElementById('circuito4').checked ? 'SI' : 'NO',
-                circuito5: document.getElementById('circuito5').checked ? 'SI' : 'NO',
-                circuito6: document.getElementById('circuito6').checked ? 'SI' : 'NO',
+                circuito2: document.getElementById('circuito2').checked ? 'SI' : 'NO',
+                circuito3: 'NO',
+                circuito4: 'NO',
+                circuito5: 'NO',
+                circuito6: 'NO',
                 cantidadAcompanantes: document.getElementById('cantidadAcompanantes').value || '0',
                 dominioAdicional1: document.getElementById('dominioAdicional1').value || '',
                 dominioAdicional2: document.getElementById('dominioAdicional2').value || '',
                 dominioAdicional3: document.getElementById('dominioAdicional3').value || '',
-                //telefono: tel,
                 telefono: telefonoInput.value,
                 mail: email
             };
@@ -1082,7 +1088,7 @@
                     setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
 
                     const cuil = currentFormData.cuil;
-                    const fechaSinFormato = currentFormData.fechaVisita; 
+                    const fechaSinFormato = currentFormData.fechaVisita; // viene en formato YYYY-MM-DD
                     const email = currentFormData.mail;
 
 
@@ -1177,8 +1183,9 @@
                         info.innerHTML = `
                             <div class="credential-field"><strong>CUIL:</strong><span>${result.data.cuil}</span></div>
                             <div class="credential-field"><strong>Nombre:</strong><span>${result.data.nombre}</span></div>
-                            <div class="credential-field"><strong>Cargo/Institución:</strong><span>${result.data.cargo}</span></div>
-                            <div class="credential-field"><strong>Localidad:</strong><span>${result.data.localidad}</span></div>
+                            <div class="credential-field"><strong>Cargo:</strong><span>${result.data.cargo}</span></div>
+                            <div class="credential-field"><strong>Institución:</strong><span>${result.data.institucion || '-'}</span></div>
+                            <div class="credential-field"><strong>Ciudad:</strong><span>${result.data.localidad}</span></div>
                             <div class="credential-field"><strong>Dominio:</strong><span>${result.data.dominio || '-'}</span></div>
                             <div class="credential-field"><strong>Dominio Adicional 1:</strong><span>${result.data.dominioAdicional1 || '-'}</span></div>
                             <div class="credential-field"><strong>Dominio Adicional 2:</strong><span>${result.data.dominioAdicional2 || '-'}</span></div>
@@ -1595,5 +1602,4 @@
 
     </script>
 </body>
-
 </html>
