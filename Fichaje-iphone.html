@@ -1,0 +1,890 @@
+<!-- 16122025_0759 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichajes Festival Doma 2026</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f3f3f1;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        body {
+            text-align: center;
+            color: #000;
+            padding: 20px 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 50px);
+            margin: 10px 0;
+            color: #fa802f;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        #date {
+            font-size: clamp(20px, 4.5vw, 32px);
+            margin: 8px 0;
+            font-weight: bold;
+        }
+        #time {
+            font-size: clamp(36px, 10vw, 80px);
+            font-weight: bold;
+            margin: 10px 0;
+            color: #0525f7;
+        }
+
+        #toggleBtn {
+            padding: 15px 40px;
+            font-size: clamp(20px, 5vw, 32px);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            margin: 20px 0;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .green {background:#0b0;}
+        .red {background:#c00;}
+
+        .input-group {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+        #dniInput {
+            padding: 14px;
+            font-size: clamp(20px, 4.5vw, 26px);
+            width: 240px;
+            max-width: 60vw;
+            text-align: center;
+            border: 3px solid #333;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            background: white;
+        }
+        #searchBtn {
+            background: #333;
+            color: white;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            font-size: clamp(20px, 5vw, 28px);
+        }
+
+        #statusMessage {
+            font-size: clamp(20px, 4.5vw, 28px);
+            font-weight: bold;
+            margin: 15px 0;
+            min-height: 40px;
+            color: #0066cc;
+        }
+        
+
+
+        
+        #spinnerant {
+            display: none;
+            margin: 25px 0;
+        }
+        #spinnerant svg {
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+
+        #spinner {
+            display: none;
+            margin: 30px 0;
+        }
+        #spinner svg {
+            width: 120px;      
+            height: 120px;     
+            animation: spin 1.2s linear infinite;
+        }
+        #spinner div {
+            margin-top: 15px;
+            font-size: 26px;   
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+
+        #employeeInfo {
+            font-size: clamp(18px, 4.5vw, 26px);
+            background: white;
+            padding: 20px;
+            border-radius: 3px solid #333;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 90%;
+            display: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            font-weight: bold;
+        }
+        canvas {
+            border: 4px solid #333;
+            background: #fff;
+            width: 90vw;
+            max-width: 420px;
+            height: 180px;
+            touch-action: none;
+            margin: 25px auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .btn-group {
+            margin: 20px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            max-width: 420px;
+        }
+        #clearBtn, #ficharBtn {
+            padding: 14px 30px;
+            font-size: clamp(18px, 4.5vw, 24px);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        #clearBtn {
+            background: #666;
+            color: white;
+            width: 80%;
+            max-width: 300px;
+        }
+        #ficharBtn {
+            background: #0066cc;
+            color: white;
+            font-size: clamp(26px, 7vw, 40px);
+            letter-spacing: 8px;
+            padding: 18px 40px;
+            width: 90%;
+            max-width: 380px;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+
+        @media (min-width: 768px) {
+            body { max-width: 600px; margin: 0 auto; padding-top: 30px; }
+            canvas { width: 420px; height: 200px; }
+        }
+
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        #dniInput:disabled {
+            opacity: 0.6;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(243,243,241,0.98);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s;">
+        <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" style="width:70%;max-width:380px;margin-bottom:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+        <div style="font-size:26px;color:#0066cc;font-weight:bold;">Cargando sistema...</div>
+        <div style="margin-top:20px;">
+            <svg width="60" height="60" viewBox="0 0 50 50" style="animation:spin 1s linear infinite;">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
+            </svg>
+        </div>
+    </div>
+
+
+    <div style="margin: 15px auto 10px; text-align:center; max-width:90%;">
+        <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" 
+            alt="Municipalidad de Jesús María" 
+            style="width:100%; max-width:420px; height:auto; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    </div>
+
+
+    <h1 id="title">Cargando...</h1>
+
+    
+    <div id="statusMessage" style="font-size:22px; font-weight:bold; margin:15px 0; min-height:30px; color:#0066cc;"></div>
+
+    
+    
+    <div id="spinner" style="display:none; margin:20px 0;">
+        <svg width="50" height="50" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#0066cc" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
+        </svg>
+        <div style="margin-top:15px; font-size:26px; font-weight:bold; color:#0716eb;">Registrando fichaje...</div>
+    </div>
+
+    <div id="date"></div>
+    <div id="time"></div>
+
+    <button id="toggleBtn" class="green">ENTRADA</button>
+
+    <div class="input-group">
+        <!-- <input type="number" 
+            id="dniInput" 
+            placeholder="Ingrese DNI" 
+            autocomplete="off"
+            maxlength="8"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,8)"> -->
+
+        <input type="text" 
+            id="dniInput" 
+            placeholder="Ingrese DNI" 
+            autocomplete="off"
+            maxlength="8"
+            pattern="[0-9]*"  
+            inputmode="numeric"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,8)">
+
+        <button id="searchBtn" title="Buscar">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>    
+
+    
+    <div id="searchSpinner" style="display:none; margin:20px 0;">
+        <svg width="60" height="60" viewBox="0 0 50 50" style="animation:spin 1.2s linear infinite;">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#fa802f" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 150"/>
+        </svg>
+        <div style="margin-top:10px; font-size:24px; font-weight:bold; color:#fa802f;">Buscando empleado...</div>
+    </div>
+
+
+    <div id="employeeInfo"></div>
+
+    <canvas id="signaturePad" width="340" height="170"></canvas>
+
+    <div class="btn-group">
+        <button id="clearBtn">Borrar firma</button>
+        <button id="ficharBtn">FICHAR</button>
+    </div>
+
+<script>
+    // Versión del sistema de fichajes - Festival Doma 2026
+    // Build: 2025.11.28-v3.1-prod
+    const _ = ['sta','tic/vers','ion.t','xt'];
+    const v = _.join('');
+    
+    let config = {};
+    let scriptUrl = '';
+    let mode = 'E';
+    let employeeData = null;
+
+    let deviceInfoGlobal = {};
+
+    
+    const updateClock = () => {
+        const n = new Date();
+        document.getElementById('date').textContent = `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()}`;
+        document.getElementById('time').textContent = n.toTimeString().substr(0,8);
+    };
+    setInterval(updateClock, 1000); updateClock();
+
+
+
+
+    async function loadConfig() {
+        document.body.style.pointerEvents = 'none';
+        document.getElementById('loadingOverlay').style.display = 'flex';
+
+        try {
+
+            //DeviceInfoGlobal = await getDeviceInfo();  
+            deviceInfoGlobal = await getClientProperties();
+
+            
+
+
+            const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
+            if (!idResponse.ok) throw new Error('Worker offline');
+            const deployText = await idResponse.text();           
+            const DEPLOY_ID = deployText.trim();                  
+
+
+            
+
+
+            scriptUrl = `https://script.google.com/macros/s/${DEPLOY_ID}/exec`;
+
+            const cfgRes = await fetch(scriptUrl + '?action=config', { cache: 'no-cache' });
+            
+            config = await cfgRes.json();
+
+            sheetId = config.A;      
+            sheetName = config.B;    
+
+            document.getElementById('title').textContent = config.O || 'Fichajes';
+
+
+
+            document.body.style.pointerEvents = 'auto';
+            document.getElementById('loadingOverlay').style.opacity = '0';
+            setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 400);
+
+        } catch (err) {
+            console.error(err);
+            alert('Error de conexión. Reintentando...');
+            document.body.style.pointerEvents = 'auto';
+            document.getElementById('loadingOverlay').style.display = 'none';
+            setTimeout(loadConfig, 3000);
+        }
+    }
+
+
+
+    loadConfig();
+
+
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+        mode = mode === 'E' ? 'S' : 'E';
+        document.getElementById('toggleBtn').textContent = mode === 'E' ? 'ENTRADA' : 'SALIDA';
+        document.getElementById('toggleBtn').className = mode === 'E' ? 'green' : 'red';
+        employeeData = null;
+        document.getElementById('employeeInfo').style.display = 'none';
+        document.getElementById('ficharBtn').style.display = 'none';
+        clearCanvas();
+
+        document.getElementById('dniInput').disabled = false;
+    });
+
+
+
+
+    async function getUltimoFichaje(dni, hoja) {
+        if (!config.D || !hoja) return null;
+
+
+        const sheetId = config.A;
+        const sheetName = config.B;        
+
+
+        const query = encodeURIComponent(`SELECT D WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC LIMIT 1`);
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
+        
+
+
+        try {
+            const resp = await fetch(url);
+            const texto = await resp.text();
+            const lineas = texto.trim().split('\n');
+            
+            if (lineas.length < 2 || !lineas[1].trim()) return null;
+
+
+            const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
+            return tipo; 
+        } catch (e) {
+            console.error("Error consultando último fichaje", e);
+            return null;
+        }
+    }
+
+    
+    async function buscarEmpleado(dni) {
+        if (!config.D || !config.E) return {error: 'Cargando config...'};
+
+        const url = `https://docs.google.com/spreadsheets/d/${config.D}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(config.E)}&tq=SELECT%20B%2CC%2CE%2CF%2CJ%2CK%2CQ%20WHERE%20D%20%3D%20${dni}`;
+        const resp = await fetch(url);
+        const texto = await resp.text();
+        const lineas = texto.trim().split('\n');
+        if (lineas.length < 2) return {error: 'Empleado no encontrado'};
+
+        const valores = lineas[1].split(/","/).map(v => v.replace(/^"|"$/g, '').trim());
+        const [apellido, nombre, condicion, altaBaja, hEntrada, hSalida, hojaEmp] = valores;
+
+        if (altaBaja !== 'Alta') return {error: 'Empleado dado de baja'};
+
+        
+        const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
+
+        if (ultimoFichaje === 'E') {
+        
+            mode = 'S';
+            document.getElementById('toggleBtn').textContent = 'SALIDA';
+            document.getElementById('toggleBtn').classList.remove('green');
+            document.getElementById('toggleBtn').classList.add('red');
+        } else {
+        
+            mode = 'E';
+            document.getElementById('toggleBtn').textContent = 'ENTRADA';
+            document.getElementById('toggleBtn').classList.remove('red');
+            document.getElementById('toggleBtn').classList.add('green');
+        }
+
+        return {
+            apellido, 
+            nombre, 
+            condicion, 
+            horarioEntrada: hEntrada || '--:--', 
+            horarioSalida: hSalida || '--:--', 
+            hoja: hojaEmp
+        };
+    }
+
+    
+    const buscar = async () => {
+        const dni = document.getElementById('dniInput').value.trim();
+        if (!dni) {
+            alert('Ingrese DNI');
+            return;
+        }
+
+
+
+    
+        document.getElementById('searchSpinner').style.display = 'block';
+        document.getElementById('employeeInfo').style.display = 'none';
+        document.getElementById('ficharBtn').style.display = 'none';
+        document.getElementById('statusMessage').textContent = '';
+        clearCanvas();
+
+        try {
+            const emp = await buscarEmpleado(dni);
+
+          
+            document.getElementById('searchSpinner').style.display = 'none';
+
+            if (emp.error) {
+                alert(emp.error);
+                employeeData = null;
+                return;
+            }
+
+            employeeData = emp;
+            const horario = mode === 'E' ? emp.horarioEntrada : emp.horarioSalida;
+
+            document.getElementById('employeeInfo').innerHTML = 
+                `<strong style="font-size:28px;">${emp.nombre} ${emp.apellido}</strong><br>
+                Horario ${mode==='E'?'Entrada':'Salida'}: <b style="font-size:32px;color:#f76505;">${horario}</b><br>
+                ${emp.condicion} | ${emp.hoja}`;
+            
+            document.getElementById('employeeInfo').style.display = 'block';
+            document.getElementById('ficharBtn').style.display = 'block';
+
+            document.getElementById('dniInput').disabled = true;
+
+            
+            setTimeout(() => {
+                document.getElementById('ficharBtn').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 100);
+
+        } catch (err) {
+            document.getElementById('searchSpinner').style.display = 'none';
+            alert('Error al buscar empleado');
+        }
+    };
+
+
+
+    document.getElementById('searchBtn').onclick = buscar;
+    document.getElementById('dniInput').addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            buscar();
+        }
+    });
+
+    
+    const canvas = document.getElementById('signaturePad');
+
+
+    let scaleX = 1;
+    let scaleY = 1;
+
+    function updateScale() {
+        const r = canvas.getBoundingClientRect();
+        scaleX = canvas.width / r.width;
+        scaleY = canvas.height / r.height;
+    }
+    updateScale();
+
+
+    window.addEventListener('resize', updateScale);
+
+
+    const ctx = canvas.getContext('2d');
+    let dibujando = false;
+    
+
+
+
+    const start = e => {
+        updateScale();  
+        dibujando = true;
+        draw(e);
+    };
+
+
+    const end = () => { dibujando = false; ctx.beginPath(); };
+
+
+
+    const draw = e => {
+        if (!dibujando) return;
+        const r = canvas.getBoundingClientRect();
+        let x = (e.clientX || e.touches[0].clientX) - r.left;
+        let y = (e.clientY || e.touches[0].clientY) - r.top;
+        x *= scaleX;  
+        y *= scaleY;  
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
+        ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+    };
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseout', end);
+    canvas.addEventListener('touchstart', e => {e.preventDefault(); start(e.touches[0]);});
+    canvas.addEventListener('touchmove', e => {e.preventDefault(); draw(e.touches[0]);});
+    canvas.addEventListener('touchend', end);
+
+    const clearCanvas = () => ctx.clearRect(0,0,canvas.width,canvas.height);
+    document.getElementById('clearBtn').onclick = clearCanvas;
+
+
+    function setButtonsEnabled(enabled) {
+        const buttons = [
+            document.getElementById('toggleBtn'),
+            document.getElementById('searchBtn'),
+            document.getElementById('clearBtn'),
+            document.getElementById('ficharBtn')
+        ];
+        buttons.forEach(btn => {
+            if (btn) btn.disabled = !enabled;
+        });
+        document.getElementById('dniInput').disabled = !enabled;
+    }
+
+
+    async function getDeviceInfo() {
+        const info = {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform || 'Desconocido',
+            screen: `${screen.width}x${screen.height}@${window.devicePixelRatio}x`,
+            fingerprint: 'Calculando...',
+            connection: 'Desconocido'
+        };
+
+        
+        if (navigator.connection) {
+            const c = navigator.connection;
+            info.connection = `${c.effectiveType || 'unknown'} (${c.downlink || '?'} Mbps)`;
+        }
+
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = "alphabetic";
+        ctx.font = "14px 'Arial'";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125, 1, 62, 20);
+        ctx.fillStyle = "#069";
+        ctx.fillText("Fichaje Jesús María 2026", 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText("Fichaje Jesús María 2026", 4, 17);
+
+        const canvasData = canvas.toDataURL();
+        let hash = 0;
+        for (let i = 0; i < canvasData.length; i++) {
+            hash = ((hash << 5) - hash + canvasData.charCodeAt(i)) | 0;
+        }
+        info.fingerprint = Math.abs(hash).toString(36).substring(0, 12);
+
+        return info;
+    }
+
+
+    
+    document.getElementById('ficharBtn').onclick = async () => {
+        if (!employeeData) return;
+
+        
+        const canvas = document.getElementById('signaturePad');
+        const context = canvas.getContext('2d');
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        let hasPixels = false;
+        for (let i = 3; i < imageData.length; i += 4) {
+            if (imageData[i] > 20) { hasPixels = true; break; }
+        }
+        if (!hasPixels) {
+            alert('¡Por favor firme antes de fichar!');
+            return;
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setButtonsEnabled(false);
+        document.getElementById('spinner').style.display = 'block';
+        document.getElementById('statusMessage').textContent = '';
+        document.getElementById('ficharBtn').style.display = 'none';
+
+        try {
+            
+            const base64Completo = canvas.toDataURL('image/png', 0.6); 
+
+
+
+            const ahora = new Date();
+            const horaActual = ahora.toTimeString().substr(0,5); 
+
+            let observaciones = 'ok';  
+
+            if (mode === 'E') {
+                const horario = employeeData.horarioEntrada?.trim();
+
+                if (horario && horario !== '--:--' && horario !== '') {
+                    if (horaActual > horario) {
+                        observaciones = 'Entró tarde';
+                    }
+                }
+            } else {
+                const horario = employeeData.horarioSalida?.trim();
+                if (horario && horario !== '--:--' && horario !== '') {
+                    if (horaActual < horario) {
+                        observaciones = 'Salió antes';
+                    }
+                }
+            }            
+
+
+
+            let ipAddress = 'Desconocida';
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json', { 
+                    cache: 'no-cache',
+
+                });
+                const ipData = await ipResponse.json();
+                
+
+                const rawIp = ipData.ip || '';
+                ipAddress = rawIp.match(/\d{1,3}(\.\d{1,3}){3}/)?.[0] || 'Inválida';
+                
+            } catch (err) {
+                console.log("Error obteniendo IP:", err);
+                ipAddress = 'Sin conexión';
+            }
+
+            const payload = {
+                action: 'saveCheckin',
+                date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
+                time: horaActual,
+                mode: mode,
+                dni: document.getElementById('dniInput').value,
+                name: `${employeeData.apellido} ${employeeData.nombre}`,
+                signature: base64Completo,
+                schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
+                condition: employeeData.condicion,
+                hoja: employeeData.hoja,
+                observaciones: observaciones || 'ok',
+                ip: ipAddress,
+                //dispositivo: `DeviceID: ${deviceInfoGlobal.fingerprint}`
+                dispositivo: `DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`
+            };
+
+
+
+            const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
+            const res = await resp.json();
+
+            if (res.success) {
+                document.getElementById('spinner').style.display = 'none';
+                const msg = document.getElementById('statusMessage');
+
+                const textoObs = observaciones || 'OK';
+
+                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones === 'ok' ? '' : ' (' + observaciones + ')'}`;
+                msg.style.color = '#0b0';
+                msg.style.fontSize = '28px'; 
+                              
+                document.getElementById('dniInput').value = '';
+                employeeData = null;
+                document.getElementById('employeeInfo').style.display = 'none';
+                document.getElementById('ficharBtn').style.display = 'none';
+                clearCanvas();
+
+                setTimeout(() => { msg.textContent = ''; }, 6000);
+            } else {
+                throw new Error('Error del servidor');
+            }
+        } catch (err) {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('ficharBtn').style.display = 'block';
+            alert('Error al registrar fichaje: ' + (err.message || 'Intente nuevamente'));
+        } finally {
+            setButtonsEnabled(true);
+        }
+    };
+
+
+
+    async function getClientProperties() {
+        const info = {
+            "Agente de usuario": navigator.userAgent,
+            "Navegador": await getBrowserName(),
+            "Plataforma": navigator.platform || 'Desconocido',
+            "Resolución de pantalla": `${screen.width}x${screen.height}`,
+            "Resolución disponible": `${screen.availWidth}x${screen.availHeight}`,
+            "Profundidad de color": screen.colorDepth,
+            "Relación de píxeles": window.devicePixelRatio,
+            "Cookies habilitadas": navigator.cookieEnabled ? 'Sí' : 'No',
+            "Java habilitado": navigator.javaEnabled ? (navigator.javaEnabled() ? 'Sí' : 'No') : 'No',
+            "Idiomas": navigator.languages ? navigator.languages.join(', ') : navigator.language || 'Desconocido',
+            "Zona horaria": Intl.DateTimeFormat().resolvedOptions().timeZone || 'Desconocido',
+            "Offset de zona horaria": new Date().getTimezoneOffset(),
+            "Hora local": new Date().toLocaleString(),
+            "Conexión": 'Desconocido',
+            "WebGL soportado": 'No',
+            "GPU Vendor": 'Desconocido',
+            "GPU Renderer": 'Desconocido',
+            "Plugins": 'Ninguno detectado',
+            "Fingerprint": 'Calculando...'
+        };
+
+
+        async function getBrowserName() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Edg/')) return 'Microsoft Edge';
+            if (ua.includes('OPR/') || ua.includes('Opera/')) return 'Opera';
+            if (ua.includes('YaBrowser/')) return 'Yandex Browser';
+            if (ua.includes('Chrome/')) {
+                if (navigator.brave && await navigator.brave.isBrave()) {
+                    return 'Brave';
+                }
+                return 'Google Chrome';
+            }
+            if (ua.includes('Firefox/')) return 'Mozilla Firefox';
+            if (ua.includes('Safari/') && !ua.includes('Chrome/')) return 'Apple Safari';
+            if (ua.includes('Trident/') || ua.includes('MSIE')) return 'Internet Explorer';
+            return 'Desconocido';
+        }
+
+
+        if (navigator.connection) {
+            const c = navigator.connection;
+            info["Conexión"] = `${c.effectiveType || 'unknown'} (${c.downlink || '?'} Mbps, rtt: ${c.rtt || '?'} ms)`;
+        }
+
+
+        const webglCanvas = document.createElement('canvas');
+        let gl = webglCanvas.getContext('webgl') || webglCanvas.getContext('experimental-webgl');
+        if (gl) {
+            info["WebGL soportado"] = 'Sí';
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            if (debugInfo) {
+                info["GPU Vendor"] = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || 'Desconocido';
+                info["GPU Renderer"] = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Desconocido';
+            }
+        }
+
+
+        if (navigator.plugins && navigator.plugins.length > 0) {
+            info["Plugins"] = Array.from(navigator.plugins).map(p => p.name).join(', ');
+        }
+
+        info["HW Concurrency"] = navigator.hardwareConcurrency || 'Desconocido';
+        info["Device Memory"] = navigator.deviceMemory || 'Desconocido';
+        info["Max Touch Points"] = navigator.maxTouchPoints || 0;
+
+
+        const testString = 'mmmmmmmmmmlli';
+        const baseFont = 'sans-serif';
+        const fonts = [
+            'Arial', 'Arial Black', 'Arial Narrow', 'Book Antiqua', 'Bookman Old Style',
+            'Calibri', 'Cambria', 'Cambria Math', 'Century', 'Century Gothic',
+            'Century Schoolbook', 'Comic Sans MS', 'Consolas', 'Courier',
+            'Courier New', 'Garamond', 'Georgia', 'Helvetica', 'Helvetica Neue',
+            'Impact', 'Lucida Bright', 'Lucida Calligraphy', 'Lucida Console',
+            'Lucida Fax', 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Typewriter',
+            'Lucida Sans Unicode', 'Microsoft Sans Serif', 'Monotype Corsiva',
+            'MS Gothic', 'MS Outlook', 'MS PGothic', 'Palatino Linotype',
+            'Segoe Print', 'Segoe Script', 'Segoe UI', 'Segoe UI Light',
+            'Segoe UI Semibold', 'Segoe UI Symbol', 'Tahoma', 'Times',
+            'Times New Roman', 'Trebuchet MS', 'Verdana', 'Wingdings', 'Wingdings 2',
+            'Wingdings 3'
+        ];
+
+        const fpCanvas = document.createElement('canvas');
+        fpCanvas.width = 300;
+        fpCanvas.height = 30;
+        const ctx = fpCanvas.getContext('2d');
+        if (ctx) {
+            ctx.font = `72px '${baseFont}'`;
+            const baseWidth = ctx.measureText(testString).width;
+            const fontHash = [];
+            for (let font of fonts) {
+                ctx.font = `72px '${font}', '${baseFont}'`;
+                const width = ctx.measureText(testString).width;
+                fontHash.push(width.toFixed(2));
+            }
+            const fontsStr = fontHash.join(',');
+
+
+            const stableProps = [
+                info["Resolución de pantalla"],
+                info["Resolución disponible"],
+                info["Profundidad de color"],
+                info["Relación de píxeles"],
+                info["Idiomas"],
+                info["Offset de zona horaria"],
+                info["GPU Vendor"],
+                info["GPU Renderer"],
+                info["HW Concurrency"],
+                info["Device Memory"],
+                info["Max Touch Points"],
+                fontsStr  
+            ].join('|');
+
+            
+            let hash = 0;
+            for (let i = 0; i < stableProps.length; i++) {
+                hash = ((hash << 5) - hash + stableProps.charCodeAt(i)) | 0;
+            }
+            info["Fingerprint"] = Math.abs(hash).toString(36).substring(0, 12);
+        } else {
+            info["Fingerprint"] = 'No disponible';
+        }
+
+
+        return info;
+    }
+
+</script>
+</body>
+</html>
