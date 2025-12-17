@@ -9212,7 +9212,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 90
+        "_index": 90,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
@@ -15627,12 +15637,12 @@
       "properties": {
         "id": 253,
         "nomenc": "04-E-JUEGOS",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "DIMENSIONES IRREGULARES",
+        "rubro": "ENTRETENIMIENTO Y JUEGOS INFLABLES.",
+        "titular.nombre": "DEL VALLE CARLOS",
+        "titular.dni": "27952438",
+        "titular.tel": "2922431909",
+        "montoadj": "6000000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15663,7 +15673,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 253
       },
       "geometry": {
