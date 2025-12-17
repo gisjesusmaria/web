@@ -395,7 +395,7 @@
         const query = encodeURIComponent(`SELECT D WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
-
+        console.log(`DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`)
 
         try {
             const resp = await fetch(url);
@@ -887,4 +887,5 @@
 
 </script>
 </body>
+
 </html>
