@@ -8532,7 +8532,7 @@
         "titular.nombre": "POLO LEONCIO",
         "titular.dni": "94.111.519",
         "titular.tel": "341-5196774",
-        "montoadj": "6515662.50",
+        "montoadj": "6515783.13",
         "pago1.importe": "6190000",
         "pago1.fecha": "2025-12-15",
         "pago1.comprobante": "25817083",
@@ -8564,7 +8564,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 117
+        "_index": 117,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
