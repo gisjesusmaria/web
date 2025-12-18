@@ -17655,6 +17655,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 279,
+        "nomenc": "02-A-36B",
+        "medidas": "3.00 X 5.00",
+        "rubro": "ARTICULOS REGIONALES Y ARTESANIAS.",
+        "titular.nombre": "BOGLIONE GUILLERMO",
+        "titular.dni": "00",
+        "titular.tel": "00",
+        "montoadj": "3895973.44",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 279
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09276306629182,
+              -30.974960172979873
+            ],
+            [
+              -64.09277111291887,
+              -30.974967075683427
+            ],
+            [
+              -64.09281134605409,
+              -30.974954995951872
+            ],
+            [
+              -64.09279927611351,
+              -30.97494866847287
+            ],
+            [
+              -64.09276306629182,
+              -30.974960172979873
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
