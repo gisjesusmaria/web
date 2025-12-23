@@ -7,7 +7,7 @@
   <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
 
   <style>
-    :root{
+    /* :root{
       --bg1:#f4f7fb;
       --card:#ffffff;
       --text:#1f2937;
@@ -15,7 +15,7 @@
       --primary:#4285F4;
       --primary2:#2a64c6;
 
-      /* Swanky */
+      
       --swanky-bg:#2a394f;
       --swanky-hover:#212e41;
       --swanky-border:#293649;
@@ -24,7 +24,72 @@
       --swanky-item-hover:#0c93e4;
       --swanky-inset:#126CA1;
       --radius:12px;
+    } */
+
+
+/* --swanky-bg: fondo del desplegable (cerrado).
+
+--swanky-hover: fondo cuando pasás el mouse por el header (botón).
+
+--swanky-border: líneas/bordes internos.
+
+--swanky-accent: color del chevron/flechita al abrir y del “pill” (el numerito).
+
+--swanky-item: fondo de cada opción en la lista.
+
+--swanky-item-hover: fondo al hover de una opción.
+
+--swanky-inset: “borde” interno azul (la barrita al hover). */
+
+
+/* Texto del botón (cerrado):
+.swankyBtn { color: rgb(239, 244, 250); }
+
+Texto “placeholder”:
+.swankyPlaceholder { color: rgba(239, 244, 250, 0.65); }
+
+Texto de cada item:
+.swankyItem { color: white; } */
+
+/* .swankyBtn
+
+.swankyValue
+
+.swankyPlaceholder */
+
+
+    :root{
+      --bg1:#f4f7fb;
+      --card:#ffffff;
+      --text:#371f1f;
+      --muted:#000000;
+      --primary:#4285F4;
+      --primary2:#2a64c6;
+
+     
+      --swanky-bg:#eec19d;
+      --swanky-hover:#e09375;
+      --swanky-border:#f0bc4e;
+      --swanky-accent:#fafafa;
+      --swanky-item:#f2f5f7;
+      --swanky-item-hover:#f3e2d3;
+      --swanky-inset:#a11212;
+      --radius:12px;
+    }    
+
+    /* :root{
+    --swanky-bg:#ffffff;
+    --swanky-hover:#f3f6fb;
+    --swanky-border:rgba(0,0,0,0.10);
+    --swanky-accent:#4285F4;
+    --swanky-item:#ffffff;
+    --swanky-item-hover:#eef4ff;
+    --swanky-inset:#4285F4;
     }
+    .swankyBtn{ color:#111827; }
+    .swankyPlaceholder{ color:#6b7280; }
+    .swankyItem{ color:#111827; } */
+
 
     *{box-sizing:border-box}
     body{
@@ -36,7 +101,7 @@
     }
 
     img.logo{
-      max-width: min(420px, 15%);
+      max-width: min(420px, 27%);
       display:block;
       margin: 0 auto 18px auto;
       border-radius: 10px;
@@ -44,6 +109,7 @@
     }
 
     h1{
+      color: #d35400; /* Naranja cálido para tema festivalero */
       text-align:center;
       margin: 0 0 10px;
       letter-spacing:.3px;
@@ -215,7 +281,7 @@
       gap: 10px;
       background: transparent;
       border:0;
-      color: rgb(239, 244, 250);
+      color: rgb(0, 0, 0);
       padding: 14px 14px;
       cursor:pointer;
       font-weight: 800;
@@ -250,10 +316,10 @@
       overflow:hidden;
       text-overflow: ellipsis;
       font-weight: 700;
-      color: rgba(239, 244, 250, 0.92);
+      color: rgba(0, 0, 0, 0.92);
     }
     .swankyPlaceholder{
-      color: rgba(239, 244, 250, 0.65);
+      color: rgba(0, 0, 0, 0.65);
       font-weight: 600;
     }
 
@@ -288,7 +354,7 @@
 
     .swankyItem{
       padding: 12px 14px;
-      color:white;
+      color:rgb(0, 0, 0);
       background: var(--swanky-item);
       cursor:pointer;
       transition: background .15s ease, box-shadow .2s ease, padding-left .2s ease;
@@ -618,18 +684,31 @@
       const currentOption = selectEl.selectedOptions?.[0];
       const currentValueText = currentOption && currentOption.value !== "" ? currentOption.textContent.trim() : "";
 
-      hostEl.innerHTML = `
+    //   hostEl.innerHTML = `
+    //     <button type="button" class="swankyBtn" aria-haspopup="listbox" aria-expanded="false">
+    //       <span class="swankyLeft">
+    //         <span class="swankyPill">${indexBadgeText}</span>
+    //         <span class="swankyValue ${currentValueText ? "" : "swankyPlaceholder"}">
+    //           ${currentValueText || placeholderText}
+    //         </span>
+    //       </span>
+    //       <span class="swankyArrow" aria-hidden="true"></span>
+    //     </button>
+    //     <ul class="swankyList" role="listbox" tabindex="-1"></ul>
+    //   `;
+
+        hostEl.innerHTML = `
         <button type="button" class="swankyBtn" aria-haspopup="listbox" aria-expanded="false">
-          <span class="swankyLeft">
-            <span class="swankyPill">${indexBadgeText}</span>
-            <span class="swankyValue ${currentValueText ? "" : "swankyPlaceholder"}">
-              ${currentValueText || placeholderText}
+            <span class="swankyLeft">
+            
+                <span class="swankyValue ${currentValueText ? "" : "swankyPlaceholder"}">
+                    ${currentValueText || placeholderText}
+                </span>
             </span>
-          </span>
-          <span class="swankyArrow" aria-hidden="true"></span>
+            <span class="swankyArrow" aria-hidden="true"></span>
         </button>
         <ul class="swankyList" role="listbox" tabindex="-1"></ul>
-      `;
+        `;    
 
       const btn = hostEl.querySelector('.swankyBtn');
       const valueEl = hostEl.querySelector('.swankyValue');
@@ -761,12 +840,26 @@
     function initConditionalLogic(){
       const q2 = document.getElementById('q2');
       const q3Container = document.getElementById('q3-container');
-      q2.addEventListener('change', () => {
+
+    //   q2.addEventListener('change', () => {
+    //     q3Container.classList.toggle(
+    //       'hidden',
+    //       q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)'
+    //     );
+    //   });
+
+        q2.addEventListener('change', () => {
+        const esVecino =
+            q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+
+        const noEligioNada = q2.value === '';
+
         q3Container.classList.toggle(
-          'hidden',
-          q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)'
+            'hidden',
+            esVecino || noEligioNada
         );
-      });
+        });
+
 
       const q9 = document.getElementById('q9');
       const q10Container = document.getElementById('q10-container');
