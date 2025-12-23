@@ -1,4 +1,4 @@
-<!-- 23122025_0808 -->
+<!-- 23122025_1155 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,55 +8,7 @@
   <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
 
   <style>
-    /* :root{
-      --bg1:#f4f7fb;
-      --card:#ffffff;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --primary:#4285F4;
-      --primary2:#2a64c6;
 
-      
-      --swanky-bg:#2a394f;
-      --swanky-hover:#212e41;
-      --swanky-border:#293649;
-      --swanky-accent:#14a3f9;
-      --swanky-item:#15a4fa;
-      --swanky-item-hover:#0c93e4;
-      --swanky-inset:#126CA1;
-      --radius:12px;
-    } */
-
-
-/* --swanky-bg: fondo del desplegable (cerrado).
-
---swanky-hover: fondo cuando pasás el mouse por el header (botón).
-
---swanky-border: líneas/bordes internos.
-
---swanky-accent: color del chevron/flechita al abrir y del “pill” (el numerito).
-
---swanky-item: fondo de cada opción en la lista.
-
---swanky-item-hover: fondo al hover de una opción.
-
---swanky-inset: “borde” interno azul (la barrita al hover). */
-
-
-/* Texto del botón (cerrado):
-.swankyBtn { color: rgb(239, 244, 250); }
-
-Texto “placeholder”:
-.swankyPlaceholder { color: rgba(239, 244, 250, 0.65); }
-
-Texto de cada item:
-.swankyItem { color: white; } */
-
-/* .swankyBtn
-
-.swankyValue
-
-.swankyPlaceholder */
 
 
     :root{
@@ -78,19 +30,6 @@ Texto de cada item:
       --radius:12px;
     }    
 
-    /* :root{
-    --swanky-bg:#ffffff;
-    --swanky-hover:#f3f6fb;
-    --swanky-border:rgba(0,0,0,0.10);
-    --swanky-accent:#4285F4;
-    --swanky-item:#ffffff;
-    --swanky-item-hover:#eef4ff;
-    --swanky-inset:#4285F4;
-    }
-    .swankyBtn{ color:#111827; }
-    .swankyPlaceholder{ color:#6b7280; }
-    .swankyItem{ color:#111827; } */
-
 
     *{box-sizing:border-box}
     body{
@@ -102,7 +41,7 @@ Texto de cada item:
     }
 
     img.logo{
-      max-width: min(420px, 40%);
+      max-width: min(420px, 27%);
       display:block;
       margin: 0 auto 18px auto;
       border-radius: 10px;
@@ -110,7 +49,7 @@ Texto de cada item:
     }
 
     h1{
-      color: #d35400; /* Naranja cálido para tema festivalero */
+      color: #d35400; 
       text-align:center;
       margin: 0 0 10px;
       letter-spacing:.3px;
@@ -186,7 +125,7 @@ Texto de cada item:
 
     .hidden{ display:none; }
 
-    /* Caritas / satisfacción */
+    
     .satisfaction{
       display:flex;
       justify-content: space-between;
@@ -216,7 +155,6 @@ Texto de cada item:
       box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     }
 
-    /* Transportes */
     .transport{
       display:flex;
       justify-content: space-around;
@@ -252,11 +190,9 @@ Texto de cada item:
     .transport .transport-colectivo{ width: 90px; }
     .transport .transport-otro{ width: 80px; }
 
-    /* =========================
-       Swanky dropdown (opción 2)
-       ========================= */
+
     .native-select{
-      /* queda para el form submit y validación, pero no lo mostramos */
+      
       position:absolute !important;
       left:-9999px !important;
       width:1px !important;
@@ -372,8 +308,128 @@ Texto de cada item:
       outline-offset: -2px;
     }
 
-    /* Map container */
+    
     #map-container{ margin-top: 14px; }
+
+
+    
+    .overlay.hidden{ display:none; }
+    .overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(17,24,39,0.55);
+    backdrop-filter: blur(4px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 18px;
+    z-index: 9999;
+    }
+
+    .overlayCard{
+    width: min(420px, 92vw);
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 18px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+    text-align:center;
+    }
+
+    .overlayTitle{
+    font-weight: 900;
+    font-size: 18px;
+    margin-top: 12px;
+    color: #111827;
+    }
+
+    .overlaySub{
+    margin-top: 6px;
+    color: #6b7280;
+    font-weight: 600;
+    }
+
+    
+    .spinner{
+    width: 54px;
+    height: 54px;
+    margin: 4px auto 0;
+    border-radius: 50%;
+    border: 6px solid rgba(224,147,117,0.25); 
+    border-top-color: #e09375;               
+    animation: spin .85s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    
+    .checkWrap{
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+    }
+    .checkSvg{
+    width: 72px;
+    height: 72px;
+    }
+    .checkCircle{
+    stroke: #22c55e;
+    stroke-width: 4;
+    stroke-dasharray: 151;
+    stroke-dashoffset: 151;
+    animation: drawCircle .45s ease forwards;
+    }
+    .checkMark{
+    stroke: #16a34a;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: drawCheck .35s .35s ease forwards;
+    }
+    @keyframes drawCircle{ to{ stroke-dashoffset: 0; } }
+    @keyframes drawCheck{ to{ stroke-dashoffset: 0; } }
+
+    .successText{ color:#16a34a; }
+
+    .overlayBtn{
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 0;
+    background: #111827;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+    }
+    .overlayBtn:hover{ filter: brightness(1.05); }
+
+
+    
+    .fieldError{
+    outline: 3px solid rgba(225, 29, 72, 0.25);
+    border-color: rgba(225, 29, 72, 0.9) !important;
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.10);
+    }
+
+    .groupError{
+    border: 2px solid rgba(225, 29, 72, 0.85);
+    border-radius: 14px;
+    padding: 10px;
+    background: rgba(225, 29, 72, 0.06);
+    }
+
+    .errorHint{
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(220, 38, 38, 0.10);
+    color: #dc2626;    
+    font-weight: 800;
+    font-size: 14px;
+    }
+
+
   </style>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -390,18 +446,18 @@ Texto de cada item:
     Tu participación nos ayudará a mejorar y enriquecer futuras ediciones. ¡Gracias por ser parte de esta experiencia única!
   </p>
 
-  <form id="myForm">
+  <form id="myForm" novalidate>
     <!-- q1 -->
     <label for="q1" class="required">Encuestador/a</label>
     <select id="q1" name="q1" required class="native-select">
       <option value="">Selecciona.</option>
-      <option value="Eliana">Eliana</option>
-      <option value="Fiona">Fiona</option>
-      <option value="Marcos">Marcos</option>
-      <option value="Sofia">Sofia</option>
-      <option value="Pilar">Pilar</option>
-      <option value="Ana">Ana</option>
-      <option value="Facundo">Facundo</option>
+        <option value="Ana">Ana</option>
+        <option value="Eliana">Eliana</option>
+        <option value="Facundo">Facundo</option>
+        <option value="Fiona">Fiona</option>
+        <option value="Marcos">Marcos</option>
+        <option value="Pilar">Pilar</option>
+        <option value="Sofia">Sofia</option>
     </select>
     <div class="swankySelect" data-for="q1"></div>
 
@@ -418,7 +474,7 @@ Texto de cada item:
     <div class="swankySelect" data-for="q2"></div>
 
     <div id="q3-container" class="hidden">
-      <label for="q3">1.a- En caso de ser del interior de la provincia, de otra provincia, o del exterior, especificar localidad, provincia o país</label>
+      <label id="q3-label" for="q3">1.a- En caso de ser del interior de la provincia, de otra provincia, o del exterior, especificar localidad, provincia o país</label>
       <input type="text" id="q3" name="q3">
     </div>
 
@@ -677,26 +733,11 @@ Texto de cada item:
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script>
-    // =========================
-    // Swanky Select (sync con <select>)
-    // =========================
+
     function buildSwankyForSelect(selectEl, hostEl, indexBadgeText){
       const placeholderText = selectEl.querySelector('option[value=""]')?.textContent?.trim() || "Selecciona.";
       const currentOption = selectEl.selectedOptions?.[0];
       const currentValueText = currentOption && currentOption.value !== "" ? currentOption.textContent.trim() : "";
-
-    //   hostEl.innerHTML = `
-    //     <button type="button" class="swankyBtn" aria-haspopup="listbox" aria-expanded="false">
-    //       <span class="swankyLeft">
-    //         <span class="swankyPill">${indexBadgeText}</span>
-    //         <span class="swankyValue ${currentValueText ? "" : "swankyPlaceholder"}">
-    //           ${currentValueText || placeholderText}
-    //         </span>
-    //       </span>
-    //       <span class="swankyArrow" aria-hidden="true"></span>
-    //     </button>
-    //     <ul class="swankyList" role="listbox" tabindex="-1"></ul>
-    //   `;
 
         hostEl.innerHTML = `
         <button type="button" class="swankyBtn" aria-haspopup="listbox" aria-expanded="false">
@@ -715,7 +756,7 @@ Texto de cada item:
       const valueEl = hostEl.querySelector('.swankyValue');
       const list = hostEl.querySelector('.swankyList');
 
-      // Opciones (omitimos el value=""; lo usamos como placeholder)
+
       const options = Array.from(selectEl.options)
         .filter(o => o.value !== "");
 
@@ -737,7 +778,7 @@ Texto de cada item:
 
       function setValue(value){
         selectEl.value = value;
-        // Disparamos change para que tu lógica condicional siga funcionando
+
         selectEl.dispatchEvent(new Event('change', { bubbles: true }));
 
         const opt = Array.from(selectEl.options).find(o => o.value === value);
@@ -787,12 +828,12 @@ Texto de cada item:
         }
       });
 
-      // Cerrar al click afuera
+
       document.addEventListener('click', (e) => {
         if(!hostEl.contains(e.target)) setOpen(false);
       });
 
-      // Si cambian el select por código (reset, etc), reflejamos
+
       selectEl.addEventListener('change', () => {
         const v = selectEl.value;
         if(!v){
@@ -809,7 +850,7 @@ Texto de cada item:
         });
       });
 
-      // Estado inicial abierto/cerrado
+
       hostEl.dataset.open = "false";
     }
 
@@ -824,30 +865,23 @@ Texto de cada item:
 
     function initSwanky(){
       const hosts = document.querySelectorAll('.swankySelect[data-for]');
-      // Numerito/pill por orden (solo visual)
+      
       hosts.forEach((host, i) => {
         const id = host.getAttribute('data-for');
         const select = document.getElementById(id);
         if(!select) return;
-        // Aseguramos clase hidden nativa
+        
         select.classList.add('native-select');
         buildSwankyForSelect(select, host, String(i+1));
       });
     }
 
-    // =========================
-    // Lógica condicional original (se mantiene)
-    // =========================
     function initConditionalLogic(){
-      const q2 = document.getElementById('q2');
-      const q3Container = document.getElementById('q3-container');
+  
 
-    //   q2.addEventListener('change', () => {
-    //     q3Container.classList.toggle(
-    //       'hidden',
-    //       q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)'
-    //     );
-    //   });
+        const q2 = document.getElementById('q2');
+        const q3Container = document.getElementById('q3-container');
+        const q3Label = document.getElementById('q3-label');
 
         q2.addEventListener('change', () => {
         const esVecino =
@@ -855,11 +889,13 @@ Texto de cada item:
 
         const noEligioNada = q2.value === '';
 
-        q3Container.classList.toggle(
-            'hidden',
-            esVecino || noEligioNada
-        );
+        const debeMostrarQ3 = !(esVecino || noEligioNada);
+
+        q3Container.classList.toggle('hidden', !debeMostrarQ3);
+
+        q3Label.classList.toggle('required', debeMostrarQ3);
         });
+
 
 
       const q9 = document.getElementById('q9');
@@ -883,48 +919,196 @@ Texto de cada item:
         q24Container.classList.toggle('hidden', q23.value !== 'Si');
       });
 
-      // Estado inicial (por si hay valores precargados)
+      
       q2.dispatchEvent(new Event('change', { bubbles:true }));
       q9.dispatchEvent(new Event('change', { bubbles:true }));
       q23.dispatchEvent(new Event('change', { bubbles:true }));
     }
 
-    // =========================
-    // Submit original
-    // =========================
     function initSubmit(){
       const form = document.getElementById('myForm');
       const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
 
-      form.addEventListener('submit', e => {
+        form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              alert('¡Respuestas enviadas con éxito!');
-              form.reset();
 
-              // reset visibilidad
-              document.getElementById('q3-container').classList.add('hidden');
-              document.getElementById('q10-container').classList.add('hidden');
-              document.getElementById('q16-container').classList.add('hidden');
-              document.getElementById('q24-container').classList.add('hidden');
+        clearValidationUI(form);
 
-              // refrescar UI swanky tras reset
-              document.querySelectorAll('select.native-select').forEach(sel => {
+        function failAt(el, msg){
+        el.classList.add('fieldError');
+        showErrorHint(el, msg);
+        scrollToEl(el);
+        el.querySelector?.('.swankyBtn')?.focus?.();
+        return false;
+        }
+        function failAtGroup(container, msg){
+        container.classList.add('groupError');
+        showErrorHint(container, msg);
+        scrollToEl(container);
+        container.querySelector?.('input[type="radio"]')?.focus?.();
+        return false;
+        }
+
+        
+        function requireSelect(id, msg="Te faltó completar esta respuesta."){
+        const sel = document.getElementById(id);
+        if(sel && !sel.value){
+            return failAt(visibleFieldFor(sel), msg);
+        }
+        return true;
+        }
+        function requireText(id, msg="Te faltó completar esta respuesta."){
+        const el = document.getElementById(id);
+        if(el && !String(el.value || '').trim()){
+            return failAt(el, msg);
+        }
+        return true;
+        }
+        function requireRadioGroup(name, msg="Te faltó elegir una opción."){
+        if(!form.querySelector(`input[name="${name}"]:checked`)){
+            const container = radioGroupContainerByName(form, name);
+            if(container) return failAtGroup(container, msg);
+        }
+        return true;
+        }
+
+
+        if(!requireSelect('q1')) return;
+        if(!requireSelect('q2')) return;
+
+
+        
+        const q2Value = document.getElementById('q2').value;
+        const q3Container = document.getElementById('q3-container');
+        const q3 = document.getElementById('q3');
+
+        const esVecino =
+        q2Value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+
+        if (!esVecino) {
+        if (!q3.value.trim()) {
+            q3.classList.add('fieldError');
+            showErrorHint(q3, 'Este campo es obligatorio según tu lugar de procedencia.');
+            scrollToEl(q3);
+            q3.focus();
+            return;
+        }
+        }
+
+
+
+        if(!requireRadioGroup('q4', 'Te faltó elegir un transporte.')) return;
+
+
+        for(const id of ['q5','q6','q7','q8','q9','q11','q12','q13','q14']){
+        if(!requireSelect(id)) return;
+        }
+
+        // q15 caritas
+        if(!requireRadioGroup('q15')) return;
+
+        // q16 condicional si q15 = 1 o 2
+        const q15Checked = form.querySelector('input[name="q15"]:checked');
+        if(q15Checked && (q15Checked.value === '1' || q15Checked.value === '2')){
+        if(!requireText('q16', 'Este campo es obligatorio si calificaste 1 o 2.')) return;
+        }
+
+        // q17..q22 caritas
+        for(const name of ['q17','q18','q19','q20','q21','q22']){
+        if(!requireRadioGroup(name)) return;
+        }
+
+        // q23 lista
+        if(!requireSelect('q23')) return;
+
+        // q24 condicional (solo si q23 == "Si")
+        const q23 = document.getElementById('q23');
+        if(q23 && q23.value === 'Si'){
+        if(!requireRadioGroup('q24', 'Te faltó calificar este espacio.')) return;
+        }
+
+        // q25 caritas
+        if(!requireRadioGroup('q25')) return;
+
+        // q26 textarea
+        if(!requireText('q26')) return;
+
+        // q27 lista
+        if(!requireSelect('q27')) return;
+
+
+
+        const overlay = document.getElementById('submitOverlay');
+        const loading = document.getElementById('loadingState');
+        const success = document.getElementById('successState');
+        const error = document.getElementById('errorState');
+        const closeBtn = document.getElementById('closeOverlayBtn');
+
+        const showOverlay = () => overlay.classList.remove('hidden');
+        const hideOverlay = () => overlay.classList.add('hidden');
+        const setState = (state) => {
+            loading.classList.toggle('hidden', state !== 'loading');
+            success.classList.toggle('hidden', state !== 'success');
+            error.classList.toggle('hidden', state !== 'error');
+            closeBtn.classList.toggle('hidden', state === 'loading');
+        };
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+
+        showOverlay();
+        setState('loading');
+
+        try {
+            const res = await fetch(scriptURL, {
+            method: 'POST',
+            body: new FormData(form)
+            });
+
+            if (!res.ok) throw new Error();
+
+            setState('success');
+
+            setTimeout(() => {
+            hideOverlay();
+
+            form.reset();
+
+            document.getElementById('q3-container').classList.add('hidden');
+            document.getElementById('q10-container').classList.add('hidden');
+            document.getElementById('q16-container').classList.add('hidden');
+            document.getElementById('q24-container').classList.add('hidden');
+
+            clearValidationUI(form);
+
+            document.querySelectorAll('select.native-select').forEach(sel => {
                 sel.dispatchEvent(new Event('change', { bubbles:true }));
-              });
+            });
+
+
+            const firstSwanky = document.querySelector('.swankySelect[data-for="q1"]');
+            if (firstSwanky) {
+                firstSwanky.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                firstSwanky.querySelector('.swankyBtn')?.focus();
             } else {
-              alert('Error al enviar. Intenta nuevamente.');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-          })
-          .catch(error => alert('Error: ' + error));
-      });
+            }, 1700);
+
+
+        } catch {
+            setState('error');
+        } finally {
+            submitBtn.disabled = false;
+        }
+
+        closeBtn.onclick = () => hideOverlay();
+        });
+
+
     }
 
-    // =========================
-    // Mapa / geolocalización
-    // =========================
+
     function initMap(){
       const map = L.map('map', {
         zoomControl: false,
@@ -951,20 +1135,128 @@ Texto de cada item:
           lngInput.value = lng;
 
           map.setView([lat, lng], 19);
+
           L.marker([lat, lng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
         }, () => {
-          // si falla, queda en vista global
+          
         }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
       }
     }
 
-    // Init
+    
     initSwanky();
     initConditionalLogic();
+
+    
+    document.addEventListener('change', (e) => {
+    const t = e.target;
+
+    
+    if(t.tagName === 'SELECT' && t.classList.contains('native-select')){
+        const host = document.querySelector(`.swankySelect[data-for="${t.id}"]`);
+        host?.classList.remove('fieldError');
+        host?.nextElementSibling?.classList?.contains('errorHint') && host.nextElementSibling.remove();
+    }
+
+    
+    if(t.matches('input[type="radio"]')){
+        const container = radioGroupContainerByName(document.getElementById('myForm'), t.name);
+        container?.classList.remove('groupError');
+        
+        const next = container?.nextElementSibling;
+        if(next && next.classList.contains('errorHint')) next.remove();
+    }
+
+   
+    if(t.matches('input[type="text"], textarea')){
+        t.classList.remove('fieldError');
+        const next = t.nextElementSibling;
+        if(next && next.classList.contains('errorHint')) next.remove();
+    }
+    });
+
+
+    function clearValidationUI(form){
+    form.querySelectorAll('.fieldError').forEach(el => el.classList.remove('fieldError'));
+    form.querySelectorAll('.groupError').forEach(el => el.classList.remove('groupError'));
+    form.querySelectorAll('.errorHint').forEach(el => el.remove());
+    }
+
+    function showErrorHint(afterEl, text){
+    const hint = document.createElement('div');
+    hint.className = 'errorHint';
+    hint.textContent = text;
+    afterEl.insertAdjacentElement('afterend', hint);
+    return hint;
+    }
+
+
+    function visibleFieldFor(el){
+    if(el.tagName === 'SELECT' && el.classList.contains('native-select')){
+        return document.querySelector(`.swankySelect[data-for="${el.id}"]`) || el;
+    }
+    return el;
+    }
+
+    
+    function radioGroupContainerByName(form, name){
+    
+    const map = {
+        q4: document.getElementById('q4'),
+        q15: document.getElementById('q15'),
+        q17: document.getElementById('q17'),
+        q18: document.getElementById('q18'),
+        q19: document.getElementById('q19'),
+        q20: document.getElementById('q20'),
+        q21: document.getElementById('q21'),
+        q22: document.getElementById('q22'),
+        q24: document.getElementById('q24'),
+        q25: document.getElementById('q25'),
+    };
+    return map[name] || null;
+    }
+
+    function scrollToEl(el){
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+
+
     initSubmit();
     initMap();
   </script>
+
+    
+    <div id="submitOverlay" class="overlay hidden" aria-live="polite" aria-busy="true">
+    <div class="overlayCard">
+        
+        <div id="loadingState">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="overlayTitle">Registrando encuesta...</div>
+        <div class="overlaySub">Por favor, aguardá un momento.</div>
+        </div>
+
+        
+        <div id="successState" class="hidden">
+        <div class="checkWrap" aria-hidden="true">
+            <svg class="checkSvg" viewBox="0 0 52 52">
+            <circle class="checkCircle" cx="26" cy="26" r="24" fill="none"></circle>
+            <path class="checkMark" fill="none" d="M14 27 L22 35 L38 19"></path>
+            </svg>
+        </div>
+        <div class="overlayTitle successText">¡Encuesta registrada!</div>
+        <div class="overlaySub">Muchas gracias ❤️</div>
+        </div>
+
+        
+        <div id="errorState" class="hidden">
+        <div class="overlayTitle" style="color:#b42318;">No se pudo registrar</div>
+        <div class="overlaySub">Revisá tu conexión e intentá de nuevo.</div>
+        </div>
+
+        <button id="closeOverlayBtn" type="button" class="overlayBtn hidden">Cerrar</button>
+    </div>
+    </div>
+
 </body>
 </html>
-
-
