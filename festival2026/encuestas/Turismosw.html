@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EXPERIENCIA FESTIVALERA 2026</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+
+  <style>
+    :root{
+      --bg1:#f4f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --primary:#4285F4;
+      --primary2:#2a64c6;
+
+      /* Swanky */
+      --swanky-bg:#2a394f;
+      --swanky-hover:#212e41;
+      --swanky-border:#293649;
+      --swanky-accent:#14a3f9;
+      --swanky-item:#15a4fa;
+      --swanky-item-hover:#0c93e4;
+      --swanky-inset:#126CA1;
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:24px 14px 48px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, #e9f1ff 0%, var(--bg1) 40%, #f6f0ff 100%);
+      color:var(--text);
+    }
+
+    img.logo{
+      max-width: min(420px, 15%);
+      display:block;
+      margin: 0 auto 18px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+
+    h1{
+      text-align:center;
+      margin: 0 0 10px;
+      letter-spacing:.3px;
+      font-size: clamp(22px, 3.2vw, 34px);
+    }
+
+    .description{
+      max-width: 860px;
+      margin: 0 auto 18px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.45;
+      font-size: 15px;
+    }
+
+    form{
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px 16px 20px;
+      box-shadow: 0 10px 30px rgba(17,24,39,0.08);
+    }
+
+    label{
+      display:block;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color:#111827;
+    }
+    label.required::after{
+      content:" *";
+      color:#e74c3c;
+      font-weight:800;
+    }
+
+    input[type="text"], textarea, select{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.12);
+      outline:none;
+      font-size: 15px;
+      background:#fff;
+    }
+    input[type="text"]:focus, textarea:focus, select:focus{
+      border-color: rgba(66,133,244,0.7);
+      box-shadow: 0 0 0 4px rgba(66,133,244,0.15);
+    }
+    textarea{
+      height: 120px;
+      resize: vertical;
+    }
+
+    button{
+      margin-top: 22px;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, var(--primary), #357ae8);
+      color:white;
+      border:none;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size: 1.05em;
+      font-weight: 800;
+      transition: transform .15s ease, filter .2s ease;
+    }
+    button:hover{
+      filter: brightness(0.98);
+      transform: translateY(-1px);
+    }
+
+    .hidden{ display:none; }
+
+    /* Caritas / satisfacción */
+    .satisfaction{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 10px 0 6px;
+      flex-wrap: wrap;
+    }
+    .satisfaction label{
+      margin:0;
+      font-weight: 400;
+      cursor:pointer;
+      transition: transform .15s ease;
+    }
+    .satisfaction label:hover{ transform: scale(1.05); }
+    .satisfaction input{ display:none; }
+    .satisfaction input:checked + img{
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(66,133,244,0.35);
+    }
+    .satisfaction img{
+      width: 46px;
+      height: 46px;
+      padding: 6px;
+      border-radius: 50%;
+      background:#fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    /* Transportes */
+    .transport{
+      display:flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+    .transport label{
+      margin:0;
+      font-weight:400;
+      cursor:pointer;
+      transition: transform .15s ease;
+      text-align:center;
+    }
+    .transport label:hover{ transform: scale(1.03); }
+    .transport input{ display:none; }
+    .transport input:checked + img{
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      box-shadow: 0 0 10px rgba(66,133,244,0.30);
+    }
+    .transport-icon{
+      height: auto;
+      padding: 12px;
+      border-radius: 14px;
+      background:#fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+    .transport .transport-auto{ width: 80px; }
+    .transport .transport-camioneta{ width: 100px; }
+    .transport .transport-moto{ width: 70px; }
+    .transport .transport-colectivo{ width: 90px; }
+    .transport .transport-otro{ width: 80px; }
+
+    /* =========================
+       Swanky dropdown (opción 2)
+       ========================= */
+    .native-select{
+      /* queda para el form submit y validación, pero no lo mostramos */
+      position:absolute !important;
+      left:-9999px !important;
+      width:1px !important;
+      height:1px !important;
+      opacity:0 !important;
+      pointer-events:none !important;
+    }
+
+    .swankySelect{
+      width: 100%;
+      border-radius: 12px;
+      overflow:hidden;
+      background: var(--swanky-bg);
+      box-shadow: 0 8px 18px rgba(17,24,39,0.10);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .swankyBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      background: transparent;
+      border:0;
+      color: rgb(239, 244, 250);
+      padding: 14px 14px;
+      cursor:pointer;
+      font-weight: 800;
+      font-size: 15px;
+      text-align:left;
+    }
+    .swankyBtn:hover{
+      background: var(--swanky-hover);
+    }
+
+    .swankyBtn .swankyLeft{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .swankyPill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(20,163,249,0.18);
+      color: #cfe9ff;
+      font-weight: 900;
+      font-size: 12px;
+      flex: 0 0 auto;
+    }
+    .swankyValue{
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      font-weight: 700;
+      color: rgba(239, 244, 250, 0.92);
+    }
+    .swankyPlaceholder{
+      color: rgba(239, 244, 250, 0.65);
+      font-weight: 600;
+    }
+
+    .swankyArrow{
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid rgba(255,255,255,0.85);
+      border-right: 2px solid rgba(255,255,255,0.85);
+      transform: rotate(45deg);
+      transition: transform .25s cubic-bezier(0.68,-0.55,0.265,1.55), border-color .2s ease;
+      flex: 0 0 auto;
+      margin-right: 2px;
+    }
+    .swankySelect[data-open="true"] .swankyArrow{
+      transform: rotate(135deg);
+      border-top-color: var(--swanky-accent);
+      border-right-color: var(--swanky-accent);
+    }
+
+    .swankyList{
+      display:none;
+      padding: 0;
+      margin: 0;
+      list-style:none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      max-height: 260px;
+      overflow:auto;
+    }
+    .swankySelect[data-open="true"] .swankyList{
+      display:block;
+    }
+
+    .swankyItem{
+      padding: 12px 14px;
+      color:white;
+      background: var(--swanky-item);
+      cursor:pointer;
+      transition: background .15s ease, box-shadow .2s ease, padding-left .2s ease;
+      box-shadow: 0 0 var(--swanky-inset) inset;
+      font-weight: 650;
+    }
+    .swankyItem:hover{
+      background: var(--swanky-item-hover);
+      box-shadow: 4px 0 var(--swanky-inset) inset;
+      padding-left: 18px;
+    }
+    .swankyItem[aria-selected="true"]{
+      outline: 2px solid rgba(255,255,255,0.45);
+      outline-offset: -2px;
+    }
+
+    /* Map container */
+    #map-container{ margin-top: 14px; }
+  </style>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+
+<body>
+  <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png"
+       alt="Logo Municipalidad" class="logo">
+
+  <h1>EXPERIENCIA FESTIVALERA 2026</h1>
+  <p class="description">
+    ¡Tu opinión es invaluable! Participa en nuestra encuesta para conocer tu paso por el Festival Nacional de Doma y Folklore.
+    Tu participación nos ayudará a mejorar y enriquecer futuras ediciones. ¡Gracias por ser parte de esta experiencia única!
+  </p>
+
+  <form id="myForm">
+    <!-- q1 -->
+    <label for="q1" class="required">Encuestador/a</label>
+    <select id="q1" name="q1" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Eliana">Eliana</option>
+      <option value="Fiona">Fiona</option>
+      <option value="Marcos">Marcos</option>
+      <option value="Sofia">Sofia</option>
+      <option value="Pilar">Pilar</option>
+      <option value="Ana">Ana</option>
+      <option value="Facundo">Facundo</option>
+    </select>
+    <div class="swankySelect" data-for="q1"></div>
+
+    <!-- q2 -->
+    <label for="q2" class="required">1- Lugar de Procedencia</label>
+    <select id="q2" name="q2" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)">Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)</option>
+      <option value="Interior de la Provincia de Córdoba">Interior de la Provincia de Córdoba</option>
+      <option value="Cordoba Capital">Cordoba Capital</option>
+      <option value="Otra provincia">Otra provincia</option>
+      <option value="Exterior">Exterior</option>
+    </select>
+    <div class="swankySelect" data-for="q2"></div>
+
+    <div id="q3-container" class="hidden">
+      <label for="q3">1.a- En caso de ser del interior de la provincia, de otra provincia, o del exterior, especificar localidad, provincia o país</label>
+      <input type="text" id="q3" name="q3">
+    </div>
+
+    <!-- q4 transport -->
+    <label class="required">2- ¿En qué transporte viniste a la ciudad?</label>
+    <div class="transport" id="q4">
+      <label><input type="radio" name="q4" value="Auto" required><img class="transport-icon transport-auto" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/autoR.png" alt="Auto"></label>
+      <label><input type="radio" name="q4" value="Camioneta"><img class="transport-icon transport-camioneta" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/camionetaR.png" alt="Camioneta"></label>
+      <label><input type="radio" name="q4" value="Moto"><img class="transport-icon transport-moto" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/motoR.png" alt="Moto"></label>
+      <label><input type="radio" name="q4" value="Colectivo"><img class="transport-icon transport-colectivo" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/colectivoR.png" alt="Colectivo"></label>
+      <label><input type="radio" name="q4" value="Otro"><img class="transport-icon transport-otro" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/otroR.png" alt="Otro"></label>
+    </div>
+
+    <!-- q5 -->
+    <label for="q5" class="required">3- ¿Cuántos kilómetros viajaste aproximadamente?</label>
+    <select id="q5" name="q5" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Menos de 50 km">Menos de 50 km</option>
+      <option value="Entre 50 km y 150 km">Entre 50 km y 150 km</option>
+      <option value="Entre 150 km y 300 km">Entre 150 km y 300 km</option>
+      <option value="Entre 300 km y 500 km">Entre 300 km y 500 km</option>
+      <option value="Entre 500 km y 1000 km">Entre 500 km y 1000 km</option>
+      <option value="Más de 1000 km">Más de 1000 km</option>
+    </select>
+    <div class="swankySelect" data-for="q5"></div>
+
+    <!-- q6 -->
+    <label for="q6" class="required">4- ¿Con quién viniste al festival?</label>
+    <select id="q6" name="q6" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Solo">Solo</option>
+      <option value="En pareja">En pareja</option>
+      <option value="Grupo familiar">Grupo familiar</option>
+      <option value="Grupo de amigos">Grupo de amigos</option>
+    </select>
+    <div class="swankySelect" data-for="q6"></div>
+
+    <!-- q7 -->
+    <label for="q7" class="required">5- Edad de la persona o grupo social</label>
+    <select id="q7" name="q7" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Menor de 12 años">Menor de 12 años</option>
+      <option value="12 a 18 años">12 a 18 años</option>
+      <option value="19 a 25 años">19 a 25 años</option>
+      <option value="26 a 35 años">26 a 35 años</option>
+      <option value="36 a 55 años">36 a 55 años</option>
+      <option value="56 a 75 años">56 a 75 años</option>
+      <option value="Más de 75 años">Más de 75 años</option>
+    </select>
+    <div class="swankySelect" data-for="q7"></div>
+
+    <!-- q8 -->
+    <label for="q8" class="required">6- Cantidad de días que permanecerás en la ciudad</label>
+    <select id="q8" name="q8" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Vive acá">Vive acá</option>
+      <option value="1 día">1 día</option>
+      <option value="1 a 3 días">1 a 3 días</option>
+      <option value="3 a 7 días">3 a 7 días</option>
+      <option value="7 a 10 días">7 a 10 días</option>
+    </select>
+    <div class="swankySelect" data-for="q8"></div>
+
+    <!-- q9 -->
+    <label for="q9" class="required">7- En caso de alojarte en la zona, ¿En qué ciudad lo haces?</label>
+    <select id="q9" name="q9" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Jesús María">Jesús María</option>
+      <option value="Colonia Caroya">Colonia Caroya</option>
+      <option value="Sinsacate">Sinsacate</option>
+      <option value="Otra">Otra</option>
+      <option value="No se hospeda (viene y regresa a su hogar en el día)">No se hospeda (viene y regresa a su hogar en el día)</option>
+    </select>
+    <div class="swankySelect" data-for="q9"></div>
+
+    <div id="q10-container" class="hidden">
+      <label for="q10">7.a- En caso de ser otra, especificar cuál</label>
+      <input type="text" id="q10" name="q10">
+    </div>
+
+    <!-- q11 -->
+    <label for="q11" class="required">8- Cantidad de noches que ingresarás al Anfiteatro</label>
+    <select id="q11" name="q11" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Ninguna">Ninguna</option>
+      <option value="1 noche">1 noche</option>
+      <option value="Entre 2 y 5 noches">Entre 2 y 5 noches</option>
+      <option value="Entre 6 y 9 noches">Entre 6 y 9 noches</option>
+      <option value="Más de 9 noches">Más de 9 noches</option>
+    </select>
+    <div class="swankySelect" data-for="q11"></div>
+
+    <!-- q12 -->
+    <label for="q12" class="required">8.a- En caso de ingresar, ¿Es la primera vez que asistís al festival?</label>
+    <select id="q12" name="q12" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Si">Si</option>
+      <option value="No">No</option>
+    </select>
+    <div class="swankySelect" data-for="q12"></div>
+
+    <!-- q13 -->
+    <label for="q13" class="required">9- ¿Por qué venís al Festival de Jesús María?</label>
+    <select id="q13" name="q13" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Por el show artístico (espectáculo musical)">Por el show artístico (espectáculo musical)</option>
+      <option value="Por la jineteada">Por la jineteada</option>
+      <option value="Para recorrer los alrededores del Anfiteatro">Para recorrer los alrededores del Anfiteatro</option>
+    </select>
+    <div class="swankySelect" data-for="q13"></div>
+
+    <!-- q14 -->
+    <label for="q14" class="required">10- Teniendo en cuenta alojamiento, comida, movilidad y gastos varios, ¿Cuál es el gasto aproximado por persona por día?</label>
+    <select id="q14" name="q14" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Menos de $80.000">Menos de $80.000</option>
+      <option value="Entre $80.000 y $100.000">Entre $80.000 y $100.000</option>
+      <option value="Entre $100.000 y $150.000">Entre $100.000 y $150.000</option>
+      <option value="Entre $150.000 y $200.000">Entre $150.000 y $200.000</option>
+      <option value="Más de $200.000">Más de $200.000</option>
+    </select>
+    <div class="swankySelect" data-for="q14"></div>
+
+    <!-- q15 satisfacción -->
+    <label class="required">11- ¿Cómo es o fue tu experiencia de alojamiento?</label>
+    <div class="satisfaction" id="q15">
+      <label><input type="radio" name="q15" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q15" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q15" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q15" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q15" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <div id="q16-container" class="hidden">
+      <label for="q16">11.a- En caso de calificar en 1 o 2, ¿a qué se debe la insatisfacción? (Describir motivo e identificación del alojamiento, de ser posible)</label>
+      <textarea id="q16" name="q16"></textarea>
+    </div>
+
+    <!-- q17 -->
+    <label class="required">12- Limpieza de calles</label>
+    <div class="satisfaction" id="q17">
+      <label><input type="radio" name="q17" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q17" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q17" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q17" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q17" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q18 -->
+    <label class="required">13- Limpieza de baños</label>
+    <div class="satisfaction" id="q18">
+      <label><input type="radio" name="q18" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q18" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q18" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q18" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q18" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q19 -->
+    <label class="required">14- Seguridad</label>
+    <div class="satisfaction" id="q19">
+      <label><input type="radio" name="q19" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q19" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q19" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q19" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q19" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q20 -->
+    <label class="required">15- Propuesta gastronómica</label>
+    <div class="satisfaction" id="q20">
+      <label><input type="radio" name="q20" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q20" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q20" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q20" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q20" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q21 -->
+    <label class="required">16- Oferta cultural y turística</label>
+    <div class="satisfaction" id="q21">
+      <label><input type="radio" name="q21" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q21" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q21" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q21" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q21" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q22 -->
+    <label class="required">17- Tránsito</label>
+    <div class="satisfaction" id="q22">
+      <label><input type="radio" name="q22" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q22" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q22" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q22" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q22" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q23 -->
+    <label for="q23" class="required">18- ¿Visitaste el Patio de Doña Pipa?</label>
+    <select id="q23" name="q23" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Si">Si</option>
+      <option value="No">No</option>
+      <option value="No lo conozco">No lo conozco</option>
+    </select>
+    <div class="swankySelect" data-for="q23"></div>
+
+    <div id="q24-container" class="hidden">
+      <label class="required">18.a- En caso de responder afirmativamente, ¿Cómo calificas el espacio?</label>
+      <div class="satisfaction" id="q24">
+        <label><input type="radio" name="q24" value="1"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+        <label><input type="radio" name="q24" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+        <label><input type="radio" name="q24" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+        <label><input type="radio" name="q24" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+        <label><input type="radio" name="q24" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+      </div>
+    </div>
+
+    <!-- q25 -->
+    <label class="required">19- En una escala del 1 al 5, ¿Cómo calificarías tu experiencia general en el festival?</label>
+    <div class="satisfaction" id="q25">
+      <label><input type="radio" name="q25" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q25" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q25" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q25" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q25" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>
+
+    <!-- q26 -->
+    <label for="q26" class="required">20- ¿Qué es lo que más te gusta y lo que menos te gusta de la visita a nuestra ciudad?</label>
+    <textarea id="q26" name="q26" required></textarea>
+
+    <!-- q27 -->
+    <label for="q27" class="required">21- Tenés pensado visitar el Festival en la edición 2027?</label>
+    <select id="q27" name="q27" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Si">Si</option>
+      <option value="No se">No se</option>
+      <option value="No">No</option>
+    </select>
+    <div class="swankySelect" data-for="q27"></div>
+
+    <!-- Map -->
+    <div id="map-container">
+      <label class="required">Ubicación actual (aproximada para referencia)</label>
+      <div id="map" style="height: 300px; margin-top: 10px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);"></div>
+      <input type="hidden" id="latitude" name="latitude">
+      <input type="hidden" id="longitude" name="longitude">
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // =========================
+    // Swanky Select (sync con <select>)
+    // =========================
+    function buildSwankyForSelect(selectEl, hostEl, indexBadgeText){
+      const placeholderText = selectEl.querySelector('option[value=""]')?.textContent?.trim() || "Selecciona.";
+      const currentOption = selectEl.selectedOptions?.[0];
+      const currentValueText = currentOption && currentOption.value !== "" ? currentOption.textContent.trim() : "";
+
+      hostEl.innerHTML = `
+        <button type="button" class="swankyBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="swankyLeft">
+            <span class="swankyPill">${indexBadgeText}</span>
+            <span class="swankyValue ${currentValueText ? "" : "swankyPlaceholder"}">
+              ${currentValueText || placeholderText}
+            </span>
+          </span>
+          <span class="swankyArrow" aria-hidden="true"></span>
+        </button>
+        <ul class="swankyList" role="listbox" tabindex="-1"></ul>
+      `;
+
+      const btn = hostEl.querySelector('.swankyBtn');
+      const valueEl = hostEl.querySelector('.swankyValue');
+      const list = hostEl.querySelector('.swankyList');
+
+      // Opciones (omitimos el value=""; lo usamos como placeholder)
+      const options = Array.from(selectEl.options)
+        .filter(o => o.value !== "");
+
+      list.innerHTML = options.map((o) => {
+        const selected = selectEl.value === o.value;
+        return `<li class="swankyItem" role="option" tabindex="-1" data-value="${escapeHtml(o.value)}" aria-selected="${selected}">
+          ${escapeHtml(o.textContent.trim())}
+        </li>`;
+      }).join('');
+
+      function setOpen(open){
+        hostEl.dataset.open = open ? "true" : "false";
+        btn.setAttribute('aria-expanded', open ? "true" : "false");
+        if(open){
+          const selectedItem = list.querySelector('.swankyItem[aria-selected="true"]') || list.querySelector('.swankyItem');
+          selectedItem?.focus();
+        }
+      }
+
+      function setValue(value){
+        selectEl.value = value;
+        // Disparamos change para que tu lógica condicional siga funcionando
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+
+        const opt = Array.from(selectEl.options).find(o => o.value === value);
+        valueEl.textContent = opt ? opt.textContent.trim() : placeholderText;
+        valueEl.classList.toggle('swankyPlaceholder', !opt);
+
+        list.querySelectorAll('.swankyItem').forEach(li => {
+          li.setAttribute('aria-selected', li.dataset.value === value ? "true" : "false");
+        });
+
+        setOpen(false);
+      }
+
+      btn.addEventListener('click', () => {
+        const isOpen = hostEl.dataset.open === "true";
+        setOpen(!isOpen);
+      });
+
+      list.addEventListener('click', (e) => {
+        const li = e.target.closest('.swankyItem');
+        if(!li) return;
+        setValue(li.dataset.value);
+      });
+
+      list.addEventListener('keydown', (e) => {
+        const items = Array.from(list.querySelectorAll('.swankyItem'));
+        const currentIndex = items.indexOf(document.activeElement);
+        if(e.key === 'Escape'){
+          e.preventDefault();
+          setOpen(false);
+          btn.focus();
+        }
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          const li = document.activeElement?.closest('.swankyItem');
+          if(li) setValue(li.dataset.value);
+        }
+        if(e.key === 'ArrowDown'){
+          e.preventDefault();
+          const next = items[Math.min(items.length-1, Math.max(0, currentIndex+1))] || items[0];
+          next?.focus();
+        }
+        if(e.key === 'ArrowUp'){
+          e.preventDefault();
+          const prev = items[Math.max(0, currentIndex-1)] || items[items.length-1];
+          prev?.focus();
+        }
+      });
+
+      // Cerrar al click afuera
+      document.addEventListener('click', (e) => {
+        if(!hostEl.contains(e.target)) setOpen(false);
+      });
+
+      // Si cambian el select por código (reset, etc), reflejamos
+      selectEl.addEventListener('change', () => {
+        const v = selectEl.value;
+        if(!v){
+          valueEl.textContent = placeholderText;
+          valueEl.classList.add('swankyPlaceholder');
+          list.querySelectorAll('.swankyItem').forEach(li => li.setAttribute('aria-selected','false'));
+          return;
+        }
+        const opt = Array.from(selectEl.options).find(o => o.value === v);
+        valueEl.textContent = opt ? opt.textContent.trim() : placeholderText;
+        valueEl.classList.remove('swankyPlaceholder');
+        list.querySelectorAll('.swankyItem').forEach(li => {
+          li.setAttribute('aria-selected', li.dataset.value === v ? "true" : "false");
+        });
+      });
+
+      // Estado inicial abierto/cerrado
+      hostEl.dataset.open = "false";
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
+    }
+
+    function initSwanky(){
+      const hosts = document.querySelectorAll('.swankySelect[data-for]');
+      // Numerito/pill por orden (solo visual)
+      hosts.forEach((host, i) => {
+        const id = host.getAttribute('data-for');
+        const select = document.getElementById(id);
+        if(!select) return;
+        // Aseguramos clase hidden nativa
+        select.classList.add('native-select');
+        buildSwankyForSelect(select, host, String(i+1));
+      });
+    }
+
+    // =========================
+    // Lógica condicional original (se mantiene)
+    // =========================
+    function initConditionalLogic(){
+      const q2 = document.getElementById('q2');
+      const q3Container = document.getElementById('q3-container');
+      q2.addEventListener('change', () => {
+        q3Container.classList.toggle(
+          'hidden',
+          q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)'
+        );
+      });
+
+      const q9 = document.getElementById('q9');
+      const q10Container = document.getElementById('q10-container');
+      q9.addEventListener('change', () => {
+        q10Container.classList.toggle('hidden', q9.value !== 'Otra');
+      });
+
+      const q15Radios = document.querySelectorAll('input[name="q15"]');
+      const q16Container = document.getElementById('q16-container');
+      q15Radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const val = parseInt(radio.value, 10);
+          q16Container.classList.toggle('hidden', val > 2);
+        });
+      });
+
+      const q23 = document.getElementById('q23');
+      const q24Container = document.getElementById('q24-container');
+      q23.addEventListener('change', () => {
+        q24Container.classList.toggle('hidden', q23.value !== 'Si');
+      });
+
+      // Estado inicial (por si hay valores precargados)
+      q2.dispatchEvent(new Event('change', { bubbles:true }));
+      q9.dispatchEvent(new Event('change', { bubbles:true }));
+      q23.dispatchEvent(new Event('change', { bubbles:true }));
+    }
+
+    // =========================
+    // Submit original
+    // =========================
+    function initSubmit(){
+      const form = document.getElementById('myForm');
+      const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then(response => {
+            if (response.ok) {
+              alert('¡Respuestas enviadas con éxito!');
+              form.reset();
+
+              // reset visibilidad
+              document.getElementById('q3-container').classList.add('hidden');
+              document.getElementById('q10-container').classList.add('hidden');
+              document.getElementById('q16-container').classList.add('hidden');
+              document.getElementById('q24-container').classList.add('hidden');
+
+              // refrescar UI swanky tras reset
+              document.querySelectorAll('select.native-select').forEach(sel => {
+                sel.dispatchEvent(new Event('change', { bubbles:true }));
+              });
+            } else {
+              alert('Error al enviar. Intenta nuevamente.');
+            }
+          })
+          .catch(error => alert('Error: ' + error));
+      });
+    }
+
+    // =========================
+    // Mapa / geolocalización
+    // =========================
+    function initMap(){
+      const map = L.map('map', {
+        zoomControl: false,
+        dragging: false,
+        scrollWheelZoom: false,
+        touchZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false
+      }).setView([0,0], 2);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      const latInput = document.getElementById('latitude');
+      const lngInput = document.getElementById('longitude');
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          latInput.value = lat;
+          lngInput.value = lng;
+
+          map.setView([lat, lng], 19);
+          L.marker([lat, lng]).addTo(map);
+        }, () => {
+          // si falla, queda en vista global
+        }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+      }
+    }
+
+    // Init
+    initSwanky();
+    initConditionalLogic();
+    initSubmit();
+    initMap();
+  </script>
+</body>
+</html>
