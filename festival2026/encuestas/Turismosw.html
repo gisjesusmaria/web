@@ -951,7 +951,7 @@ Texto de cada item:
           lngInput.value = lng;
 
           map.setView([lat, lng], 19);
-          L.marker([lat, lng]).addTo(map);
+          L.marker([lat, lng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
         }, () => {
           // si falla, queda en vista global
         }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
@@ -966,3 +966,4 @@ Texto de cada item:
   </script>
 </body>
 </html>
+
