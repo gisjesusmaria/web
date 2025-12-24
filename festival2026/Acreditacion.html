@@ -1,10 +1,10 @@
-<!-- 11122025_0810 -->
+<!-- 23122025_2221 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <title>Acreditación Espacio Jesús María</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -602,7 +602,9 @@
                 <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad de Jesús María">
             </div>
             
-            <h1><span class="emoji">🏇</span> Acreditación Espacio Jesús María </h1>
+            
+            <h1><span class="emoji">🏇</span> Espacio Jesús María 2026</h1>
+            
             <p>Recorridos turísticos y de gestión</p>
         </div>
 
@@ -623,6 +625,8 @@
                     <label for="cuil">CUIL *</label>
                     <input type="text" id="cuil" name="cuil" placeholder="XX-XXXXXXXX-X" maxlength="13" required>
                 </div>
+
+
 
                 <div class="form-group">
                     <label for="cargo">Cargo *</label>
@@ -653,6 +657,10 @@
                     <label>Experiencias de Interés *</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
+                            <input type="checkbox" id="circuito7" name="circuitos" value="Espacio Jesus Maria">
+                            <label for="circuito7">Espacio Jesús María 19 a 00 hs. (visita institucional)</label>
+                        </div>                        
+                        <div class="checkbox-item">
                             <input type="checkbox" id="circuito1" name="circuitos" value="Festival desde adentro">
                             <label for="circuito1">Ciudad festivalera 20 a 00 hs. (Charlas y recorridos con áreas de Comercio, Gobierno y Seguridad)</label>
                         </div>
@@ -665,8 +673,14 @@
 
                 <div class="form-group">
                     <label for="cantidadAcompanantes">Cantidad de Acompañantes</label>
-                    <input type="number" id="cantidadAcompanantes" name="cantidadAcompanantes" min="0" value="0">
+                    <select id="cantidadAcompanantes" name="cantidadAcompanantes">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
+                <div id="acompanantesContainer"></div>
 
                 <div class="dominios-section">
                     <h3>Dominios Adicionales (Opcional)</h3>
@@ -683,6 +697,8 @@
                         <input type="text" id="dominioAdicional3" name="dominioAdicional3" placeholder="ABC123" class="uppercase-input">
                     </div>
                 </div>
+
+
 
                 <div class="form-group">
                     <label for="telefono">Teléfono (10 dígitos) *</label>
@@ -713,7 +729,7 @@
             <div class="credential-card" id="credentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-
+                    
                     <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="credentialInfo"></div>
@@ -781,7 +797,7 @@
             <div class="credential-card" id="consultCredentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-
+                    
                     <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="consultCredentialInfo"></div>
@@ -813,7 +829,9 @@
 
         const SCRIPT_URL = "https://acreditacion.gisjesusmaria.workers.dev"
 
-       
+        
+
+        
 
         let currentFormData = null;
 
@@ -826,6 +844,18 @@
                 this.setSelectionRange(start, end);
             });
         });
+
+
+        document.querySelectorAll('input[name="circuitos"]').forEach(cb => {
+            cb.addEventListener('change', () => {
+                if (document.querySelectorAll('input[name="circuitos"]:checked').length > 0) {
+                    document.querySelectorAll('input[name="circuitos"]').forEach(c => {
+                        c.style.borderColor = '';  
+                    });
+                    errorMessage.classList.remove('active');  
+                }
+            });
+        });        
 
 
         function setupCuilFormat(id) {
@@ -845,14 +875,17 @@
 
 
 
+
+
+
+
         document.getElementById('telefono').addEventListener('input', function() {
             let v = this.value.trim();
 
-
+            
             const hasPlus = v.startsWith('+');
 
             if (hasPlus) {
-                
                 let digits = v.slice(1).replace(/\D/g, '');
                 
                 digits = digits.substring(0, 15);
@@ -964,7 +997,7 @@
             const domAd2 = data.dominioAdicional2 || '';
             const domAd3 = data.dominioAdicional3 || '';
 
-            info.innerHTML = `
+            let html = `
                 <div class="credential-field"><strong>CUIL:</strong><span>${data.cuil}</span></div>
                 <div class="credential-field"><strong>Nombre:</strong><span>${data.nombre}</span></div>
                 <div class="credential-field"><strong>Cargo:</strong><span>${data.cargo}</span></div>
@@ -976,6 +1009,21 @@
                 <div class="credential-field"><strong>Dominio Adicional 3:</strong><span>${domAd3 || '-'}</span></div>
                 <div class="credential-field"><strong>Fecha de Visita:</strong><span>${fecha}</span></div>
             `;
+            
+            if (data.ac1nombre) {
+                html += `<div class="credential-field"><strong>Acomp. 1 Nombre:</strong><span>${data.ac1nombre}</span></div>`;
+                html += `<div class="credential-field"><strong>Acomp. 1 Cargo:</strong><span>${data.ac1cargo}</span></div>`;
+            }
+            if (data.ac2nombre) {
+                html += `<div class="credential-field"><strong>Acomp. 2 Nombre:</strong><span>${data.ac2nombre}</span></div>`;
+                html += `<div class="credential-field"><strong>Acomp. 2 Cargo:</strong><span>${data.ac2cargo}</span></div>`;
+            }
+            if (data.ac3nombre) {
+                html += `<div class="credential-field"><strong>Acomp. 3 Nombre:</strong><span>${data.ac3nombre}</span></div>`;
+                html += `<div class="credential-field"><strong>Acomp. 3 Cargo:</strong><span>${data.ac3cargo}</span></div>`;
+            }
+
+            info.innerHTML = html;
             setTimeout(() => generateQR(document.getElementById(qrId), data.cuil, fecha), 100);
         }
 
@@ -985,14 +1033,20 @@
             e.preventDefault();
             errorMessage.classList.remove('active');
 
+
+
             if (document.querySelectorAll('input[name="circuitos"]:checked').length === 0) {
                 errorMessage.textContent = 'Por favor, seleccione al menos una experiencia de interés.';
                 errorMessage.classList.add('active');
+                document.querySelectorAll('input[name="circuitos"]').forEach(cb => {
+                    cb.style.borderColor = '#c62828';
+                });  
+                console.log('Ninguna experiencia seleccionada');  
                 return;
-            }
+            }            
 
 
-            
+
             
             const telefonoInput = document.getElementById('telefono');
             let rawTel = telefonoInput.value.trim();
@@ -1044,7 +1098,7 @@
                 nombre: document.getElementById('nombre').value,
                 cuil: document.getElementById('cuil').value,
                 cargo: document.getElementById('cargo').value,
-                institucion: document.getElementById('institucion').value,
+                institucion: document.getElementById('institucion').value, 
                 localidad: document.getElementById('localidad').value,
                 dominio: document.getElementById('dominio').value,
                 fechaVisita: document.getElementById('fechaVisita').value,
@@ -1055,11 +1109,18 @@
                 circuito5: 'NO',
                 circuito6: 'NO',
                 cantidadAcompanantes: document.getElementById('cantidadAcompanantes').value || '0',
+                ac1Nombre: document.getElementById('ac1Nombre')?.value || '',
+                ac1Cargo: document.getElementById('ac1Cargo')?.value || '',
+                ac2Nombre: document.getElementById('ac2Nombre')?.value || '',
+                ac2Cargo: document.getElementById('ac2Cargo')?.value || '',
+                ac3Nombre: document.getElementById('ac3Nombre')?.value || '',
+                ac3Cargo: document.getElementById('ac3Cargo')?.value || '',
                 dominioAdicional1: document.getElementById('dominioAdicional1').value || '',
                 dominioAdicional2: document.getElementById('dominioAdicional2').value || '',
                 dominioAdicional3: document.getElementById('dominioAdicional3').value || '',
                 telefono: telefonoInput.value,
-                mail: email
+                mail: email,
+                circuito7: document.getElementById('circuito7').checked ? 'SI' : 'NO'
             };
 
             form.style.display = 'none';
@@ -1180,7 +1241,7 @@
                         const fecha = formatDate(result.data.fechaVisita);
 
 
-                        info.innerHTML = `
+                        let html = `
                             <div class="credential-field"><strong>CUIL:</strong><span>${result.data.cuil}</span></div>
                             <div class="credential-field"><strong>Nombre:</strong><span>${result.data.nombre}</span></div>
                             <div class="credential-field"><strong>Cargo:</strong><span>${result.data.cargo}</span></div>
@@ -1191,10 +1252,28 @@
                             <div class="credential-field"><strong>Dominio Adicional 2:</strong><span>${result.data.dominioAdicional2 || '-'}</span></div>
                             <div class="credential-field"><strong>Dominio Adicional 3:</strong><span>${result.data.dominioAdicional3 || '-'}</span></div>
                             <div class="credential-field"><strong>Fecha de Visita:</strong><span>${fecha}</span></div>
+                        `;
+                        
+                        if (result.data.ac1Nombre) {
+                            html += `<div class="credential-field"><strong>Acomp. 1 Nombre:</strong><span>${result.data.ac1Nombre}</span></div>`;
+                            html += `<div class="credential-field"><strong>Acomp. 1 Cargo:</strong><span>${result.data.ac1Cargo}</span></div>`;
+                        }
+                        if (result.data.ac2Nombre) {
+                            html += `<div class="credential-field"><strong>Acomp. 2 Nombre:</strong><span>${result.data.ac2Nombre}</span></div>`;
+                            html += `<div class="credential-field"><strong>Acomp. 2 Cargo:</strong><span>${result.data.ac2Cargo}</span></div>`;
+                        }
+                        if (result.data.ac3Nombre) {
+                            html += `<div class="credential-field"><strong>Acomp. 3 Nombre:</strong><span>${result.data.ac3Nombre}</span></div>`;
+                            html += `<div class="credential-field"><strong>Acomp. 3 Cargo:</strong><span>${result.data.ac3Cargo}</span></div>`;
+                        }
+
+                        html += `
                             <div class="credential-field" style="background:#ffebee;color:#c62828;font-weight:bold;">
                                 <strong>ESTADO:</strong><span>INACTIVA</span>
                             </div>
-                        `;                        
+                        `;
+
+                        info.innerHTML = html;
 
 
                         document.getElementById('qrcodeConsult').innerHTML = '';
@@ -1383,9 +1462,11 @@
         
         document.getElementById('newRegistration').onclick = () => {
             form.reset();
+            document.getElementById('acompanantesContainer').innerHTML = '';
             successContainer.classList.remove('active');
             formContainer.style.display = 'block';
             form.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
         document.getElementById('newConsult').onclick = () => {
             document.getElementById('consultForm').reset();
@@ -1600,7 +1681,71 @@
         }
 
 
+        
+        const cantidadSelect = document.getElementById('cantidadAcompanantes');
+        cantidadSelect.addEventListener('change', function() {
+            const container = document.getElementById('acompanantesContainer');
+            container.innerHTML = '';
+            const num = parseInt(this.value) || 0;
+
+            for (let i = 1; i <= num; i++) {
+                
+                const groupNombre = document.createElement('div');
+                groupNombre.classList.add('form-group');
+
+                const labelNombre = document.createElement('label');
+                labelNombre.setAttribute('for', `ac${i}Nombre`);
+                labelNombre.textContent = `Acompañante ${i} Nombre *`;
+
+                const nombreInput = document.createElement('input');
+                nombreInput.type = 'text';
+                nombreInput.id = `ac${i}Nombre`;
+                nombreInput.name = `ac${i}Nombre`;
+                nombreInput.placeholder = `Acompañante${i} Nombre`;
+                nombreInput.classList.add('uppercase-input');
+                nombreInput.required = true;
+
+                nombreInput.addEventListener('input', function() {
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.toUpperCase();
+                    this.setSelectionRange(start, end);
+                });                
+
+                groupNombre.appendChild(labelNombre);
+                groupNombre.appendChild(nombreInput);
+                container.appendChild(groupNombre);
+
+                
+                const groupCargo = document.createElement('div');
+                groupCargo.classList.add('form-group');
+
+                const labelCargo = document.createElement('label');
+                labelCargo.setAttribute('for', `ac${i}Cargo`);
+                labelCargo.textContent = `Acompañante ${i} Cargo *`;
+
+                const cargoInput = document.createElement('input');
+                cargoInput.type = 'text';
+                cargoInput.id = `ac${i}Cargo`;
+                cargoInput.name = `ac${i}Cargo`;
+                cargoInput.placeholder = `Acompañante${i} Cargo`;
+                cargoInput.classList.add('uppercase-input');
+                cargoInput.required = true;
+
+                cargoInput.addEventListener('input', function() {
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.toUpperCase();
+                    this.setSelectionRange(start, end);
+                });                
+
+                groupCargo.appendChild(labelCargo);
+                groupCargo.appendChild(cargoInput);
+                container.appendChild(groupCargo);
+            }
+        });
+
+
     </script>
 </body>
 </html>
-
