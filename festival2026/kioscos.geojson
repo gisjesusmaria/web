@@ -17727,6 +17727,78 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 280,
+        "nomenc": "02-A-39A",
+        "medidas": "5.00X5.00",
+        "rubro": "ARTICULOS REGIONALES Y ARTESANIAS.",
+        "titular.nombre": "SANCHEZ JULIO MATIAS",
+        "titular.dni": "33480204",
+        "titular.tel": "000",
+        "montoadj": "5987250",
+        "pago1.importe": null,
+        "pago1.fecha": null,
+        "pago1.comprobante": null,
+        "pago2.importe": null,
+        "pago2.fecha": null,
+        "pago2.comprobante": null,
+        "pago3.importe": null,
+        "pago3.fecha": null,
+        "pago3.comprobante": null,
+        "pago4.importe": null,
+        "pago4.fecha": null,
+        "pago4.comprobante": null,
+        "pago5.importe": null,
+        "pago5.fecha": null,
+        "pago5.comprobante": null,
+        "pago6.importe": null,
+        "pago6.fecha": null,
+        "pago6.comprobante": null,
+        "pago7.importe": null,
+        "pago7.fecha": null,
+        "pago7.comprobante": null,
+        "pago8.importe": null,
+        "pago8.fecha": null,
+        "pago8.comprobante": null,
+        "pago9.importe": null,
+        "pago9.fecha": null,
+        "pago9.comprobante": null,
+        "pago10.importe": null,
+        "pago10.fecha": null,
+        "pago10.comprobante": null,
+        "esdejesusmaria": "NO",
+        "_index": 280
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.09293673932552,
+              -30.975018506011214
+            ],
+            [
+              -64.09289181232454,
+              -30.9750369132083
+            ],
+            [
+              -64.09290254116058,
+              -30.9750564708513
+            ],
+            [
+              -64.09294679760933,
+              -30.975040939782208
+            ],
+            [
+              -64.09293673932552,
+              -30.975018506011214
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
