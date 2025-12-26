@@ -1,4 +1,4 @@
-<!-- 17122025_1133 -->
+<!-- 26122025_0724 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -306,6 +306,14 @@
 
     let deviceInfoGlobal = {};
 
+    let ipAddress = 'Desconocida';
+
+    let ultfec = '';
+    let ulthor = '';
+    let ultid = '';
+
+    let horaFich = '';
+    let dateFich = '';
     
     const updateClock = () => {
         const n = new Date();
@@ -323,20 +331,10 @@
 
         try {
 
-            //DeviceInfoGlobal = await getDeviceInfo();  
-            deviceInfoGlobal = await getClientProperties();
-
-            
-
-
             const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
             if (!idResponse.ok) throw new Error('Worker offline');
             const deployText = await idResponse.text();           
             const DEPLOY_ID = deployText.trim();                  
-
-
-            
-
 
             scriptUrl = `https://script.google.com/macros/s/${DEPLOY_ID}/exec`;
 
@@ -350,10 +348,29 @@
             document.getElementById('title').textContent = config.O || 'Fichajes';
 
 
-
             document.body.style.pointerEvents = 'auto';
             document.getElementById('loadingOverlay').style.opacity = '0';
-            setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 400);
+            setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 200);
+
+
+            deviceInfoGlobal = await getClientProperties();
+
+            
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json', { 
+                    cache: 'no-cache',
+
+                });
+                const ipData = await ipResponse.json();
+                
+
+                const rawIp = ipData.ip || '';
+                ipAddress = rawIp.match(/\d{1,3}(\.\d{1,3}){3}/)?.[0] || 'Inválida';
+                
+            } catch (err) {
+                console.log("Error obteniendo IP:", err);
+                ipAddress = 'Sin conexión';
+            }            
 
         } catch (err) {
             console.error(err);
@@ -391,8 +408,7 @@
         const sheetId = config.A;
         const sheetName = config.B;        
 
-
-        const query = encodeURIComponent(`SELECT D WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC LIMIT 1`);
+        const query = encodeURIComponent(`SELECT D, B, C, A WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC, A DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
         console.log(`DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`)
@@ -406,6 +422,19 @@
 
 
             const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
+
+            ultfec = lineas[1].split(',')[1].replace(/"/g, '').trim();
+            ulthor = lineas[1].split(',')[2].replace(/"/g, '').trim();
+
+            if (ulthor) {
+                let [h, m] = ulthor.split(':').map(part => part.trim());
+                h = String(parseInt(h, 10)).padStart(2, '0');
+                m = String(parseInt(m, 10)).padStart(2, '0');
+                ulthor = `${h}:${m}`;
+            }
+
+            ultid = lineas[1].split(',')[3].replace(/"/g, '').trim();
+
             return tipo; 
         } catch (e) {
             console.error("Error consultando último fichaje", e);
@@ -445,6 +474,7 @@
             document.getElementById('toggleBtn').classList.add('green');
         }
 
+
         return {
             apellido, 
             nombre, 
@@ -463,9 +493,6 @@
             return;
         }
 
-
-
-    
         document.getElementById('searchSpinner').style.display = 'block';
         document.getElementById('employeeInfo').style.display = 'none';
         document.getElementById('ficharBtn').style.display = 'none';
@@ -512,7 +539,6 @@
     };
 
 
-
     document.getElementById('searchBtn').onclick = buscar;
     document.getElementById('dniInput').addEventListener('keypress', e => {
         if (e.key === 'Enter') {
@@ -542,8 +568,6 @@
     const ctx = canvas.getContext('2d');
     let dibujando = false;
     
-
-
 
     const start = e => {
         updateScale();  
@@ -658,53 +682,47 @@
             
             const base64Completo = canvas.toDataURL('image/png', 0.6); 
 
+            let observaciones = 'ok';  
 
 
             const ahora = new Date();
-            const horaActual = ahora.toTimeString().substr(0,5); 
 
-            let observaciones = 'ok';  
+            horaFich = ahora.toTimeString().substr(0,5); 
+
+            dateFich = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
+
 
             if (mode === 'E') {
                 const horario = employeeData.horarioEntrada?.trim();
 
                 if (horario && horario !== '--:--' && horario !== '') {
-                    if (horaActual > horario) {
+                    if (horaFich > horario) {
                         observaciones = 'Entró tarde';
                     }
                 }
             } else {
                 const horario = employeeData.horarioSalida?.trim();
                 if (horario && horario !== '--:--' && horario !== '') {
-                    if (horaActual < horario) {
+                    if (horaFich < horario) {
                         observaciones = 'Salió antes';
                     }
                 }
             }            
 
 
-
-            let ipAddress = 'Desconocida';
-            try {
-                const ipResponse = await fetch('https://api.ipify.org?format=json', { 
-                    cache: 'no-cache',
-
-                });
-                const ipData = await ipResponse.json();
-                
-
-                const rawIp = ipData.ip || '';
-                ipAddress = rawIp.match(/\d{1,3}(\.\d{1,3}){3}/)?.[0] || 'Inválida';
-                
-            } catch (err) {
-                console.log("Error obteniendo IP:", err);
-                ipAddress = 'Sin conexión';
-            }
+            if (ultfec && ulthor && dateFich === ultfec) {
+                if (horaFich === ulthor) {
+                    ahora.setMinutes(ahora.getMinutes() + 1);
+                    dateFich = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
+                    horaFich = ahora.toTimeString().substr(0, 5);
+                    observaciones = observaciones + '+1';
+                }
+            }            
 
             const payload = {
                 action: 'saveCheckin',
-                date: `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}`,
-                time: horaActual,
+                date: dateFich,
+                time: horaFich,
                 mode: mode,
                 dni: document.getElementById('dniInput').value,
                 name: `${employeeData.apellido} ${employeeData.nombre}`,
@@ -712,16 +730,18 @@
                 schedule: mode==='E'?employeeData.horarioEntrada:employeeData.horarioSalida,
                 condition: employeeData.condicion,
                 hoja: employeeData.hoja,
-                observaciones: observaciones || 'ok',
+                observaciones: observaciones,
                 ip: ipAddress,
-                //dispositivo: `DeviceID: ${deviceInfoGlobal.fingerprint}`
                 dispositivo: `DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`
             };
 
 
-
             const resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify(payload)});
             const res = await resp.json();
+
+            ultfec = '';
+            ulthor = '';
+            ultid = '';
 
             if (res.success) {
                 document.getElementById('spinner').style.display = 'none';
@@ -729,7 +749,7 @@
 
                 const textoObs = observaciones || 'OK';
 
-                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${observaciones === 'ok' ? '' : ' (' + observaciones + ')'}`;
+                msg.textContent = `¡FICHAJE REGISTRADO CON ÉXITO!${(observaciones === 'ok' || observaciones === 'ok+1') ? '' : ' (' + observaciones.replace('+1','') + ')'}`;
                 msg.style.color = '#0b0';
                 msg.style.fontSize = '28px'; 
                               
@@ -819,12 +839,9 @@
         }
 
 
-        // Fingerprint
-
         info["HW Concurrency"] = navigator.hardwareConcurrency || 'Desconocido';
         info["Device Memory"] = navigator.deviceMemory || 'Desconocido';
         info["Max Touch Points"] = navigator.maxTouchPoints || 0;
-
 
         const stableProps = [
             info["Resolución de pantalla"],
@@ -844,8 +861,6 @@
             hash = ((hash << 5) - hash + stableProps.charCodeAt(i)) | 0;
         }
         info["Fingerprint"] = Math.abs(hash).toString(36).substring(0, 12);
-
-
 
         return info;
     }
