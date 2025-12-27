@@ -41,7 +41,7 @@
     }
 
     img.logo{
-      max-width: min(420px, 27%);
+      max-width: min(420px, 36%);
       display:block;
       margin: 0 auto 18px auto;
       border-radius: 10px;
@@ -461,6 +461,13 @@
     display:inline-block;
     }
 
+    .required-asterisk {
+    color: red;
+    font-weight: bold;
+    margin-left: 4px;
+    }
+
+
   </style>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -582,8 +589,16 @@
     <div class="swankySelect" data-for="q9"></div>
 
     <div id="q10-container" class="hidden">
-      <label for="q10">En caso de ser otra, especificar cuál</label>
-      <input type="text" id="q10" name="q10">
+      <!-- <label for="q10">En caso de ser otra, especificar cuál</label>
+      <input type="text" id="q10" name="q10"> -->
+
+        <label for="q10">
+        En caso de ser otra, especificar cuál
+        <span id="q10-asterisk" class="required-asterisk hidden">*</span>
+        </label>
+
+        <input type="text" id="q10" name="q10">
+
     </div>
 
     <!-- q11 -->
@@ -618,11 +633,24 @@
     <div class="swankySelect" data-for="q13"></div> -->
 
     <!-- q13 (MULTI) -->
-    <label class="required">¿Por qué venís al Festival de Jesús María?</label>
+    <!-- <label class="required">¿Por qué venís al Festival de Jesús María?</label>
     <div class="multiChoice" id="q13Multi">
     <label><input type="checkbox" name="q13" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
     <label><input type="checkbox" name="q13" value="Por la jineteada"> Por la jineteada</label>
     <label><input type="checkbox" name="q13" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label>
+    </div> -->
+
+
+    <label class="required">¿Por qué venís al Festival de Jesús María?</label>
+
+    <div class="multiChoice" id="q13Multi">
+    <!-- ✅ este hidden es el que viaja como q13 -->
+    <input type="hidden" id="q13" name="q13" value="">
+
+    <!-- ✅ los checks ya NO se llaman q13 -->
+    <label><input type="checkbox" name="q13_cb" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
+    <label><input type="checkbox" name="q13_cb" value="Por la jineteada"> Por la jineteada</label>
+    <label><input type="checkbox" name="q13_cb" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label>
     </div>
 
 
@@ -775,10 +803,10 @@
     </div> -->
 
     <!-- q26 -->
-    <label for="q26" class="required">¿Qué es lo que más te gustó de la visita a nuestra ciudad?</label>
+    <label for="q26" class="required">¿Qué es lo que MÁS te gustó de la visita a nuestra ciudad?</label>
     <textarea id="q26" name="q26" required></textarea>
 
-    <label for="qMen" class="required">¿Qué es lo que menos te gustó de la visita a nuestra ciudad?</label>
+    <label for="qMen" class="required">¿Qué es lo que MENOS te gustó de la visita a nuestra ciudad?</label>
     <textarea id="qMen" name="qMen" required></textarea>    
 
     <!-- q27 -->
@@ -971,11 +999,50 @@
 
 
 
-      const q9 = document.getElementById('q9');
-      const q10Container = document.getElementById('q10-container');
-      q9.addEventListener('change', () => {
-        q10Container.classList.toggle('hidden', q9.value !== 'Otra');
-      });
+    //   const q9 = document.getElementById('q9');
+    //   const q10Container = document.getElementById('q10-container');
+    //   q9.addEventListener('change', () => {
+    //     q10Container.classList.toggle('hidden', q9.value !== 'Otra');
+    //   });
+
+
+    // const q9 = document.getElementById('q9');
+    // const q10Container = document.getElementById('q10-container');
+    // const q10 = document.getElementById('q10');
+
+    // q9.addEventListener('change', () => {
+    // const esOtra = q9.value === 'Otra';
+
+    // q10Container.classList.toggle('hidden', !esOtra);
+
+    // // 🔒 obligatorio solo si eligió "Otra"
+    // q10.toggleAttribute('required', esOtra);
+
+    // // opcional: si deja de ser "Otra", limpio el campo
+    // if (!esOtra) q10.value = '';
+    // });
+
+    const q9 = document.getElementById('q9');
+    const q10Container = document.getElementById('q10-container');
+    const q10 = document.getElementById('q10');
+    const q10Asterisk = document.getElementById('q10-asterisk');
+
+    q9.addEventListener('change', () => {
+    const esOtra = q9.value === 'Otra';
+
+    // mostrar / ocultar input
+    q10Container.classList.toggle('hidden', !esOtra);
+
+    // obligatorio dinámico
+    q10.toggleAttribute('required', esOtra);
+
+    // ⭐ mostrar / ocultar asterisco rojo
+    q10Asterisk.classList.toggle('hidden', !esOtra);
+
+    if (!esOtra) q10.value = '';
+    });
+
+
 
       const q15Radios = document.querySelectorAll('input[name="q15"]');
       const q16Container = document.getElementById('q16-container');
@@ -1001,6 +1068,8 @@
     function initSubmit(){
       const form = document.getElementById('myForm');
       const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
+
+      
 
         form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -1030,6 +1099,14 @@
         }
         return true;
         }
+
+        // q10 obligatorio si q9 == "Otra"
+        const q9Val = document.getElementById('q9')?.value;
+        if (q9Val === 'Otra') {
+        if (!requireText('q10', 'Es obligatorio indicar la ciudad si elegiste "Otra".')) return;
+        }
+
+
         function requireText(id, msg="Te faltó completar esta respuesta."){
         const el = document.getElementById(id);
         if(el && !String(el.value || '').trim()){
@@ -1059,22 +1136,22 @@
 
 
         
-        const q2Value = document.getElementById('q2').value;
-        const q3Container = document.getElementById('q3-container');
-        const q3 = document.getElementById('q3');
+        // const q2Value = document.getElementById('q2').value;
+        // const q3Container = document.getElementById('q3-container');
+        // const q3 = document.getElementById('q3');
 
-        const esVecino =
-        q2Value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+        // const esVecino =
+        // q2Value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
 
-        if (!esVecino) {
-        if (!q3.value.trim()) {
-            q3.classList.add('fieldError');
-            showErrorHint(q3, 'Este campo es obligatorio según tu lugar de procedencia.');
-            scrollToEl(q3);
-            q3.focus();
-            return;
-        }
-        }
+        // if (!esVecino) {
+        // if (!q3.value.trim()) {
+        //     q3.classList.add('fieldError');
+        //     showErrorHint(q3, 'Este campo es obligatorio según tu lugar de procedencia.');
+        //     scrollToEl(q3);
+        //     q3.focus();
+        //     return;
+        // }
+        // }
 
 
 
@@ -1085,12 +1162,15 @@
         // if(!requireSelect(id)) return;
         // }
 
-        for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14']){
+        for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14','qAloj']){
         if(!requireSelect(id)) return;
         }
 
         // q13 (multi)
-        if(!requireCheckboxGroup('q13', 'q13Multi')) return;
+        //if(!requireCheckboxGroup('q13', 'q13Multi')) return;
+
+        // q13 (multi)
+        if(!requireCheckboxGroup('q13_cb', 'q13Multi')) return;
 
 
         // q15 caritas
@@ -1121,10 +1201,19 @@
 
         // q26 textarea
         if(!requireText('q26')) return;
+        
+        if(!requireText('qMen')) return;
 
         // q27 lista
         if(!requireSelect('q27')) return;
 
+
+        const q13Hidden = document.getElementById('q13');
+        const q13Seleccionados = Array.from(form.querySelectorAll('input[name="q13_cb"]:checked'))
+        .map(el => el.value.trim())
+        .join(' | ');
+
+        q13Hidden.value = q13Seleccionados;
 
 
         const overlay = document.getElementById('submitOverlay');
