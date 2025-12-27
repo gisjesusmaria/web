@@ -1,4 +1,4 @@
-<!-- 23122025_1155 -->
+<!-- 27122025_0942 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -430,6 +430,37 @@
     }
 
 
+    .multiChoice{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background:#fff;
+    }
+    .multiChoice label{
+    margin:0;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    }
+    .multiChoice input[type="checkbox"]{
+    transform: translateY(2px);
+    }
+
+    .ratingBreak{
+    margin: 18px 0 10px;
+    text-align:center;
+    }
+    .ratingBreak img{
+    width: min(560px, 100%);
+    height: auto;
+    display:inline-block;
+    }
+
   </style>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -462,7 +493,7 @@
     <div class="swankySelect" data-for="q1"></div>
 
     <!-- q2 -->
-    <label for="q2" class="required">1- Lugar de Procedencia</label>
+    <label for="q2" class="required">Lugar de Procedencia</label>
     <select id="q2" name="q2" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)">Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)</option>
@@ -473,13 +504,13 @@
     </select>
     <div class="swankySelect" data-for="q2"></div>
 
-    <div id="q3-container" class="hidden">
+    <!-- <div id="q3-container" class="hidden">
       <label id="q3-label" for="q3">1.a- En caso de ser del interior de la provincia, de otra provincia, o del exterior, especificar localidad, provincia o país</label>
       <input type="text" id="q3" name="q3">
-    </div>
+    </div> -->
 
     <!-- q4 transport -->
-    <label class="required">2- ¿En qué transporte viniste a la ciudad?</label>
+    <label class="required">¿En qué transporte viniste a la ciudad?</label>
     <div class="transport" id="q4">
       <label><input type="radio" name="q4" value="Auto" required><img class="transport-icon transport-auto" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/autoR.png" alt="Auto"></label>
       <label><input type="radio" name="q4" value="Camioneta"><img class="transport-icon transport-camioneta" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/camionetaR.png" alt="Camioneta"></label>
@@ -489,7 +520,7 @@
     </div>
 
     <!-- q5 -->
-    <label for="q5" class="required">3- ¿Cuántos kilómetros viajaste aproximadamente?</label>
+    <label for="q5" class="required">¿Cuántos kilómetros viajaste aproximadamente?</label>
     <select id="q5" name="q5" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Menos de 50 km">Menos de 50 km</option>
@@ -502,10 +533,10 @@
     <div class="swankySelect" data-for="q5"></div>
 
     <!-- q6 -->
-    <label for="q6" class="required">4- ¿Con quién viniste al festival?</label>
+    <label for="q6" class="required">¿Con quién viniste al festival?</label>
     <select id="q6" name="q6" required class="native-select">
       <option value="">Selecciona.</option>
-      <option value="Solo">Solo</option>
+      <option value="Solo">Solo/a</option>
       <option value="En pareja">En pareja</option>
       <option value="Grupo familiar">Grupo familiar</option>
       <option value="Grupo de amigos">Grupo de amigos</option>
@@ -513,21 +544,21 @@
     <div class="swankySelect" data-for="q6"></div>
 
     <!-- q7 -->
-    <label for="q7" class="required">5- Edad de la persona o grupo social</label>
+    <label for="q7" class="required">Edad de la persona encuestada</label>
     <select id="q7" name="q7" required class="native-select">
       <option value="">Selecciona.</option>
-      <option value="Menor de 12 años">Menor de 12 años</option>
-      <option value="12 a 18 años">12 a 18 años</option>
-      <option value="19 a 25 años">19 a 25 años</option>
-      <option value="26 a 35 años">26 a 35 años</option>
-      <option value="36 a 55 años">36 a 55 años</option>
-      <option value="56 a 75 años">56 a 75 años</option>
-      <option value="Más de 75 años">Más de 75 años</option>
+      <option value="15 a 19 años">15 a 19 años</option>
+      <option value="20 a 29 años">20 a 29 años</option>
+      <option value="30 a 39 años">30 a 39 años</option>
+      <option value="40 a 49 años">40 a 49 años</option>
+      <option value="50 a 59 años">50 a 59 años</option>
+      <option value="60 a 69 años">60 a 69 años</option>
+      <option value="70 años o más">70 años o más</option>
     </select>
     <div class="swankySelect" data-for="q7"></div>
 
     <!-- q8 -->
-    <label for="q8" class="required">6- Cantidad de días que permanecerás en la ciudad</label>
+    <label for="q8" class="required">Cantidad de días que permanecerás en la ciudad</label>
     <select id="q8" name="q8" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Vive acá">Vive acá</option>
@@ -539,7 +570,7 @@
     <div class="swankySelect" data-for="q8"></div>
 
     <!-- q9 -->
-    <label for="q9" class="required">7- En caso de alojarte en la zona, ¿En qué ciudad lo haces?</label>
+    <label for="q9" class="required">En caso de alojarte en la zona, ¿En qué ciudad lo haces?</label>
     <select id="q9" name="q9" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Jesús María">Jesús María</option>
@@ -551,12 +582,12 @@
     <div class="swankySelect" data-for="q9"></div>
 
     <div id="q10-container" class="hidden">
-      <label for="q10">7.a- En caso de ser otra, especificar cuál</label>
+      <label for="q10">En caso de ser otra, especificar cuál</label>
       <input type="text" id="q10" name="q10">
     </div>
 
     <!-- q11 -->
-    <label for="q11" class="required">8- Cantidad de noches que ingresarás al Anfiteatro</label>
+    <label for="q11" class="required">Cantidad de noches que ingresarás al Anfiteatro</label>
     <select id="q11" name="q11" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Ninguna">Ninguna</option>
@@ -568,7 +599,7 @@
     <div class="swankySelect" data-for="q11"></div>
 
     <!-- q12 -->
-    <label for="q12" class="required">8.a- En caso de ingresar, ¿Es la primera vez que asistís al festival?</label>
+    <label for="q12" class="required">¿Es la primera vez que ingresas al festival?</label>
     <select id="q12" name="q12" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Si">Si</option>
@@ -577,17 +608,26 @@
     <div class="swankySelect" data-for="q12"></div>
 
     <!-- q13 -->
-    <label for="q13" class="required">9- ¿Por qué venís al Festival de Jesús María?</label>
+    <!-- <label for="q13" class="required">¿Por qué venís al Festival de Jesús María?</label>
     <select id="q13" name="q13" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Por el show artístico (espectáculo musical)">Por el show artístico (espectáculo musical)</option>
       <option value="Por la jineteada">Por la jineteada</option>
       <option value="Para recorrer los alrededores del Anfiteatro">Para recorrer los alrededores del Anfiteatro</option>
     </select>
-    <div class="swankySelect" data-for="q13"></div>
+    <div class="swankySelect" data-for="q13"></div> -->
+
+    <!-- q13 (MULTI) -->
+    <label class="required">¿Por qué venís al Festival de Jesús María?</label>
+    <div class="multiChoice" id="q13Multi">
+    <label><input type="checkbox" name="q13" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
+    <label><input type="checkbox" name="q13" value="Por la jineteada"> Por la jineteada</label>
+    <label><input type="checkbox" name="q13" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label>
+    </div>
+
 
     <!-- q14 -->
-    <label for="q14" class="required">10- Teniendo en cuenta alojamiento, comida, movilidad y gastos varios, ¿Cuál es el gasto aproximado por persona por día?</label>
+    <label for="q14" class="required">Teniendo en cuenta alojamiento, comida, movilidad y gastos varios, ¿Cuál es el gasto aproximado por persona por día</label>
     <select id="q14" name="q14" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Menos de $80.000">Menos de $80.000</option>
@@ -598,8 +638,29 @@
     </select>
     <div class="swankySelect" data-for="q14"></div>
 
+    <label for="qAloj" class="required">En caso de alojarte, en qué tipo de alojamiento lo haces?</label>
+    <select id="qAloj" name="qAloj" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Alojamiento alternativo categoría A">Alojamiento alternativo categoría A</option>
+      <option value="Alojamiento alternativo categoría B">Alojamiento alternativo categoría B</option>
+      <option value="Alojamiento alternativo categoría C">Alojamiento alternativo categoría C</option>
+      <option value="Alojamiento permanente">Alojamiento permanente</option>
+      <option value="Hotel / posada">Hotel / posada</option>
+      <option value="Camping">Camping</option>
+      <option value="En casa de amigos/familiares">En casa de amigos/familiares</option>
+    </select>
+    <div class="swankySelect" data-for="qAloj"></div>    
+
+
+    <div class="ratingBreak">
+    <img
+        src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/las5caritas_conDsMin.png"
+        alt="Sección con valoración">
+    </div>
+
+
     <!-- q15 satisfacción -->
-    <label class="required">11- ¿Cómo es o fue tu experiencia de alojamiento?</label>
+    <label class="required">Experiencia de alojamiento</label>
     <div class="satisfaction" id="q15">
       <label><input type="radio" name="q15" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q15" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -609,12 +670,12 @@
     </div>
 
     <div id="q16-container" class="hidden">
-      <label for="q16">11.a- En caso de calificar en 1 o 2, ¿a qué se debe la insatisfacción? (Describir motivo e identificación del alojamiento, de ser posible)</label>
+      <label for="q16">En caso de calificar en 1 o 2, ¿a qué se debe la insatisfacción? (Describir motivo e identificación del alojamiento, de ser posible)</label>
       <textarea id="q16" name="q16"></textarea>
     </div>
 
     <!-- q17 -->
-    <label class="required">12- Limpieza de calles</label>
+    <label class="required">Limpieza de calles</label>
     <div class="satisfaction" id="q17">
       <label><input type="radio" name="q17" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q17" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -624,7 +685,7 @@
     </div>
 
     <!-- q18 -->
-    <label class="required">13- Limpieza de baños</label>
+    <label class="required">Limpieza de baños</label>
     <div class="satisfaction" id="q18">
       <label><input type="radio" name="q18" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q18" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -634,7 +695,7 @@
     </div>
 
     <!-- q19 -->
-    <label class="required">14- Seguridad</label>
+    <label class="required">Seguridad</label>
     <div class="satisfaction" id="q19">
       <label><input type="radio" name="q19" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q19" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -644,7 +705,7 @@
     </div>
 
     <!-- q20 -->
-    <label class="required">15- Propuesta gastronómica</label>
+    <label class="required">Propuesta gastronómica</label>
     <div class="satisfaction" id="q20">
       <label><input type="radio" name="q20" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q20" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -654,7 +715,7 @@
     </div>
 
     <!-- q21 -->
-    <label class="required">16- Oferta cultural y turística</label>
+    <label class="required">Oferta cultural y turística</label>
     <div class="satisfaction" id="q21">
       <label><input type="radio" name="q21" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q21" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -664,7 +725,7 @@
     </div>
 
     <!-- q22 -->
-    <label class="required">17- Tránsito</label>
+    <label class="required">Manejo de Tránsito</label>
     <div class="satisfaction" id="q22">
       <label><input type="radio" name="q22" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q22" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -673,8 +734,17 @@
       <label><input type="radio" name="q22" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <label class="required">Estacionamiento y Playas</label>
+    <div class="satisfaction" id="qEyP">
+      <label><input type="radio" name="qEyP" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="qEyP" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="qEyP" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="qEyP" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="qEyP" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div>    
+
     <!-- q23 -->
-    <label for="q23" class="required">18- ¿Visitaste el Patio de Doña Pipa?</label>
+    <label for="q23" class="required">¿Visitaste el Patio de Doña Pipa?</label>
     <select id="q23" name="q23" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Si">Si</option>
@@ -684,7 +754,7 @@
     <div class="swankySelect" data-for="q23"></div>
 
     <div id="q24-container" class="hidden">
-      <label class="required">18.a- En caso de responder afirmativamente, ¿Cómo calificas el espacio?</label>
+      <label class="required">En caso de responder afirmativamente, ¿Cómo calificas el espacio?</label>
       <div class="satisfaction" id="q24">
         <label><input type="radio" name="q24" value="1"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
         <label><input type="radio" name="q24" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
@@ -695,21 +765,24 @@
     </div>
 
     <!-- q25 -->
-    <label class="required">19- En una escala del 1 al 5, ¿Cómo calificarías tu experiencia general en el festival?</label>
+    <!-- <label class="required">19- En una escala del 1 al 5, ¿Cómo calificarías tu experiencia general en el festival?</label>
     <div class="satisfaction" id="q25">
       <label><input type="radio" name="q25" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
       <label><input type="radio" name="q25" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
       <label><input type="radio" name="q25" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
       <label><input type="radio" name="q25" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
       <label><input type="radio" name="q25" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
-    </div>
+    </div> -->
 
     <!-- q26 -->
-    <label for="q26" class="required">20- ¿Qué es lo que más te gusta y lo que menos te gusta de la visita a nuestra ciudad?</label>
+    <label for="q26" class="required">¿Qué es lo que más te gustó de la visita a nuestra ciudad?</label>
     <textarea id="q26" name="q26" required></textarea>
 
+    <label for="qMen" class="required">¿Qué es lo que menos te gustó de la visita a nuestra ciudad?</label>
+    <textarea id="qMen" name="qMen" required></textarea>    
+
     <!-- q27 -->
-    <label for="q27" class="required">21- Tenés pensado visitar el Festival en la edición 2027?</label>
+    <label for="q27" class="required">Tenés pensado visitar el Festival en la edición 2027?</label>
     <select id="q27" name="q27" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Si">Si</option>
@@ -877,24 +950,24 @@
     }
 
     function initConditionalLogic(){
-  
 
-        const q2 = document.getElementById('q2');
-        const q3Container = document.getElementById('q3-container');
-        const q3Label = document.getElementById('q3-label');
+        // const q2 = document.getElementById('q2');
+        // const q3Container = document.getElementById('q3-container');
+        // const q3Label = document.getElementById('q3-label');
 
-        q2.addEventListener('change', () => {
-        const esVecino =
-            q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+        // q2.addEventListener('change', () => {
+        // const esVecino =
+        //     q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
 
-        const noEligioNada = q2.value === '';
+        // const noEligioNada = q2.value === '';
 
-        const debeMostrarQ3 = !(esVecino || noEligioNada);
+        // const debeMostrarQ3 = !(esVecino || noEligioNada);
 
-        q3Container.classList.toggle('hidden', !debeMostrarQ3);
+        // q3Container.classList.toggle('hidden', !debeMostrarQ3);
 
-        q3Label.classList.toggle('required', debeMostrarQ3);
-        });
+        // // ✅ asterisco rojo solo cuando corresponde
+        // q3Label.classList.toggle('required', debeMostrarQ3);
+        // });
 
 
 
@@ -971,6 +1044,14 @@
         }
         return true;
         }
+        function requireCheckboxGroup(name, containerId, msg="Te faltó elegir al menos una opción."){
+        if(!form.querySelector(`input[name="${name}"]:checked`)){
+            const container = document.getElementById(containerId);
+            if(container) return failAtGroup(container, msg);
+        }
+        return true;
+        }
+
 
 
         if(!requireSelect('q1')) return;
@@ -1000,9 +1081,17 @@
         if(!requireRadioGroup('q4', 'Te faltó elegir un transporte.')) return;
 
 
-        for(const id of ['q5','q6','q7','q8','q9','q11','q12','q13','q14']){
+        // for(const id of ['q5','q6','q7','q8','q9','q11','q12','q13','q14']){
+        // if(!requireSelect(id)) return;
+        // }
+
+        for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14']){
         if(!requireSelect(id)) return;
         }
+
+        // q13 (multi)
+        if(!requireCheckboxGroup('q13', 'q13Multi')) return;
+
 
         // q15 caritas
         if(!requireRadioGroup('q15')) return;
@@ -1069,23 +1158,28 @@
 
             setState('success');
 
+            
             setTimeout(() => {
             hideOverlay();
 
+            
             form.reset();
 
+            
             document.getElementById('q3-container').classList.add('hidden');
             document.getElementById('q10-container').classList.add('hidden');
             document.getElementById('q16-container').classList.add('hidden');
             document.getElementById('q24-container').classList.add('hidden');
 
+            
             clearValidationUI(form);
 
+            
             document.querySelectorAll('select.native-select').forEach(sel => {
                 sel.dispatchEvent(new Event('change', { bubbles:true }));
             });
 
-
+            
             const firstSwanky = document.querySelector('.swankySelect[data-for="q1"]');
             if (firstSwanky) {
                 firstSwanky.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1093,7 +1187,7 @@
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-            }, 2200);
+            }, 1700);
 
 
         } catch {
@@ -1135,7 +1229,7 @@
           lngInput.value = lng;
 
           map.setView([lat, lng], 19);
-
+          //L.marker([lat, lng]).addTo(map);
           L.marker([lat, lng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
         }, () => {
           
@@ -1158,7 +1252,7 @@
         host?.nextElementSibling?.classList?.contains('errorHint') && host.nextElementSibling.remove();
     }
 
-    
+   
     if(t.matches('input[type="radio"]')){
         const container = radioGroupContainerByName(document.getElementById('myForm'), t.name);
         container?.classList.remove('groupError');
@@ -1167,12 +1261,20 @@
         if(next && next.classList.contains('errorHint')) next.remove();
     }
 
-   
+    
     if(t.matches('input[type="text"], textarea')){
         t.classList.remove('fieldError');
         const next = t.nextElementSibling;
         if(next && next.classList.contains('errorHint')) next.remove();
     }
+
+    if(t.matches('input[type="checkbox"]')){
+    const container = document.getElementById('q13Multi');
+    container?.classList.remove('groupError');
+    const next = container?.nextElementSibling;
+    if(next && next.classList.contains('errorHint')) next.remove();
+    }
+
     });
 
 
@@ -1260,4 +1362,3 @@
 
 </body>
 </html>
-
