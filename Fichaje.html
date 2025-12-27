@@ -800,6 +800,7 @@
 
         async function getBrowserName() {
             const ua = navigator.userAgent;
+            if (ua.includes('AlohaBrowser/')) return 'Aloha Browser';
             if (ua.includes('Edg/')) return 'Microsoft Edge';
             if (ua.includes('OPR/') || ua.includes('Opera/')) return 'Opera';
             if (ua.includes('YaBrowser/')) return 'Yandex Browser';
@@ -868,3 +869,4 @@
 </script>
 </body>
 </html>
+
