@@ -1181,8 +1181,17 @@
                     latInput.value = Math.round(lat * 1000000);
                     lngInput.value = Math.round(lng * 1000000);
                     map.setView([lat, lng], 19);
-                    
-                }, () => {}, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+
+                }, () => {
+                    const defaultLat = -30.9744111;
+                    const defaultLng = -64.0922491;
+
+                    latInput.value = Math.round(defaultLat * 1000000);
+                    lngInput.value = Math.round(defaultLng * 1000000);
+
+                    map.setView([defaultLat, defaultLng], 19);
+
+                }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
             }
 
             setTimeout(() => {
@@ -1225,17 +1234,22 @@
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
 
-
           latInput.value = Math.round(lat * 1000000);
-          lngInput.value = Math.round(lng * 1000000);          
+          lngInput.value = Math.round(lng * 1000000);
 
           map.setView([lat, lng], 19);
-          
           L.marker([lat, lng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
         }, () => {
-          
+          const defaultLat = -30.9744111;
+          const defaultLng = -64.0922491;
+
+          latInput.value = Math.round(defaultLat * 1000000);
+          lngInput.value = Math.round(defaultLng * 1000000);
+
+          map.setView([defaultLat, defaultLng], 19);
+          L.marker([defaultLat, defaultLng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
         }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
-      }
+      } 
 
     }
 
@@ -1361,4 +1375,5 @@
     </div>
 
 </body>
+
 </html>
