@@ -1,4 +1,4 @@
-<!-- 23122025_2221 -->
+<!-- 29122025_1100 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -591,6 +591,12 @@
         }
 
 
+        .checkbox-item.error {
+            border-color: #c62828 !important;
+            box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+            background: #ffebee !important;
+        }        
+
 
 
     </style>
@@ -633,7 +639,7 @@
                     <input type="text" id="cargo" name="cargo" class="uppercase-input" required>
                 </div>
 
-                <div class="form-group">  
+                <div class="form-group">
                     <label for="institucion">Institución *</label>
                     <input type="text" id="institucion" name="institucion" class="uppercase-input" required>
                 </div>                
@@ -643,10 +649,19 @@
                     <input type="text" id="localidad" name="localidad" class="uppercase-input" required>
                 </div>
 
+
+
+
                 <div class="form-group">
-                    <label for="dominio">Dominio del Vehículo *</label>
+                    <label for="dominio">Dominio del Vehículo</label>
                     <input type="text" id="dominio" name="dominio" placeholder="ABC123" class="uppercase-input" required>
-                </div>
+                    <div class="checkbox-item" style="margin-top: 10px;">
+                        <input type="checkbox" id="noVehiculo" name="noVehiculo">
+                        <label for="noVehiculo">No utilizo vehículo</label>
+                    </div>
+                </div>                
+                
+            
 
                 <div class="form-group">
                     <label for="fechaVisita">Fecha de Visita *</label>
@@ -658,11 +673,11 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="circuito7" name="circuitos" value="Espacio Jesus Maria">
-                            <label for="circuito7">Espacio Jesús María 19 a 00 hs. (visita institucional)</label>
+                            <label for="circuito7">Espacio Jesús María 19 a 00 hs. (Espacio de encuentro institucional)</label>
                         </div>                        
                         <div class="checkbox-item">
                             <input type="checkbox" id="circuito1" name="circuitos" value="Festival desde adentro">
-                            <label for="circuito1">Ciudad festivalera 20 a 00 hs. (Charlas y recorridos con áreas de Comercio, Gobierno y Seguridad)</label>
+                            <label for="circuito1">Ciudad festivalera 20 hs. (Duración aproximada 1:15 Hs. Visita guiada por el corazón del operativo festival.)</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="circuito2" name="circuitos" value="Experiencia Jesús María">
@@ -672,7 +687,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cantidadAcompanantes">Cantidad de Acompañantes (Máximo 3, pertenecinetes a la Institución)</label>
+                    <label for="cantidadAcompanantes">Cantidad de Acompañantes (Máximo 3, pertenecientes a la Institución)</label>
                     <select id="cantidadAcompanantes" name="cantidadAcompanantes">
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -697,6 +712,7 @@
                         <input type="text" id="dominioAdicional3" name="dominioAdicional3" placeholder="ABC123" class="uppercase-input">
                     </div>
                 </div>
+
 
 
 
@@ -836,6 +852,22 @@
         let currentFormData = null;
 
 
+        const noVehiculoCheckbox = document.getElementById('noVehiculo');
+        const dominioInput = document.getElementById('dominio');
+
+        noVehiculoCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                dominioInput.value = 'NO UTILIZO VEHÍCULO';
+                dominioInput.disabled = true;
+                dominioInput.required = false;
+            } else {
+                dominioInput.value = '';
+                dominioInput.disabled = false;
+                dominioInput.required = true;
+            }
+        });
+
+
         document.querySelectorAll('.uppercase-input').forEach(input => {
             input.addEventListener('input', function() {
                 const start = this.selectionStart;
@@ -846,15 +878,53 @@
         });
 
 
-        document.querySelectorAll('input[name="circuitos"]').forEach(cb => {
-            cb.addEventListener('change', () => {
-                if (document.querySelectorAll('input[name="circuitos"]:checked').length > 0) {
-                    document.querySelectorAll('input[name="circuitos"]').forEach(c => {
-                        c.style.borderColor = '';  
-                    });
-                    errorMessage.classList.remove('active');  
+
+        const circuitosCheckboxes = document.querySelectorAll('input[name="circuitos"]');
+        const circuitosContainer = document.querySelector('.checkbox-group');
+
+        
+        function validarCircuitos() {
+            const seleccionados = document.querySelectorAll('input[name="circuitos"]:checked').length;
+            
+            if (seleccionados === 0) {
+                
+                circuitosCheckboxes.forEach(cb => {
+                    cb.closest('.checkbox-item').style.borderColor = '#c62828';
+                    cb.closest('.checkbox-item').style.boxShadow = '0 0 0 3px rgba(198, 40, 40, 0.1)';
+                });
+                
+                
+                errorMessage.textContent = 'Por favor, seleccione al menos una experiencia de interés.';
+                errorMessage.classList.add('active');
+                
+                return false;
+            } else {
+                
+                circuitosCheckboxes.forEach(cb => {
+                    cb.closest('.checkbox-item').style.borderColor = '';
+                    cb.closest('.checkbox-item').style.boxShadow = '';
+                });
+                
+                
+                if (errorMessage.textContent.includes('experiencia de interés')) {
+                    errorMessage.classList.remove('active');
                 }
-            });
+                
+                return true;
+            }
+        }
+
+        
+        circuitosCheckboxes.forEach(cb => {
+            cb.addEventListener('change', validarCircuitos);
+        });
+
+        
+        form.addEventListener('submit', function(e) {
+            if (!validarCircuitos()) {
+                e.preventDefault(); 
+                window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' }); 
+            }
         });        
 
 
@@ -876,7 +946,7 @@
 
 
 
-
+ 
 
 
         document.getElementById('telefono').addEventListener('input', function() {
@@ -886,12 +956,12 @@
             const hasPlus = v.startsWith('+');
 
             if (hasPlus) {
+                
                 let digits = v.slice(1).replace(/\D/g, '');
                 
                 digits = digits.substring(0, 15);
                 v = '+' + digits;
             } else {
-                
                 v = v.replace(/\D/g, '').substring(0, 10);
             }
 
@@ -1029,6 +1099,9 @@
 
 
 
+
+
+
         form.addEventListener('submit', async e => {
             e.preventDefault();
             errorMessage.classList.remove('active');
@@ -1040,13 +1113,13 @@
                 errorMessage.classList.add('active');
                 document.querySelectorAll('input[name="circuitos"]').forEach(cb => {
                     cb.style.borderColor = '#c62828';
-                });  
-                console.log('Ninguna experiencia seleccionada');  
+                });  // <-- Aquí
+                console.log('Ninguna experiencia seleccionada');  // <-- Aquí, para depurar
                 return;
             }            
 
 
-
+            
             
             const telefonoInput = document.getElementById('telefono');
             let rawTel = telefonoInput.value.trim();
@@ -1094,11 +1167,17 @@
                 return;
             }
 
+            if (!noVehiculoCheckbox.checked && dominioInput.value.trim() === '') {
+                errorMessage.textContent = 'Por favor, ingrese el dominio del vehículo o seleccione "No utilizo vehículo".';
+                errorMessage.classList.add('active');
+                return;
+            }            
+
             currentFormData = {
                 nombre: document.getElementById('nombre').value,
                 cuil: document.getElementById('cuil').value,
                 cargo: document.getElementById('cargo').value,
-                institucion: document.getElementById('institucion').value, 
+                institucion: document.getElementById('institucion').value,  
                 localidad: document.getElementById('localidad').value,
                 dominio: document.getElementById('dominio').value,
                 fechaVisita: document.getElementById('fechaVisita').value,
@@ -1118,6 +1197,7 @@
                 dominioAdicional1: document.getElementById('dominioAdicional1').value || '',
                 dominioAdicional2: document.getElementById('dominioAdicional2').value || '',
                 dominioAdicional3: document.getElementById('dominioAdicional3').value || '',
+                
                 telefono: telefonoInput.value,
                 mail: email,
                 circuito7: document.getElementById('circuito7').checked ? 'SI' : 'NO'
@@ -1463,6 +1543,10 @@
         document.getElementById('newRegistration').onclick = () => {
             form.reset();
             document.getElementById('acompanantesContainer').innerHTML = '';
+            dominioInput.value = '';
+            dominioInput.disabled = false;
+            dominioInput.required = true;
+            noVehiculoCheckbox.checked = false;            
             successContainer.classList.remove('active');
             formContainer.style.display = 'block';
             form.style.display = 'block';
@@ -1749,5 +1833,3 @@
     </script>
 </body>
 </html>
-
-
