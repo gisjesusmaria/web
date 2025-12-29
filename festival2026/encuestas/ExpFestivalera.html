@@ -1314,8 +1314,8 @@
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
 
-          latInput.value = lat;
-          lngInput.value = lng;
+          latInput.value = Math.round(lat * 1000000);
+          lngInput.value = Math.round(lng * 1000000);             
 
           map.setView([lat, lng], 19);
           //L.marker([lat, lng]).addTo(map);
@@ -1451,3 +1451,4 @@
 
 </body>
 </html>
+
