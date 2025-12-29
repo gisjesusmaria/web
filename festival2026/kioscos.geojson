@@ -7804,7 +7804,7 @@
         "titular.nombre": "MEDEZ ARTAL MIGUEL ANGEL",
         "titular.dni": "24909712",
         "titular.tel": "",
-        "montoadj": "4732800",
+        "montoadj": "4230240",
         "pago1.importe": "4230240",
         "pago1.fecha": "2025-12-22",
         "pago1.comprobante": "25825078",
@@ -7836,7 +7836,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 14
+        "_index": 14,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
