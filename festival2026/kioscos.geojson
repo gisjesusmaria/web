@@ -15786,7 +15786,7 @@
         "titular.nombre": "CAPELLO DANIEL RUMILDO",
         "titular.dni": "22.585.290",
         "titular.tel": "3525-535470",
-        "montoadj": "27000000",
+        "montoadj": "20250000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -15818,7 +15818,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "SI",
-        "_index": 255
+        "_index": 255,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
