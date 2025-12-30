@@ -16082,7 +16082,7 @@
         "titular.nombre": "ALBERTO ALEJANDRO",
         "titular.dni": "24.404.635",
         "titular.tel": "3525-554419",
-        "montoadj": "30375000",
+        "montoadj": "25818750",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -16114,7 +16114,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 259
+        "_index": 259,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
