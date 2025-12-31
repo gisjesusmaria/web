@@ -1,4 +1,4 @@
-<!-- 31122025_1015 -->
+<!-- 31122025_1027 -->
 <!doctype html>
 <html lang="es">
 <head>
@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mapa - Puntos Mujer</title>
 
-  <!-- Favicon -->
+  
   <link rel="icon" type="image/x-icon"
         href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
 
-  <!-- Leaflet -->
+  
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -20,7 +20,7 @@
       margin: 0;
     }
 
-    /* HEADER con logo */
+    
     .page-header {
       display: flex;
       align-items: center;
@@ -32,7 +32,7 @@
     }
 
     .page-header img {
-      height: 40px;          /* tamaño del logo */
+      height: 40px;        
       object-fit: contain;
     }
 
@@ -56,13 +56,31 @@
       color: #555;
     }
 
-    /* El mapa ocupa el resto */
+    .page-header .t3 {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    }
+
+    .page-header .t3 a {
+    color: #2b6cff;
+    text-decoration: none;
+    font-weight: 800;
+    }
+
+    .page-header .t3 a:hover {
+    text-decoration: underline;
+    }
+
+
+    
     #map {
       height: calc(100vh - 64px);
       width: 100%;
     }
 
-    /* Ajuste visual del control de capas */
+    
     .leaflet-control-layers label {
       display: flex;
       align-items: center;
@@ -73,29 +91,35 @@
 </head>
 
 <body>
-  <!-- HEADER -->
+  
   <div class="page-header">
     <img
       src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png"
       alt="Logo Municipalidad">
+
     <div class="texts">
-      <div class="t1">Mapa de Puntos Mujer</div>
-      <div class="t2">Festival de Doma y Folklore 2026</div>
+    <div class="t1">Mapa de Puntos Mujer</div>
+    <div class="t2">Festival de Doma y Folklore 2026</div>
+
+    <div class="t3">
+        Acceso a
+        <a href="https://munjesusmaria.short.gy/notabu" target="_blank" rel="noopener">
+        NoTabu
+        </a>:
+        asesoramiento sobre consumo problemático
     </div>
+    </div>
+
   </div>
 
-  <!-- MAPA -->
+  
   <div id="map"></div>
 
 <script>
-  // =========================
-  // MAPA
-  // =========================
+
   const map = L.map('map').setView([-30.973214, -64.093855], 18);
 
-  // =========================
-  // CAPAS BASE
-  // =========================
+
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 22,
     attribution: '&copy; OpenStreetMap'
@@ -105,19 +129,15 @@
     maxZoom: 22
   });
 
-  // Satélite por defecto
+
   googleSat.addTo(map);
 
-  // =========================
-  // COLORES
-  // =========================
+
   const rosa  = '#ff4fa3';
   const verde = '#66ba70';
   const azul  = '#2b6cff';
 
-  // =========================
-  // HELPERS
-  // =========================
+
   function bigMarker(lat, lng, color, label) {
     return L.circleMarker([lat, lng], {
       radius: 14,
@@ -142,14 +162,12 @@
     `;
   }
 
-  // =========================
-  // CAPAS DE PUNTOS
-  // =========================
+
   const capaPuntoMujer = L.layerGroup().addTo(map);
   const capaSanitarios = L.layerGroup().addTo(map);
   const capaUbicacion  = L.layerGroup().addTo(map);
 
-  // Punto Mujer
+
   [
     [-30.9737277, -64.0938043],
     [-30.9740585, -64.0926733]
@@ -157,7 +175,7 @@
     bigMarker(lat, lng, rosa, 'Punto Mujer').addTo(capaPuntoMujer)
   );
 
-  // Puestos Sanitarios
+  
   [
     [-30.9739018, -64.0923649],
     [-30.9714959, -64.0954459],
@@ -166,9 +184,7 @@
     bigMarker(lat, lng, verde, 'Puesto Sanitario').addTo(capaSanitarios)
   );
 
-  // =========================
-  // CONTROL DE CAPAS
-  // =========================
+
   L.control.layers(
     { "OSM (OpenStreetMap)": osm, "Google Satellite": googleSat },
     {
@@ -179,9 +195,6 @@
     { collapsed: false }
   ).addTo(map);
 
-  // =========================
-  // MI UBICACIÓN
-  // =========================
   function setMyLocation(lat, lng, accuracy) {
     capaUbicacion.clearLayers();
 
@@ -193,7 +206,7 @@
       fillOpacity: 0.98
     }).addTo(capaUbicacion).bindPopup('Mi ubicación');
 
-    // Halo fijo
+    
     L.circleMarker([lat, lng], {
       radius: 26,
       color: azul,
