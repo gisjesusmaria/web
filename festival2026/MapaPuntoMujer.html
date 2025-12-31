@@ -1,0 +1,184 @@
+<!-- 31122025_1000 -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa - Puntos Mujer</title>
+
+  
+  <link rel="icon" type="image/x-icon"
+        href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map-wrap { position: relative; height: 100%; width: 100%; }
+    #map { height: 100%; width: 100%; }
+
+    
+    .map-header {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;              
+      background: rgba(255,255,255,0.92);
+      padding: 10px 18px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      text-align: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      pointer-events: none;       
+      max-width: calc(100% - 24px);
+    }
+    .map-header .t1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #222;
+      line-height: 1.15;
+    }
+    .map-header .t2 {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      line-height: 1.15;
+    }
+
+    
+    .leaflet-control-layers label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map-wrap">
+    <div class="map-header">
+      <div class="t1">Mapa de Puntos Mujer</div>
+      <div class="t2">Festival de Doma y Folklore 2026</div>
+    </div>
+    <div id="map"></div>
+  </div>
+
+<script>
+  const map = L.map('map').setView([-30.973214, -64.093855], 18);
+
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 22,
+    attribution: '&copy; OpenStreetMap'
+  });
+
+  
+  const googleSat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 22
+  });
+
+  
+  googleSat.addTo(map);
+
+  const rosa  = '#ff4fa3';
+  const verde = '#66ba70';
+  const azul  = '#2b6cff';
+
+  
+  function bigMarker(lat, lng, color, label) {
+    return L.circleMarker([lat, lng], {
+      radius: 14,        
+      color: '#ffffff',  
+      weight: 4,
+      fillColor: color,
+      fillOpacity: 0.95
+    }).bindPopup(`<b>${label}</b>`);
+  }
+
+  function labelConPunto(color, texto) {
+    return `
+      <span style="display:inline-flex;align-items:center;gap:6px;">
+        <span style="
+          width:12px;height:12px;border-radius:50%;
+          background:${color};
+          border:2px solid rgba(0,0,0,.25);
+          display:inline-block;
+        "></span>
+        ${texto}
+      </span>
+    `;
+  }
+
+  const capaPuntoMujer = L.layerGroup().addTo(map);
+  const capaSanitarios = L.layerGroup().addTo(map);
+  const capaUbicacion  = L.layerGroup().addTo(map);
+
+  // Punto Mujer
+  [
+    [-30.9737277, -64.0938043],
+    [-30.9740585, -64.0926733]
+  ].forEach(([lat, lng]) => bigMarker(lat, lng, rosa, 'Punto Mujer').addTo(capaPuntoMujer));
+
+  // Puestos Sanitarios
+  [
+    [-30.9739018, -64.0923649],
+    [-30.9714959, -64.0954459],
+    [-30.9737231, -64.0942498]
+  ].forEach(([lat, lng]) => bigMarker(lat, lng, verde, 'Puesto Sanitario').addTo(capaSanitarios));
+
+  
+  L.control.layers(
+    { "OSM (OpenStreetMap)": osm, "Google Satellite": googleSat },
+    {
+      [labelConPunto(rosa,  "Punto Mujer")]: capaPuntoMujer,
+      [labelConPunto(verde, "Puestos Sanitarios")]: capaSanitarios,
+      [labelConPunto(azul,  "Mi ubicación")]: capaUbicacion
+    },
+    { collapsed: false }
+  ).addTo(map);
+
+  function setMyLocation(lat, lng, accuracy) {
+    capaUbicacion.clearLayers();
+
+    L.circleMarker([lat, lng], {
+      radius: 12,
+      color: '#ffffff',
+      weight: 4,
+      fillColor: azul,
+      fillOpacity: 0.98
+    }).addTo(capaUbicacion).bindPopup('Mi ubicación');
+
+    L.circleMarker([lat, lng], {
+    radius: 30,
+    color: azul,
+    weight: 1,
+    fillColor: azul,
+    fillOpacity: 0.10
+    }).addTo(capaUbicacion);
+
+    
+    L.circleMarker([lat, lng], {
+    radius: 20,
+    color: azul,
+    weight: 2,
+    fillColor: azul,
+    fillOpacity: 0.18
+    }).addTo(capaUbicacion);
+
+  }
+
+  if ('geolocation' in navigator) {
+    navigator.geolocation.watchPosition(
+      pos => setMyLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
+      err => console.warn('Error geolocalización', err),
+      { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+    );
+  }
+</script>
+</body>
+</html>
