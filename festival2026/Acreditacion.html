@@ -1,10 +1,10 @@
-<!-- 29122025_1100 -->
+<!-- 02012026_1052 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Acreditación Espacio Jesús María</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -608,9 +608,9 @@
                 <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad de Jesús María">
             </div>
             
-            
+
             <h1><span class="emoji">🏇</span> Espacio Jesús María 2026</h1>
-            
+
             <p>Recorridos turísticos y de gestión</p>
         </div>
 
@@ -648,7 +648,6 @@
                     <label for="localidad">Ciudad *</label>
                     <input type="text" id="localidad" name="localidad" class="uppercase-input" required>
                 </div>
-
 
 
 
@@ -712,7 +711,6 @@
                         <input type="text" id="dominioAdicional3" name="dominioAdicional3" placeholder="ABC123" class="uppercase-input">
                     </div>
                 </div>
-
 
 
 
@@ -879,10 +877,12 @@
 
 
 
-        const circuitosCheckboxes = document.querySelectorAll('input[name="circuitos"]');
-        const circuitosContainer = document.querySelector('.checkbox-group');
-
         
+
+        const circuitosCheckboxes = document.querySelectorAll('input[name="circuitos"]');
+        const circuitosContainer = document.querySelector('.checkbox-group'); // opcional, para resaltar todo el bloque
+
+
         function validarCircuitos() {
             const seleccionados = document.querySelectorAll('input[name="circuitos"]:checked').length;
             
@@ -914,16 +914,16 @@
             }
         }
 
-        
+
         circuitosCheckboxes.forEach(cb => {
             cb.addEventListener('change', validarCircuitos);
         });
 
-        
+
         form.addEventListener('submit', function(e) {
             if (!validarCircuitos()) {
                 e.preventDefault(); 
-                window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' }); 
+                window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' });
             }
         });        
 
@@ -945,23 +945,23 @@
 
 
 
-
- 
+   
 
 
         document.getElementById('telefono').addEventListener('input', function() {
             let v = this.value.trim();
 
-            
+
             const hasPlus = v.startsWith('+');
 
             if (hasPlus) {
-                
+
                 let digits = v.slice(1).replace(/\D/g, '');
-                
+
                 digits = digits.substring(0, 15);
                 v = '+' + digits;
             } else {
+
                 v = v.replace(/\D/g, '').substring(0, 10);
             }
 
@@ -987,9 +987,50 @@
         });
 
 
+
+        const FECHA_INICIO = '2026-01-08';
+        const FECHA_FIN    = '2026-01-18';
+
+        const fechaVisitaInput = document.getElementById('fechaVisita');
+        const fechaConsultaInput = document.getElementById('fechaConsulta');
+
+        
+        fechaVisitaInput.min = FECHA_INICIO;
+        fechaVisitaInput.max = FECHA_FIN;
+
+        
         const today = new Date().toISOString().split('T')[0];
-        document.getElementById('fechaVisita').min = today;
-        document.getElementById('fechaConsulta').min = today;
+        fechaConsultaInput.min = today;
+
+        
+        fechaVisitaInput.addEventListener('change', function() {
+            const selected = this.value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (selected < FECHA_INICIO || selected > FECHA_FIN) {
+                this.setCustomValidity('Solo se permiten acreditaciones para fechas entre el 8 y el 18 de enero de 2026.');
+                errorMessage.textContent = '❌ Las acreditaciones solo se pueden emitir del 8 al 18 de enero de 2026.';
+                errorMessage.classList.add('active');
+            } else {
+                this.setCustomValidity('');
+                if (errorMessage.textContent.includes('enero de 2026')) {
+                    errorMessage.classList.remove('active');
+                }
+            }
+        });
+
+        
+        form.addEventListener('submit', function(e) {
+            const selected = fechaVisitaInput.value;
+
+            if (selected < FECHA_INICIO || selected > FECHA_FIN) {
+                e.preventDefault();
+                document.getElementById('errorMessage').textContent = '❌ Fecha no permitida. Solo se pueden registrar acreditaciones entre el 8 y el 18 de enero de 2026.';
+                document.getElementById('errorMessage').classList.add('active');
+                window.scrollTo({ top: document.getElementById('errorMessage').offsetTop - 100, behavior: 'smooth' });
+                return;
+            }
+        });
 
 
         document.getElementById('circuito2').addEventListener('change', function() {
@@ -1113,8 +1154,8 @@
                 errorMessage.classList.add('active');
                 document.querySelectorAll('input[name="circuitos"]').forEach(cb => {
                     cb.style.borderColor = '#c62828';
-                });  // <-- Aquí
-                console.log('Ninguna experiencia seleccionada');  // <-- Aquí, para depurar
+                });  
+                console.log('Ninguna experiencia seleccionada');  
                 return;
             }            
 
@@ -1125,13 +1166,13 @@
             let rawTel = telefonoInput.value.trim();
             const hasPlus = rawTel.startsWith('+');
 
-            
+
             let digits = hasPlus
                 ? rawTel.slice(1).replace(/\D/g, '')
                 : rawTel.replace(/\D/g, '');
 
             if (hasPlus) {
-                
+
                 if (digits.length < 11) {
                     telefonoInput.setCustomValidity('Con el signo + no puede ingresar menos de 11 dígitos.');
                     telefonoInput.reportValidity();
@@ -1177,7 +1218,7 @@
                 nombre: document.getElementById('nombre').value,
                 cuil: document.getElementById('cuil').value,
                 cargo: document.getElementById('cargo').value,
-                institucion: document.getElementById('institucion').value,  
+                institucion: document.getElementById('institucion').value,
                 localidad: document.getElementById('localidad').value,
                 dominio: document.getElementById('dominio').value,
                 fechaVisita: document.getElementById('fechaVisita').value,
@@ -1197,7 +1238,6 @@
                 dominioAdicional1: document.getElementById('dominioAdicional1').value || '',
                 dominioAdicional2: document.getElementById('dominioAdicional2').value || '',
                 dominioAdicional3: document.getElementById('dominioAdicional3').value || '',
-                
                 telefono: telefonoInput.value,
                 mail: email,
                 circuito7: document.getElementById('circuito7').checked ? 'SI' : 'NO'
@@ -1229,7 +1269,7 @@
                     setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
 
                     const cuil = currentFormData.cuil;
-                    const fechaSinFormato = currentFormData.fechaVisita; // viene en formato YYYY-MM-DD
+                    const fechaSinFormato = currentFormData.fechaVisita;
                     const email = currentFormData.mail;
 
 
