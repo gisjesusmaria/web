@@ -418,13 +418,28 @@
             const texto = await resp.text();
             const lineas = texto.trim().split('\n');
             
-            if (lineas.length < 2 || !lineas[1].trim()) return null;
+            // if (lineas.length < 2 || !lineas[1].trim()) return null;
 
+            // const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
 
-            const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
+            // ultfec = lineas[1].split(',')[1].replace(/"/g, '').trim();
+            // ulthor = lineas[1].split(',')[2].replace(/"/g, '').trim();
 
-            ultfec = lineas[1].split(',')[1].replace(/"/g, '').trim();
-            ulthor = lineas[1].split(',')[2].replace(/"/g, '').trim();
+            // if (ulthor) {
+            //     let [h, m] = ulthor.split(':').map(part => part.trim());
+            //     h = String(parseInt(h, 10)).padStart(2, '0');
+            //     m = String(parseInt(m, 10)).padStart(2, '0');
+            //     ulthor = `${h}:${m}`;
+            // }
+
+            // ultid = lineas[1].split(',')[3].replace(/"/g, '').trim();
+
+            if (lineas.length < 1 || !lineas[0].trim()) return null;
+
+            const tipo = lineas[0].split(',')[0].replace(/"/g, '').trim();
+
+            ultfec = lineas[0].split(',')[1].replace(/"/g, '').trim();
+            ulthor = lineas[0].split(',')[2].replace(/"/g, '').trim();
 
             if (ulthor) {
                 let [h, m] = ulthor.split(':').map(part => part.trim());
@@ -433,7 +448,8 @@
                 ulthor = `${h}:${m}`;
             }
 
-            ultid = lineas[1].split(',')[3].replace(/"/g, '').trim();
+            ultid = lineas[0].split(',')[3].replace(/"/g, '').trim();
+
 
             return tipo; 
         } catch (e) {
@@ -459,6 +475,8 @@
 
         
         const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
+
+        console.log(ultimoFichaje);
 
         if (ultimoFichaje === 'E') {
         
@@ -869,4 +887,3 @@
 </script>
 </body>
 </html>
-
