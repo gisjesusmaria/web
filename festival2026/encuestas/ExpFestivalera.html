@@ -1,4 +1,4 @@
-<!-- 27122025_0942 -->
+<!-- 05012026_1058 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -578,7 +578,6 @@
 
     <div id="q10-container" class="hidden">
 
-
         <label for="q10">
         En caso de ser otra, especificar cuál
         <span id="q10-asterisk" class="required-asterisk hidden">*</span>
@@ -599,16 +598,13 @@
     </select>
     <div class="swankySelect" data-for="q11"></div>
 
-    <label for="q12" class="required">¿Es la primera vez que ingresas al festival?</label>
+    <label for="q12" class="required">¿Es la primera vez que ingresas al Anfiteatro?</label>
     <select id="q12" name="q12" required class="native-select">
       <option value="">Selecciona.</option>
       <option value="Si">Si</option>
       <option value="No">No</option>
     </select>
     <div class="swankySelect" data-for="q12"></div>
-
-
-
 
     <label class="required">¿Por qué venís al Festival de Jesús María?</label>
 
@@ -617,7 +613,7 @@
 
     <label><input type="checkbox" name="q13_cb" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
     <label><input type="checkbox" name="q13_cb" value="Por la jineteada"> Por la jineteada</label>
-    <label><input type="checkbox" name="q13_cb" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label>
+    <label><input type="checkbox" name="q13_cb" value="Para visitar los alrededores del Anfiteatro"> Para visitar los alrededores del Anfiteatro</label>
     </div>
 
 
@@ -642,6 +638,7 @@
       <option value="Hotel / posada">Hotel / posada</option>
       <option value="Camping">Camping</option>
       <option value="En casa de amigos/familiares">En casa de amigos/familiares</option>
+      <option value="En casa propia">En casa propia</option>
     </select>
     <div class="swankySelect" data-for="qAloj"></div>    
 
@@ -925,7 +922,6 @@
 
     function initConditionalLogic(){
 
-
     const q9 = document.getElementById('q9');
     const q10Container = document.getElementById('q10-container');
     const q10 = document.getElementById('q10');
@@ -934,12 +930,9 @@
     q9.addEventListener('change', () => {
     const esOtra = q9.value === 'Otra';
 
-
     q10Container.classList.toggle('hidden', !esOtra);
 
-
     q10.toggleAttribute('required', esOtra);
-
 
     q10Asterisk.classList.toggle('hidden', !esOtra);
 
@@ -973,7 +966,6 @@
       const form = document.getElementById('myForm');
       const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
 
-      
 
         form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -1038,13 +1030,10 @@
         if(!requireSelect('q2')) return;
 
 
-        
 
 
 
         if(!requireRadioGroup('q4', 'Te faltó elegir un transporte.')) return;
-
-
 
 
         for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14','qAloj']){
@@ -1055,36 +1044,34 @@
         if(!requireCheckboxGroup('q13_cb', 'q13Multi')) return;
 
 
+
         if(!requireRadioGroup('q15')) return;
+
 
         const q15Checked = form.querySelector('input[name="q15"]:checked');
         if(q15Checked && (q15Checked.value === '1' || q15Checked.value === '2')){
         if(!requireText('q16', 'Este campo es obligatorio si calificaste 1 o 2.')) return;
         }
 
-        
+
         for(const name of ['q17','q18','q19','q20','q21','q22']){
         if(!requireRadioGroup(name)) return;
         }
 
-   
+
         if(!requireSelect('q23')) return;
 
-        
         const q23 = document.getElementById('q23');
         if(q23 && q23.value === 'Si'){
         if(!requireRadioGroup('q24', 'Te faltó calificar este espacio.')) return;
         }
 
-        
         if(!requireRadioGroup('q25')) return;
 
-        
         if(!requireText('q26')) return;
         
         if(!requireText('qMen')) return;
 
-        
         if(!requireSelect('q27')) return;
 
 
@@ -1153,7 +1140,6 @@
             document.getElementById('q16-container').classList.add('hidden');
             document.getElementById('q24-container').classList.add('hidden');
 
-
             clearValidationUI(form);
 
             const latInput = document.getElementById('latitude');
@@ -1165,7 +1151,6 @@
                     latInput.value = Math.round(lat * 1000000);
                     lngInput.value = Math.round(lng * 1000000);
                     map.setView([lat, lng], 19);
-
                 }, () => {
                     const defaultLat = -30.9744111;
                     const defaultLng = -64.0922491;
@@ -1174,7 +1159,6 @@
                     lngInput.value = Math.round(defaultLng * 1000000);
 
                     map.setView([defaultLat, defaultLng], 19);
-                    
                 }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
             }            
 
