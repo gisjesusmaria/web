@@ -8800,7 +8800,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 120
+        "_index": 120,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
@@ -8909,7 +8919,7 @@
         "nomenc": "02-A-70",
         "medidas": "7.50 x 5.00",
         "rubro": "INDUMENTARIA, BIJOUTERIE Y ACCESORIOS.",
-        "titular.nombre": "FRUTOS GUADALUPE H",
+        "titular.nombre": "FRUTOS GUADALUPE H OVEJERO MARIA FLORENCIA",
         "titular.dni": "13.305.723",
         "titular.tel": "11-57673399",
         "montoadj": "5987250",
