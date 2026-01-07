@@ -1,0 +1,420 @@
+<!-- 07012026_1120 -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa Turístico - Festival 60</title>
+
+  <link rel="icon" type="image/x-icon"
+        href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 8px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+
+    .page-header img {
+      height: 40px;          
+      object-fit: contain;
+    }
+
+    .page-header .texts {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .page-header .t1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #222;
+    }
+
+    .page-header .t2 {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .page-header .t3 {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    }
+
+    .page-header .t3 a {
+    color: #2b6cff;
+    text-decoration: none;
+    font-weight: 800;
+    }
+
+    .page-header .t3 a:hover {
+    text-decoration: underline;
+    }
+
+
+    #map {
+      height: calc(100vh - 64px);
+      width: 100%;
+    }
+
+    .leaflet-control-layers label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-header">
+    <img
+      src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png"
+      alt="Logo Municipalidad">
+
+    <div class="texts">
+    <div class="t1">Mapa de Puntos Mujer</div>
+    <div class="t2">Festival de Doma y Folklore 2026</div>
+
+    <div class="t3">
+        Acceso a
+        <a href="https://munjesusmaria.short.gy/notabu" target="_blank" rel="noopener">
+        NoTabu
+        </a>:
+        agente virtual de prevención
+    </div>
+    </div>
+
+  </div>
+
+  <div id="map"></div>
+
+<script>
+
+  const map = L.map('map').setView([-30.973214, -64.093855], 18);
+
+
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 22,
+    attribution: '&copy; OpenStreetMap'
+  });
+
+  const googleSat = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 22,
+    opacity: 0.6
+  });
+
+  googleSat.addTo(map);
+
+
+  const rosa  = '#ff4fa3';
+  const verde = '#66ba70';
+  const azul  = '#2b6cff';
+  const celeste  = '#62e1f5';
+
+
+  function bigMarker(lat, lng, color, label) {
+    return L.circleMarker([lat, lng], {
+      radius: 14,
+      color: '#ffffff',
+      weight: 4,
+      fillColor: color,
+      fillOpacity: 0.95
+    }).bindPopup(`<b>${label}</b>`);
+  }
+
+  function labelConPunto(color, texto) {
+    return `
+      <span style="display:inline-flex;align-items:center;gap:6px;">
+        <span style="
+          width:12px;height:12px;border-radius:50%;
+          background:${color};
+          border:2px solid rgba(0,0,0,.25);
+          display:inline-block;
+        "></span>
+        ${texto}
+      </span>
+    `;
+  }
+
+
+    function labelConIcono(iconUrl, texto) {
+    return `
+        <span style="display:inline-flex;align-items:center;gap:6px;">
+        <img src="${iconUrl}"
+            style="width:22px;height:22px;object-fit:contain;" />
+        ${texto}
+        </span>
+    `;
+    }
+
+
+
+    const iconoPuntoMujer = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoPM.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoHospital = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoHospital.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoFarmacia = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoFarmacia.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoEstacion = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoEstacion.png',
+    iconSize:     [50, 50],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoSuper = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoSuperN.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 20],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoCajero = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoCajero.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+    const iconoMejorAsado = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoMejorAsado.png',
+    iconSize:     [40, 40],   
+    iconAnchor:   [20, 40],   
+    popupAnchor:  [0, -38]    
+    });
+
+
+  const capaPuntoMujer = L.layerGroup().addTo(map);
+  const capaSanitarios = L.layerGroup().addTo(map);
+  const capaPuestosHidratacion = L.layerGroup().addTo(map);
+  const capaHospital = L.layerGroup().addTo(map);
+  const capaFarmacias = L.layerGroup().addTo(map);
+  const capaEstaciones = L.layerGroup().addTo(map);
+  const capaSupermercados = L.layerGroup().addTo(map);
+  const capaCajeros = L.layerGroup().addTo(map);
+  const capaMejorAsado = L.layerGroup().addTo(map);
+  const capaUbicacion  = L.layerGroup().addTo(map);
+
+  
+    [
+        [-30.9737277, -64.0938043],
+        [-30.9740585, -64.0926733]
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoPuntoMujer })
+        .addTo(capaPuntoMujer)
+        .bindPopup('<b>Punto Mujer</b>')
+    );
+
+
+ 
+  [
+    [-30.9763467, -64.0936354],
+    [-30.9721188, -64.0957257],
+    [-30.9740093, -64.0922642]
+  ].forEach(([lat, lng]) =>
+    bigMarker(lat, lng, verde, 'Puesto Sanitario').addTo(capaSanitarios)
+  );
+
+
+  [
+    [-30.9769162, -64.0938505],
+    [-30.9730223, -64.0922740],
+    [-30.9744546, -64.0925921],
+    [-30.9731474, -64.0950774],
+    [-30.9725039, -64.0958836]
+  ].forEach(([lat, lng]) =>
+    bigMarker(lat, lng, celeste, 'Puesto de Hidratación').addTo(capaPuestosHidratacion)
+  );  
+
+
+    [
+        [-30.9772989,-64.0894204]  
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoHospital })
+        .addTo(capaHospital)
+        .bindPopup('<b>Hospital</b>')
+    );
+
+
+    [
+        [-30.9793001,-64.0902902],
+        [-30.9821033,-64.0944803]  
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoFarmacia })
+        .addTo(capaFarmacias)
+        .bindPopup('<b>Farmacia 24 Hs.</b>')
+    );
+
+    [
+        [-30.9843883,-64.0888190],
+        [-30.9776452,-64.0844658],
+        [-30.9785246,-64.0937349],
+        [-30.9900446,-64.0979877],
+        [-30.9907501,-64.0977629],
+        [-30.9957030,-64.1024591],  
+        [-30.9171915,-64.0759089]
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoEstacion })
+        .addTo(capaEstaciones)
+        .bindPopup('<b>Estación de Servicio</b>')
+    );
+
+    [
+        [-30.9768632,-64.0832924],
+        [-30.9838969,-64.0871661],
+        [-30.9823944,-64.0905868],
+        [-30.9787566,-64.0924565],
+        [-30.9803627,-64.0959475],
+        [-30.9783537,-64.0959190],  
+        [-30.9806849,-64.0981584],
+        [-30.9833851,-64.1071416]
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoSuper })
+        .addTo(capaSupermercados)
+        .bindPopup('<b>Supermercado</b>')
+    );
+
+    [
+        [-30.9797952,-64.0961487],
+        [-30.9801767,-64.0963579],
+        [-30.9795743,-64.0968281],
+        [-30.9789556,-64.0959357],
+        [-30.9778838,-64.0955993],
+        [-30.9750241,-64.0959462],  
+        [-30.9763458,-64.0828635],
+        [-30.9833737,-64.1072011],
+        [-30.9845981,-64.0888909]
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoCajero })
+        .addTo(capaCajeros)
+        .bindPopup('<b>Cajero ATM</b>')
+    );
+
+    [
+        [-30.9707908,-64.0835735],
+        [-30.9807550,-64.0942859],
+        [-30.9833103,-64.0882627],
+        [-30.98991580,-64.09648597],
+        [-30.9838217,-64.0890741],
+        [-30.9739465,-64.0932487]  
+    ].forEach(([lat, lng]) =>
+    L.marker([lat, lng], { icon: iconoMejorAsado })
+        .addTo(capaMejorAsado)
+        .bindPopup('<b>El Mejor Asado</b>')
+    );
+
+
+    L.control.layers(
+    { "OSM (OpenStreetMap)": osm, "Google Satellite": googleSat },
+    {
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoPM.png',
+        'Punto Mujer'
+        )]: capaPuntoMujer,
+
+        [labelConPunto(verde, "Puestos Sanitarios")]: capaSanitarios,
+        [labelConPunto(celeste, "Puestos de Hidratación")]: capaPuestosHidratacion,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoHospital.png',
+        'Hospital'
+        )]: capaHospital,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoFarmacia.png',
+        'Farmacias'
+        )]: capaFarmacias,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoEstacion.png',
+        'Estaciones de Servicio'
+        )]: capaEstaciones,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoSuperN.png',
+        'Supermercados'
+        )]: capaSupermercados,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoCajero.png',
+        'Cajeros ATM'
+        )]: capaCajeros,
+
+        [labelConIcono(
+        'https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/iconoMejorAsado.png',
+        'El Mejor Asado del Mundo'
+        )]: capaMejorAsado,
+
+
+        [labelConPunto(azul,  "Mi ubicación")]: capaUbicacion
+    },
+    { collapsed: true }
+    ).addTo(map);
+
+
+
+  function setMyLocation(lat, lng, accuracy) {
+    capaUbicacion.clearLayers();
+
+    L.circleMarker([lat, lng], {
+      radius: 12,
+      color: '#ffffff',
+      weight: 4,
+      fillColor: azul,
+      fillOpacity: 0.98
+    }).addTo(capaUbicacion).bindPopup('Mi ubicación');
+
+    L.circleMarker([lat, lng], {
+      radius: 26,
+      color: azul,
+      weight: 2,
+      fillColor: azul,
+      fillOpacity: 0.15
+    }).addTo(capaUbicacion);
+  }
+
+  if ('geolocation' in navigator) {
+    navigator.geolocation.watchPosition(
+      pos => setMyLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
+      err => console.warn('Error geolocalización', err),
+      { enableHighAccuracy: true, maximumAge: 5000 }
+    );
+  }
+</script>
+</body>
+</html>
