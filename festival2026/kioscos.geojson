@@ -8070,7 +8070,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "SI",
-        "_index": 102
+        "_index": 102,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
@@ -17398,7 +17408,7 @@
         "titular.nombre": "SORIA ZULMA",
         "titular.dni": "19.898.959",
         "titular.tel": "3858-478345",
-        "montoadj": "6500000",
+        "montoadj": "5194631.25",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
