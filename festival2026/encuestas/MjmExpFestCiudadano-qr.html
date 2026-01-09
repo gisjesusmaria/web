@@ -930,6 +930,26 @@
     if (!esOtra) q10.value = '';
     });
 
+    document.addEventListener("DOMContentLoaded", () => {
+
+    const q9 = document.getElementById("q9");       
+    const qAloj = document.getElementById("qAloj"); 
+
+    if (!q9 || !qAloj) return;
+
+    q9.addEventListener("change", () => {
+
+        if (q9.value === "No se hospeda (viene y regresa a su hogar en el día)") {
+        qAloj.value = "En casa propia";
+
+        
+        qAloj.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+    });
+
+    });  
+
 
 
       const q15Radios = document.querySelectorAll('input[name="q15"]');
@@ -1335,3 +1355,4 @@
 
 </body>
 </html>
+
