@@ -2257,9 +2257,9 @@
         "nomenc": "01-A-28",
         "medidas": "DIMENSIONES IRREGULARES",
         "rubro": "ESPACIO MULTIPROPOSITO.",
-        "titular.nombre": "DELLA CASA ROBERTO",
-        "titular.dni": "27892897",
-        "titular.tel": "03512346594",
+        "titular.nombre": "BUSTAMANTE JOSE",
+        "titular.dni": "16292271",
+        "titular.tel": "3512814313",
         "montoadj": "15000000",
         "pago1.importe": null,
         "pago1.fecha": null,
@@ -2291,7 +2291,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 35
       },
       "geometry": {
