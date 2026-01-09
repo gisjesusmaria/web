@@ -9930,7 +9930,7 @@
         "titular.nombre": "FARIAS MIGUEL",
         "titular.dni": "25.457.613",
         "titular.tel": "351-3550282",
-        "montoadj": "4367925.00",
+        "montoadj": "6481575",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -9962,7 +9962,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 132
+        "_index": 132,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
