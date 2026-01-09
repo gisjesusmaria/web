@@ -1,0 +1,1350 @@
+<!-- 08012026_2030 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Experiencia Festivalera</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Arial', sans-serif; }
+        .card { box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: none; }
+        .chart-container { height: 340px; padding: 10px; }
+        #map { height: 400px; margin-bottom: 20px; }
+
+        th.sortable { cursor: pointer; user-select: none; }
+        th.sortable::after { content: " ⇅"; font-size: 0.85em; opacity: 0.6; }
+        th.sortable.asc::after { content: " ↑"; opacity: 0.9; }
+        th.sortable.desc::after { content: " ↓"; opacity: 0.9; }
+
+        .chart-box{
+        height: 320px;   
+        position: relative;
+        }
+        .chart-box canvas{
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        }
+
+
+        body.locked {
+        overflow: hidden;         
+        }
+
+        #app.locked {
+        filter: blur(6px);
+        opacity: 0;
+        pointer-events: none;      
+        user-select: none;
+        }
+
+        #login-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: none;             
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+
+        background: radial-gradient(1200px 700px at 20% 10%, rgba(240,90,40,.35), transparent 60%),
+                    radial-gradient(900px 600px at 80% 30%, rgba(5,17,242,.25), transparent 55%),
+                    linear-gradient(135deg, #0b1020 0%, #111827 55%, #0b1020 100%);
+        }
+
+        .login-card {
+        width: 380px;
+        max-width: 92vw;
+        border-radius: 18px;
+        background: rgba(255,255,255,.92);
+        box-shadow: 0 20px 60px rgba(0,0,0,.35);
+        border: 1px solid rgba(255,255,255,.35);
+        padding: 22px;
+        backdrop-filter: blur(10px);
+        }
+
+        .login-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        }
+
+        .login-logo img {
+        max-height: 70px;
+        width: auto;
+        }
+
+        .login-title {
+        text-align: center;
+        margin: 0 0 14px 0;
+        font-weight: 800;
+        color: #111827;
+        }
+
+        .login-sub {
+        text-align: center;
+        margin-top: -10px;
+        margin-bottom: 14px;
+        color: #6b7280;
+        font-size: 0.95rem;
+        }
+
+        #login-msg {
+        margin-top: 10px;
+        min-height: 20px;
+        color: #b00020;
+        font-weight: 600;
+        text-align: center;
+        }
+
+        .login-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        }
+
+        #login-spinner {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 12px;
+        color: #111827;
+        font-weight: 700;
+        }
+
+        .spinner {
+        width: 18px;
+        height: 18px;
+        border: 3px solid rgba(0,0,0,.15);
+        border-top-color: rgba(0,0,0,.8);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+        to { transform: rotate(360deg); }
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+    <div id="login-overlay">
+    <div class="login-card">
+        <div class="login-logo">
+        <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Logo Municipalidad">
+        </div>
+
+        <h3 class="login-title">Ingreso a Dashboards</h3>
+        <div class="login-sub">Encuesta Experiencia Festivalera</div>
+
+        <label class="form-label">Usuario</label>
+        <input id="login-user" class="form-control" autocomplete="username">
+
+        <label class="form-label mt-2">Clave</label>
+        <input id="login-pass" type="password" class="form-control" autocomplete="current-password">
+
+        <div id="login-msg"></div>
+
+        <button id="login-btn" class="btn btn-primary w-100" style="background:#f05a28;border:none;">
+        Iniciar sesión
+        </button>
+
+        <div id="login-spinner">
+        <div class="spinner"></div>
+        <div>Iniciando sesión…</div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div id="app" class="container mt-5">
+
+
+        <div class="text-center mb-4">
+            <div class="d-inline-block p-3 bg-white rounded shadow-sm" style="border: 1px solid #dee2e6;">
+                <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" 
+                     alt="Logo Municipalidad" 
+                     class="img-fluid" 
+                     style="max-height: 80px; width: auto;">
+            </div>
+        </div>
+        
+        <h1 class="text-center mb-5 display-5 fw-bold" style="color: #f05a28;">Dashboard Experiencia Festivalera</h1>
+        
+        
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label for="select-enc" class="form-label">Filtro por Encuestador</label>
+                <select id="select-enc" class="form-select">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="from-date" class="form-label">Desde Fecha</label>
+                <input type="date" id="from-date" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label for="to-date" class="form-label">Hasta Fecha</label>
+                <input type="date" id="to-date" class="form-control">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total de encuestas</h5>
+                <p class="card-text display-4" id="count-total">0</p>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Cantidad de encuestas por Encuestador</h5>
+                <p class="card-text display-4" id="count-no">0</p>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Cantidad de encuestas por Ciudadano</h5>
+                <p class="card-text display-4" id="count-si">0</p>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Lugar de Procedencia</h5>
+                        <div class="chart-box">
+                        <canvas id="chart-lugar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                         <h5 class="card-title">Edad de la persona encuestada</h5>
+                        <canvas id="chart-edad"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 class="text-center mb-4">Logística y Estadía</h2>
+
+        <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿En qué transporte viniste a la ciudad?</h5>
+                <canvas id="chart-transporte"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cuántos kilómetros viajaste aproximadamente</h5>
+                <canvas id="chart-km"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Con quién viniste al festival?</h5>
+                <canvas id="chart-compania"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cantidad de días que permanecerás en la ciudad</h5>
+                <canvas id="chart-dias"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">En caso de alojarte, ¿En qué ciudad lo haces?</h5>
+                <canvas id="chart-ciudad-aloj"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">En caso de alojarte, ¿en qué tipo de alojamiento lo haces?</h5>
+                <canvas id="chart-tipo-aloj"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cantidad de noches que ingresarás al Anfiteatro</h5>
+                <canvas id="chart-noches"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">En caso de ingresar, ¿Es la primera vez que ingresas al festival?</h5>
+                <canvas id="chart-primera-vez"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Por qué venís al Festival de Jesús María?</h5>
+                <canvas id="chart-motivos"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gasto aproximado por persona por día (alojamiento, comida, movilidad, etc.)</h5>
+                <canvas id="chart-gasto-dia"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+
+        <h2 class="text-center mb-4">Valoraciones</h2>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-alojamiento"></canvas>
+                        <p class="text-center">Experiencia de Alojamiento</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-calles"></canvas>
+                        <p class="text-center">Limpieza de Calles</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-banos"></canvas>
+                        <p class="text-center">Limpieza de Baños</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-seguridad"></canvas>
+                        <p class="text-center">Seguridad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-gastronomica"></canvas>
+                        <p class="text-center">Propuesta Gastronómica</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-cultural"></canvas>
+                        <p class="text-center">Oferta Cultural y Turística</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-transito"></canvas>
+                        <p class="text-center">Manejo del Tránsito</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body chart-container">
+                        <canvas id="chart-estacionamiento"></canvas>
+                        <p class="text-center">Estacionamiento y Playas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <h2 class="text-center mb-4">Mapa de Encuestas (Colores por Encuestador)</h2>
+        <div class="row">
+            <div class="col-md-9">
+                <div id="map"></div>
+            </div>
+            <div class="col-md-3">
+                <div id="legend" class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Leyenda de Encuestadores</h5>
+                        <div id="legend-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <h2 class="text-center mb-4">Tabla de Datos</h2>
+        <button id="download" class="btn btn-primary mb-3">Descargar en Excel</button>
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th class="sortable" data-col="0">Id</th>
+                <th class="sortable" data-col="31">Fecha</th>
+                <th class="sortable" data-col="32">Hora</th>
+                <th class="sortable" data-col="1">Encuestador</th>
+                <th class="sortable" data-col="6">Edad</th>
+            </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script>
+
+    // Build: 2026.01.09-v1
+    const _ = ['sta','tic/vers','ion.t','xt'];
+    const v = _.join('');
+
+    let allData = [];
+    let colorMap = {};
+    let map = L.map('map', { maxZoom: 19, dragging: true, scrollWheelZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, touchZoom: true }).setView([-30.981, -64.092], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+    let markerLayer = L.layerGroup().addTo(map);
+
+    function fitMapToMarkers() {
+        if (markerLayer.getLayers().length > 0) {
+            map.fitBounds(markerLayer.getBounds().pad(0.3));
+        }
+    }
+
+    let encLayers = {}; 
+
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#E7E9ED', '#C9CBCF'];
+
+    let chartLugar, chartEdad, chartAlojamiento, chartCalles, chartBanos, chartSeguridad, chartGastronomica, chartCultural, chartTransito, chartEstacionamiento;
+
+    let extraCharts = {}; 
+
+
+
+    let valCharts = {};  
+
+
+    function parseFecha(str) {
+        if (!str) return new Date(0);
+        const parts = str.split('-');
+        if (parts.length === 3) {
+            return new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+        return new Date(str);
+    }
+
+
+
+    let tableSort = { col: null, dir: 'asc' }; 
+
+    function renderTable(rows) {
+    let data = [...rows];
+
+    if (tableSort.col !== null) {
+        const col = tableSort.col;
+        const dirMul = tableSort.dir === 'asc' ? 1 : -1;
+
+        data.sort((a, b) => {
+        const av = a[col];
+        const bv = b[col];
+
+
+
+        if (col === 0) {
+        const an = Number(av ?? 0);
+        const bn = Number(bv ?? 0);
+        return (an - bn) * dirMul;
+        }
+
+        if (col === 6) {
+        const order = [
+            '15 a 19',
+            '20 a 29',
+            '30 a 39',
+            '40 a 49',
+            '50 a 59',
+            '60 a 69',
+            '70 y más'
+        ];
+
+        const ai = order.indexOf(String(av ?? '').trim());
+        const bi = order.indexOf(String(bv ?? '').trim());
+
+        const aIdx = ai === -1 ? 999 : ai;
+        const bIdx = bi === -1 ? 999 : bi;
+
+        return (aIdx - bIdx) * dirMul;
+        }
+
+
+
+        if (col === 31) {
+            const ad = parseFecha(av).getTime();
+            const bd = parseFecha(bv).getTime();
+            return (ad - bd) * dirMul;
+        }
+
+        if (col === 32) {
+            const as = String(av ?? '').trim();
+            const bs = String(bv ?? '').trim();
+            return as.localeCompare(bs, 'es', { numeric: true }) * dirMul;
+        }
+
+        const as = String(av ?? '').trim();
+        const bs = String(bv ?? '').trim();
+        return as.localeCompare(bs, 'es', { numeric: true, sensitivity: 'base' }) * dirMul;
+        });
+    }
+
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = data.map(d => `
+        <tr>
+        <td>${d[0] || ''}</td>
+        <td>${d[31] || ''}</td>
+        <td>${d[32] || ''}</td>
+        <td>${((d[1] || '') + '').trim()}</td>
+        <td>${d[6] || ''}</td>
+        </tr>
+    `).join('');
+    }
+
+    function initTableSort() {
+    const ths = document.querySelectorAll('th.sortable');
+
+    ths.forEach(th => {
+        th.addEventListener('click', () => {
+        const col = Number(th.dataset.col);
+
+        if (tableSort.col === col) {
+            tableSort.dir = (tableSort.dir === 'asc') ? 'desc' : 'asc';
+        } else {
+            tableSort.col = col;
+            tableSort.dir = 'asc';
+        }
+
+        ths.forEach(x => x.classList.remove('asc', 'desc'));
+        th.classList.add(tableSort.dir);
+
+        renderTable(window.__lastFilteredRows || []);
+        });
+    });
+    }
+
+
+    function norm(v) {
+    const s = ((v ?? '') + '').trim();
+    return s ? s : 'No indicado';
+    }
+
+    function countByColumn(rows, colIndex) {
+    const counts = {};
+    rows.forEach(r => {
+        const key = norm(r[colIndex]);
+        counts[key] = (counts[key] || 0) + 1;
+    });
+    return counts;
+    }
+
+    function countByColumnSplit(rows, colIndex, sep = '|') {
+    const counts = {};
+    rows.forEach(r => {
+        const raw = ((r[colIndex] ?? '') + '').trim();
+        if (!raw) {
+        counts['No indicado'] = (counts['No indicado'] || 0) + 1;
+        return;
+        }
+        raw.split(sep).map(x => x.trim()).filter(Boolean).forEach(opt => {
+        counts[opt] = (counts[opt] || 0) + 1;
+        });
+    });
+    return counts;
+    }
+
+    function countNumericOrText(rows, colIndex, bins) {
+    const counts = {};
+    rows.forEach(r => {
+        const raw = ((r[colIndex] ?? '') + '').trim();
+        if (!raw) {
+        counts['No indicado'] = (counts['No indicado'] || 0) + 1;
+        return;
+        }
+
+        const cleaned = raw.replace(/[^\d.,-]/g, '').replace(',', '.');
+        const n = Number(cleaned);
+
+        if (Number.isFinite(n)) {
+        const bucket = bins.find(b => n >= b.min && n <= b.max)?.label
+            ?? (n < bins[0].min ? `< ${bins[0].min}` : `> ${bins[bins.length - 1].max}`);
+        counts[bucket] = (counts[bucket] || 0) + 1;
+        } else {
+        const key = norm(raw);
+        counts[key] = (counts[key] || 0) + 1;
+        }
+    });
+    return counts;
+    }
+
+
+    const PALETTE = [
+    '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
+    '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab'
+    ];
+
+    function colorsFor(n) {
+    return Array.from({ length: n }, (_, i) => PALETTE[i % PALETTE.length]);
+    }
+
+    function baseChartOptions(type) {
+    return {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+        legend: { display: type === 'doughnut', position: 'bottom' },
+        tooltip: { enabled: true }
+        },
+        scales: type === 'bar'
+        ? {
+            x: { grid: { display: false }, ticks: { font: { size: 12 } } },
+            y: { beginAtZero: true, ticks: { precision: 0, font: { size: 12 } } }
+            }
+        : undefined
+    };
+    }
+
+
+    let url = 'https://gestexpfestgviz.gisjesusmaria.workers.dev/' + v;
+    
+    function renderChart(canvasId, type, counts, options = {}) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    if (extraCharts[canvasId]) extraCharts[canvasId].destroy();
+    const existing = Chart.getChart(canvas);
+    if (existing) existing.destroy();
+
+    const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const labels = entries.map(e => e[0]);
+    const data = entries.map(e => e[1]);
+
+    const bg = colorsFor(labels.length);
+
+    extraCharts[canvasId] = new Chart(canvas, {
+        type,
+        data: {
+        labels,
+        datasets: [{
+            label: 'Conteo',
+            data,
+            backgroundColor: type === 'bar' ? bg : bg,
+            borderColor: type === 'bar' ? bg : bg,
+            borderWidth: 1,
+            borderRadius: type === 'bar' ? 8 : 0
+        }]
+        },
+        options: {
+        ...baseChartOptions(type),
+        ...options
+        }
+    });
+    }
+
+
+    const OPT = {
+    procedencia: [
+    'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)',
+    'Interior de la Provincia de Córdoba',
+    'Cordoba Capital',
+    'Otra provincia',
+    'Exterior'
+    ],
+
+    edadPersona: [
+    '15 a 19 años',
+    '20 a 29 años',
+    '30 a 39 años',
+    '40 a 49 años',
+    '50 a 59 años',
+    '60 a 69 años',
+    '70 años o más'
+    ],
+
+    transporte: ['Auto', 'Camioneta', 'Colectivo', 'Moto', 'Otro'],
+
+    km: [
+        'Menos de 50 km',
+        'Entre 50 km y 150 km',
+        'Entre 150 km y 300 km',
+        'Entre 300 km y 500 km',
+        'Entre 500 km y 1000 km',
+        'Más de 1000 km'
+    ],
+
+    compania: ['Solo/a', 'En pareja', 'Grupo familiar', 'Grupo de amigos'],
+
+    dias: ['Vive acá', '1 día', '1 a 3 días', '3 a 7 días', '7 a 10 días'],
+
+    ciudadAloj: [
+        'Jesús María',
+        'Colonia Caroya',
+        'Sinsacate',
+        'Otra',
+        'No se hospeda (viene y regresa a su hogar en el día)'
+    ],
+
+    nochesAnfi: [
+        'Ninguna',
+        '1 noche',
+        'Entre 2 y 5 noches',
+        'Entre 6 y 9 noches',
+        'Más de 9 noches'
+    ],
+
+    primeraVez: ['Si', 'No'],
+
+    gasto: [
+        'Menos de $80.000',
+        'Entre $80.000 y $100.000',
+        'Entre $100.000 y $150.000',
+        'Entre $150.000 y $200.000',
+        'Más de $200.000'
+    ],
+
+    tipoAloj: [
+        'Alojamiento alternativo categoría A',
+        'Alojamiento alternativo categoría B',
+        'Alojamiento alternativo categoría C',
+        'Alojamiento permanente',
+        'Hotel / posada',
+        'Camping',
+        'En casa de amigos/familiares',
+        'En casa propia'
+    ]
+    };
+
+
+
+    function countByFixedOptions(rows, colIndex, options) {
+    const counts = Object.fromEntries(options.map(o => [o, 0]));
+
+    rows.forEach(r => {
+        const key = ((r[colIndex] ?? '') + '').trim();
+
+        if (!key) return;
+
+        if (key in counts) counts[key] += 1;
+    });
+
+    return counts;
+    }
+
+
+
+    url = url + '?sheet=Data&tq=select%20*%20where%20A%20%3E%200';
+
+
+    function renderChartFixed(canvasId, type, counts, orderedLabels, options = {}) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    if (extraCharts[canvasId]) extraCharts[canvasId].destroy();
+    const existing = Chart.getChart(canvas);
+    if (existing) existing.destroy();
+
+    const labels = [...orderedLabels];
+    const data = labels.map(l => counts[l] ?? 0);
+
+    const bg = colorsFor(labels.length);
+
+    extraCharts[canvasId] = new Chart(canvas, {
+        type,
+        data: {
+        labels,
+        datasets: [{
+            label: 'Conteo',
+            data,
+            backgroundColor: bg,
+            borderColor: bg,
+            borderWidth: 1,
+            borderRadius: type === 'bar' ? 8 : 0
+        }]
+        },
+        options: {
+        ...baseChartOptions(type),
+        ...options
+        }
+    });
+    }
+
+
+    function updateDashboard() {
+        const selectedEnc = document.getElementById('select-enc').value;
+        let fromDate = new Date(document.getElementById('from-date').value);
+        let toDate = new Date(document.getElementById('to-date').value);
+        if (!isNaN(toDate)) toDate.setDate(toDate.getDate() + 1);
+
+        const filtered = allData.filter(d => {
+            const enc = (d[1] || '').trim(); 
+            const okEnc = !selectedEnc || enc === selectedEnc;
+            const fecha = parseFecha(d[31]);
+            let okDate = true;
+            if (!isNaN(fromDate.getTime())) okDate = okDate && fecha >= fromDate;
+            if (!isNaN(toDate.getTime())) okDate = okDate && fecha < toDate;
+            return okEnc && okDate;
+        });
+
+        const countSi = filtered.filter(d => (d[1] || '').trim() === 'Ciudadano').length; 
+        const countNo = filtered.length - countSi;
+        document.getElementById('count-si').innerText = countSi;
+        document.getElementById('count-no').innerText = countNo;
+
+        const countTotal = filtered.length;
+        document.getElementById('count-total').innerText = countTotal;
+
+
+
+
+        {
+        const c = countByFixedOptions(filtered, 2, OPT.procedencia);
+        renderChartFixed(
+            'chart-lugar',
+            'bar',
+            c,
+            OPT.procedencia,
+            { indexAxis: 'y' } 
+        );
+        }
+
+
+
+        
+        {
+        const c = countByFixedOptions(filtered, 6, OPT.edadPersona);
+        renderChartFixed(
+            'chart-edad',
+            'bar',
+            c,
+            OPT.edadPersona
+        );
+        }
+
+
+
+
+        {
+        const c = countByFixedOptions(filtered, 3, OPT.transporte);
+        renderChartFixed('chart-transporte', 'bar', c, OPT.transporte);
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 4, OPT.km);
+        renderChartFixed('chart-km', 'bar', c, OPT.km);
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 5, OPT.compania);
+        renderChartFixed('chart-compania', 'bar', c, OPT.compania);
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 7, OPT.dias);
+        renderChartFixed('chart-dias', 'bar', c, OPT.dias);
+        }
+        {
+        const c = countByFixedOptions(filtered, 8, OPT.ciudadAloj);
+        renderChartFixed('chart-ciudad-aloj', 'bar', c, OPT.ciudadAloj, { indexAxis: 'y' });
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 14, OPT.tipoAloj);
+        renderChartFixed('chart-tipo-aloj', 'bar', c, OPT.tipoAloj, { indexAxis: 'y' });
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 10, OPT.nochesAnfi);
+        renderChartFixed('chart-noches', 'bar', c, OPT.nochesAnfi);
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 11, OPT.primeraVez);
+        renderChartFixed('chart-primera-vez', 'doughnut', c, OPT.primeraVez);
+        }
+
+
+        {
+        const c = countByColumnSplit(filtered, 12, '|');
+
+
+        renderChart('chart-motivos', 'bar', c, { indexAxis: 'y' });
+        }
+
+        {
+        const c = countByFixedOptions(filtered, 13, OPT.gasto);
+        renderChartFixed('chart-gasto-dia', 'bar', c, OPT.gasto);
+        }
+
+
+
+        const valColumns = [
+        { id: 'chart-alojamiento', col: 15, title: 'Experiencia de Alojamiento' },
+        { id: 'chart-calles', col: 17, title: 'Limpieza de calles' },
+        { id: 'chart-banos', col: 18, title: 'Limpieza de baños' },
+        { id: 'chart-seguridad', col: 19, title: 'Seguridad' },
+        { id: 'chart-gastronomica', col: 20, title: 'Propuesta gastronómica' },
+        { id: 'chart-cultural', col: 21, title: 'Oferta cultural y turística' },
+        { id: 'chart-transito', col: 22, title: 'Manejo del Tránsito' },
+        { id: 'chart-estacionamiento', col: 23, title: 'Estacionamiento y playas' }
+        ];
+
+        const colorMapping = {
+        '1': '#FF0000',  
+        '2': '#FFA500',  
+        '3': '#FFFF00',  
+        '4': '#90EE90',  
+        '5': '#006400'   
+        };
+
+        valColumns.forEach((v) => {
+        let vals = {};
+        filtered.forEach(d => {
+            const key = ((d[v.col] ?? 'N/A') + '').trim();
+            vals[key] = (vals[key] || 0) + 1;
+        });
+
+        const labelsVal = Object.keys(vals);
+        const dataVal = Object.values(vals);
+        const bgColors = labelsVal.map(label => colorMapping[label] || '#808080');
+
+        const canvas = document.getElementById(v.id);
+
+        if (valCharts[v.id]) {
+            valCharts[v.id].destroy();
+        } else {
+            const existing = Chart.getChart(canvas);
+            if (existing) existing.destroy();
+        }
+
+        valCharts[v.id] = new Chart(canvas, {
+            type: 'doughnut',
+            data: { labels: labelsVal, datasets: [{ data: dataVal, backgroundColor: bgColors }] },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+        });
+
+
+        markerLayer.clearLayers();
+        encLayers = {};
+        let encCounts = {};
+        filtered.forEach(d => {
+            const enc = (d[1] || 'Desconocido').trim(); 
+            encCounts[enc] = (encCounts[enc] || 0) + 1;
+            const lat = parseInt(d[29]) / 1000000;
+            const lng = parseInt(d[30]) / 1000000;
+            if (!isNaN(lat) && !isNaN(lng)) {
+                if (!encLayers[enc]) {
+                    encLayers[enc] = L.layerGroup().addTo(markerLayer);
+                }
+                const marker = L.circleMarker([lat, lng], {
+                    radius: 10,
+                    fillColor: colorMap[enc] || '#808080',
+                    color: '#000',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.85
+                });
+                const fecha = d[31] || 'Sin fecha';
+                const hora = d[32] || 'Sin hora';
+                const edad = d[6] || 'No indicada';
+                const lugar = d[2] || 'No indicado';
+                const id = d[0]
+
+                const popupContent = `
+                    <div style="font-size:14px; line-height:1.4;">
+                        <b>Id:</b> ${id}<br>                        
+                        <b>Encuestador:</b> ${enc}<br>
+                        <b>Fecha-Hora:</b> ${fecha} | ${hora}<br>
+                        <b>Edad:</b> ${edad} años<br>
+                        <b>Procedencia:</b> ${lugar}
+                    </div>
+                `;                
+                marker.bindPopup(popupContent, {
+                    closeButton: true,
+                    autoClose: true,
+                    closeOnClick: false
+                });
+                marker.addTo(encLayers[enc]);
+            }
+        });
+
+        const legendContent = document.getElementById('legend-content');
+        legendContent.innerHTML = '';
+        const visibleEnc = Object.keys(encLayers);
+        let others = visibleEnc.filter(e => e !== 'Ciudadano');
+        others.sort();
+        if (visibleEnc.some(e => e === 'Ciudadano')) {
+            const enc = 'Ciudadano';
+            const color = colorMap[enc] || '#808080';
+            const count = encCounts[enc] || 0;
+            const div = document.createElement('div');
+            div.style.marginBottom = '12px';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.fontSize = '16px';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `check-${enc}`;
+            checkbox.checked = true;
+            checkbox.style.width = '20px';
+            checkbox.style.height = '20px';
+            checkbox.style.marginRight = '12px';
+            checkbox.style.cursor = 'pointer';
+            checkbox.style.accentColor = color;
+            const label = document.createElement('label');
+            label.htmlFor = `check-${enc}`;
+            label.style.cursor = 'pointer';
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.color = color;
+            label.style.fontWeight = '500';
+            const colorBox = document.createElement('span');
+            colorBox.style.display = 'inline-block';
+            colorBox.style.width = '18px';
+            colorBox.style.height = '18px';
+            colorBox.style.backgroundColor = color;
+            colorBox.style.border = '2px solid #000';
+            colorBox.style.marginRight = '10px';
+            colorBox.style.borderRadius = '4px';
+            colorBox.style.flexShrink = '0';
+            const text = document.createTextNode(`${enc} (${count})`);
+            label.appendChild(colorBox);
+            label.appendChild(text);
+            div.appendChild(checkbox);
+            div.appendChild(label);
+            legendContent.appendChild(div);
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    encLayers[enc].addTo(markerLayer);
+                } else {
+                    encLayers[enc].remove();
+                }
+            });
+        }
+        others.forEach(enc => {
+            const color = colorMap[enc] || '#808080';
+            const count = encCounts[enc] || 0;
+            const div = document.createElement('div');
+            div.style.marginBottom = '12px';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.fontSize = '16px';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `check-${enc}`;
+            checkbox.checked = true;
+            checkbox.style.width = '20px';
+            checkbox.style.height = '20px';
+            checkbox.style.marginRight = '12px';
+            checkbox.style.cursor = 'pointer';
+            checkbox.style.accentColor = color;
+            const label = document.createElement('label');
+            label.htmlFor = `check-${enc}`;
+            label.style.cursor = 'pointer';
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.color = color;
+            label.style.fontWeight = '500';
+            const colorBox = document.createElement('span');
+            colorBox.style.display = 'inline-block';
+            colorBox.style.width = '18px';
+            colorBox.style.height = '18px';
+            colorBox.style.backgroundColor = color;
+            colorBox.style.border = '2px solid #000';
+            colorBox.style.marginRight = '10px';
+            colorBox.style.borderRadius = '4px';
+            colorBox.style.flexShrink = '0';
+            const text = document.createTextNode(`${enc} (${count})`);
+            label.appendChild(colorBox);
+            label.appendChild(text);
+            div.appendChild(checkbox);
+            div.appendChild(label);
+            legendContent.appendChild(div);
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    encLayers[enc].addTo(markerLayer);
+                } else {
+                    encLayers[enc].remove();
+                }
+            });
+        });
+
+        window.__lastFilteredRows = filtered;
+        renderTable(filtered);
+
+
+
+        fitMapToMarkers();
+    }
+
+
+    const AUTH_URL = 'https://gestexpfest.gisjesusmaria.workers.dev/';
+
+
+    function showLogin(show) {
+    document.getElementById('login-overlay').style.display = show ? 'flex' : 'none';
+    }
+
+    function isLoggedIn() {
+    return !!sessionStorage.getItem('authToken');
+    }
+
+
+    function lockUI(locked) {
+    document.body.classList.toggle('locked', locked);
+    document.getElementById('app').classList.toggle('locked', locked);
+
+    const overlay = document.getElementById('login-overlay');
+    overlay.style.display = locked ? 'flex' : 'none';
+    }
+
+    function setLoading(isLoading) {
+    document.getElementById('login-spinner').style.display = isLoading ? 'flex' : 'none';
+    const btn = document.getElementById('login-btn');
+    btn.disabled = isLoading;
+    btn.style.opacity = isLoading ? '0.7' : '1';
+    }
+
+    function isLoggedIn() {
+    return !!sessionStorage.getItem('authToken');
+    }
+
+
+    async function login(user, pass) {
+    const params = new URLSearchParams();
+    params.append('action', 'validaruser');
+    params.append('user', user);
+    params.append('pass', pass);
+
+    const res = await fetch(AUTH_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString()
+    });
+
+    const data = await res.json();
+    return data;
+    }
+
+
+
+
+    function initLoginGate() {
+    if (isLoggedIn()) {
+        lockUI(false);
+        return;
+    }
+    lockUI(true);
+
+    document.getElementById('login-btn').addEventListener('click', async () => {
+        const user = document.getElementById('login-user').value.trim();
+        const pass = document.getElementById('login-pass').value;
+        const msg = document.getElementById('login-msg');
+        msg.textContent = '';
+
+        if (!user || !pass) {
+        msg.textContent = 'Completá usuario y clave.';
+        return;
+        }
+
+        setLoading(true);
+
+        try {
+        const r = await login(user, pass); 
+        if (r.ok) {
+            sessionStorage.setItem('authToken', r.token || 'ok');
+            lockUI(false);
+        } else {
+            msg.textContent = r.msg || 'Usuario o clave incorrectos.';
+        }
+        } catch (e) {
+        msg.textContent = 'Error de conexión.';
+        console.error(e);
+        } finally {
+        setLoading(false);
+        }
+    });
+
+    const passInput = document.getElementById('login-pass');
+
+    passInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault(); 
+        document.getElementById('login-btn').click();
+    }
+    });
+
+    }
+
+    initLoginGate();
+
+
+
+
+    fetch(url)
+        .then(res => res.text())
+        .then(csv => {
+            const parsed = Papa.parse(csv, { header: false, skipEmptyLines: true });
+            allData = parsed.data.slice(1); // Ignorar headers, usar data rows
+
+            const uniqueEnc = [...new Set(allData.map(d => (d[1] || '').trim()))]; // Trim aquí
+            let encList = uniqueEnc.filter(e => e && e !== 'Ciudadano');
+            encList.sort();
+
+            const selectEnc = document.getElementById('select-enc');
+            if (uniqueEnc.some(e => e === 'Ciudadano')) {
+                const optCiudadano = document.createElement('option');
+                optCiudadano.value = 'Ciudadano';
+                optCiudadano.text = 'Ciudadano';
+                selectEnc.add(optCiudadano);
+            }
+
+            encList.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e;
+                opt.text = e;
+                selectEnc.add(opt);
+            });
+
+            uniqueEnc.forEach((e, i) => colorMap[e] = colors[i % colors.length]);
+
+            if (colorMap['Ciudadano']) colorMap['Ciudadano'] = '#0511f2';
+            if (colorMap['Ana']) colorMap['Ana'] = '#a927f5';
+            if (colorMap['Eliana']) colorMap['Eliana'] = '#03a869';
+            if (colorMap['Facundo']) colorMap['Facundo'] = '#f57607';
+            if (colorMap['Fiona']) colorMap['Fiona'] = '#8acc06';
+            if (colorMap['Marcos']) colorMap['Marcos'] = '#bd862d';
+            if (colorMap['Pilar']) colorMap['Pilar'] = '#FF0000';
+            if (colorMap['Sofia']) colorMap['Sofia'] = '#99845a';
+            if (colorMap['Victoria']) colorMap['Victoria'] = '#2f88d6';
+
+            document.getElementById('select-enc').addEventListener('change', updateDashboard);
+            document.getElementById('from-date').addEventListener('change', updateDashboard);
+            document.getElementById('to-date').addEventListener('change', updateDashboard);
+
+            document.getElementById('download').addEventListener('click', () => {
+                const selectedEnc = document.getElementById('select-enc').value;
+                let fromDate = new Date(document.getElementById('from-date').value);
+                let toDate = new Date(document.getElementById('to-date').value);
+                if (!isNaN(toDate)) toDate.setDate(toDate.getDate() + 1);
+                const filtered = allData.filter(d => {
+                    const enc = (d[1] || '').trim(); 
+                    const okEnc = !selectedEnc || enc === selectedEnc;
+                    const fecha = parseFecha(d[31]);
+                    let okDate = true;
+                    if (!isNaN(fromDate.getTime())) okDate = okDate && fecha >= fromDate;
+                    if (!isNaN(toDate.getTime())) okDate = okDate && fecha < toDate;
+                    return okEnc && okDate;
+                });
+                const exportData = filtered.map(d => ({
+                    Id: d[0],
+                    Fecha: d[31],
+                    Hora: d[32],
+                    Encuestador: d[1],
+                    Edad: d[6]
+                }));
+                const ws = XLSX.utils.json_to_sheet(exportData);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Data');
+                const now = new Date();
+                const dd = String(now.getDate()).padStart(2, '0');
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const yyyy = now.getFullYear();
+                const HH = String(now.getHours()).padStart(2, '0');
+                const Mm = String(now.getMinutes()).padStart(2, '0');
+                const filename = `ExperienciaFestivalera_${dd}${mm}${yyyy}_${HH}${Mm}.xlsx`;
+                XLSX.writeFile(wb, filename);
+            });
+
+
+            initTableSort();
+
+            updateDashboard();
+
+            
+            
+            fitMapToMarkers();
+        })
+        .catch(err => console.error('Error fetching data:', err));
+</script>
+
+</body>
+</html>
