@@ -1,4 +1,4 @@
-<!-- 09012026_2138 -->
+<!-- 10012026_1528 -->
 <!doctype html>
 <html lang="es">
 <head>
@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Relevamiento a comercios - Operativo Festival 2026</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico" />
 
 <style>
@@ -17,8 +16,8 @@
     --text: #0f172a;
     --muted: #475569;
     --line: #dbeafe;
-    --accent: #1d4ed8;   /* azul */
-    --accent2:#f97316;   /* naranja */
+    --accent: #1d4ed8;   
+    --accent2:#f97316;   
     --danger:#dc2626;
     --ok:#16a34a;
     --shadow: 0 12px 30px rgba(15,23,42,.12);
@@ -247,7 +246,6 @@
     background:#fef2f2;
   }
 
-    /* OVERLAY submit (spinner + éxito) */
     .overlay.hidden{ display:none; }
     .overlay{
     position: fixed;
@@ -283,7 +281,6 @@
     font-weight: 600;
     }
 
-    /* Spinner */
     .spinner{
     width: 54px;
     height: 54px;
@@ -295,7 +292,6 @@
     }
     @keyframes spin{ to{ transform: rotate(360deg); } }
 
-    /* Check animado */
     .checkWrap{ width: 72px; height: 72px; margin: 0 auto; }
     .checkSvg{ width: 72px; height: 72px; }
     .checkCircle{
@@ -368,7 +364,6 @@
 
       <div class="status" id="status"></div>
 
-      <!-- <form id="f"> -->
     <form id="f" method="POST" target="hidden_iframe">
 
         <div class="grid">
@@ -387,7 +382,6 @@
             </select>
           </div>
 
-          <!-- 2 -->
           <div class="field">
             <label>2- ¿De dónde son sus proveedores? <span class="req">*</span></label>
             <select name="proveedores_origen" id="proveedores_origen" required>
@@ -408,28 +402,24 @@
             </div>
           </div>
 
-          <!-- 3 -->
           <div class="field" style="grid-column: 1 / -1;">
             <label>3- ¿Cuáles son sus principales proveedores?</label>
             <textarea name="proveedores_principales" id="proveedores_principales"
                       placeholder="Ej.: Proveedor A, Proveedor B…"></textarea>
           </div>
 
-          <!-- 4 -->
           <div class="field" style="grid-column: 1 / -1;">
             <label>4- ¿Cuáles son los cuatro productos que más compra? <span class="req">*</span></label>
             <textarea name="productos_top4" id="productos_top4" required
                       placeholder="Enumeralos o separalos con comas"></textarea>
           </div>
 
-          <!-- 5 -->
           <div class="field" style="grid-column: 1 / -1;">
             <label>5- ¿Cuánto compra de cada producto aproximadamente? <span class="req">*</span></label>
             <textarea name="compra_cantidad" id="compra_cantidad" required
                       placeholder="Ej.: 20 kg, 10 cajas, 50 unidades…"></textarea>
           </div>
 
-          <!-- 6 -->
           <div class="field">
             <label>6- ¿Alquila algún servicio local? <span class="req">*</span></label>
             <div class="inline" role="radiogroup" aria-label="Alquila servicio local">
@@ -437,14 +427,7 @@
               <label class="radio"><input type="radio" name="alquila_servicio" value="No" required> No</label>
             </div>
 
-            <!-- <div id="wrap_alquila_det" style="display:none;margin-top:10px;">
-              <label style="margin:0 0 8px 0;font-weight:650;font-size:13.5px;">
-                6.a- En caso de responder "Si", ¿Qué tipo de servicio alquila?
-              </label>
-              <input type="text" name="alquila_servicio_detalle" id="alquila_servicio_detalle"
-                     placeholder="Ej.: heladeras, sonido, plomero…" />
-              <div class="hint">Este campo no es obligatorio (igual que en el Form).</div>
-            </div> -->
+
 
             <div id="wrap_alquila_det" style="display:none;margin-top:10px;">
             <label style="margin:0 0 8px 0;font-weight:650;font-size:13.5px;">
@@ -482,7 +465,6 @@
 
           </div>
 
-          <!-- 7 -->
           <div class="field">
             <label>7- ¿Contrata personal para que trabaje durante el Festival? <span class="req">*</span></label>
             <div class="inline" role="radiogroup" aria-label="Contrata personal">
@@ -505,22 +487,7 @@
             </div>
           </div>
 
-          <!-- 8 -->
-          <!-- <div class="field" style="grid-column: 1 / -1;">
-            <label>8- ¿Cuántas personas contrata en total durante las noches del Festival? <span class="req">*</span></label>
-            <input
-            type="text"
-            name="personal_cantidad"
-            id="personal_cantidad"
-            placeholder="Ej.: 5"
-            autocomplete="off"
-            pattern="[0-9]*"
-            inputmode="numeric"
-            required
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-          </div> -->
 
-            <!-- 8 (wrap para ocultar/mostrar) -->
             <div id="wrap_personal_cantidad" class="field" style="grid-column: 1 / -1; display:none;">
             <label>8- ¿Cuántas personas contrata en total durante las noches del Festival? <span class="req">*</span></label>
 
@@ -606,7 +573,6 @@
     const personal_cantidad = document.getElementById("personal_cantidad");
 
 
-    // Overlay UI (spinner / success / error)
     const overlay = document.getElementById('submitOverlay');
     const loading = document.getElementById('loadingState');
     const success = document.getElementById('successState');
@@ -624,9 +590,8 @@
 
     closeBtn.addEventListener('click', hideOverlay);
 
+    const WEB_APP_URL = "https://encade.gisjesusmaria.workers.dev";
 
-
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw-wZBKeOxxosLbk8mNLSgWXzAAHg4XispyExVAWdyDZ8t5ijfpfTr1Jb7BjSMayODT/exec"; // termina en /exec
 
     f.action = WEB_APP_URL;
 
@@ -635,42 +600,28 @@
 
     let submitting = false;
 
-    // hiddenIframe.addEventListener("load", () => {
-    // if (!submitting) return;
-    // submitting = false;
 
-    // btnSend.disabled = false;
-    // btnSend.textContent = "Enviar";
-    // showToast("ok", "✅ <strong>Enviado.</strong> Gracias. El registro se guardó correctamente.");
-    // });
 
 
     hiddenIframe.addEventListener("load", () => {
     if (!submitting) return;
     submitting = false;
 
-    // Mostrar éxito
     setState('success');
 
-    // Reset completo para nueva respuesta
     f.reset();
 
-    // Limpiar inputs manuales por si algún navegador no lo hace perfecto
     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
     document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = "");
 
-    // Limpiar hidden del detalle servicio
     if (alquilaHidden) alquilaHidden.value = "";
 
-    // Volver a ocultar condicionales y limpiar required de "otro"
     toggleConditional();
 
-    // Rehabilitar botón
     btnSend.disabled = false;
     btnSend.textContent = "Enviar";
 
-    // Cerrar overlay luego de un ratito y volver arriba
     setTimeout(() => {
         hideOverlay();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -687,55 +638,33 @@
     }
     function hideToast(){ toast.style.display = "none"; }
 
-    // function toggleConditional(){
-    //   // 2.a
-    //   wrap_otra_loc.style.display = (proveedores_origen.value === "Otra localidad") ? "block" : "none";
 
-
-    //   // 6.a
-    //   const a = alquilaRadios();
-    //   wrap_alquila_det.style.display = (a && a.value === "Si") ? "block" : "none";
-
-    //   // 7.a
-    //   const c = contrataRadios();
-    //   wrap_personal_origen.style.display = (c && c.value === "Si") ? "block" : "none";
-    // }
 
     function toggleConditional(){
-      // 2.a
       wrap_otra_loc.style.display = (proveedores_origen.value === "Otra localidad") ? "block" : "none";
 
-      // 6.a (si alquila = Si, mostrar select)
       const a = alquilaRadios();
       const alquilaSi = (a && a.value === "Si");
       wrap_alquila_det.style.display = alquilaSi ? "block" : "none";
 
-      // Si no es "Si", limpiar y no requerir nada
       if (!alquilaSi) {
         if (alquila_opcion) alquila_opcion.value = "";
         if (alquila_especificar) alquila_especificar.value = "";
         if (wrap_alquila_otro) wrap_alquila_otro.style.display = "none";
         if (alquila_especificar) alquila_especificar.required = false;
       } else {
-        // Si es Si, y eligió "Otro", pedir especificación
         const isOtro = alquila_opcion && alquila_opcion.value === "Otro";
         wrap_alquila_otro.style.display = isOtro ? "block" : "none";
         alquila_especificar.required = !!isOtro;
         if (!isOtro && alquila_especificar) alquila_especificar.value = "";
       }
 
-      // 7.a
-    //   const c = contrataRadios();
-    //   wrap_personal_origen.style.display = (c && c.value === "Si") ? "block" : "none";
 
-        // 7.a + 8 (cantidad)
         const c = contrataRadios();
         const contrataSi = (c && c.value === "Si");
 
-        // 7.a (origen) solo si contrata = Si
         wrap_personal_origen.style.display = contrataSi ? "block" : "none";
 
-        // 8 solo si contrata = Si
         if (wrap_personal_cantidad) {
         wrap_personal_cantidad.style.display = contrataSi ? "block" : "none";
         }
@@ -744,10 +673,8 @@
         if (contrataSi) {
             personal_cantidad.required = true;
 
-            // opcional: si venía de "No" y quedó en 0, lo limpiamos para que cargue el valor real
             if (personal_cantidad.value === "0") personal_cantidad.value = "";
         } else {
-            // Si eligió "No": oculto, NO requerido y se registra 0
             personal_cantidad.required = false;
             personal_cantidad.value = "0";
         }
@@ -775,79 +702,11 @@
       window.scrollTo({top:0, behavior:"smooth"});
     });
 
-    // f.addEventListener("submit", (e)=>{
-    //   e.preventDefault();
-    //   hideToast();
 
-    //   // Validación HTML5
-    //   if (!f.checkValidity()) {
-    //     f.reportValidity();
-    //     showToast("err", "<strong>Faltan campos obligatorios.</strong> Revisá los marcados con *.");
-    //     return;
-    //   }
-
-    //   // Armar payload
-    //   const fd = new FormData(f);
-    //   const data = Object.fromEntries(fd.entries());
-
-
-    //   // Construir el valor final de 6.a para enviar al backend
-    //   const a = alquilaRadios();
-    //   if (a && a.value === "Si") {
-    //     const opcion = (data.alquila_servicio_opcion || "").trim();
-    //     if (!opcion) {
-    //       showToast("err", "❌ <strong>Falta completar.</strong><br>Seleccioná el tipo de servicio (pregunta 6.a).");
-    //       btnSend.disabled = false;
-    //       btnSend.textContent = "Enviar";
-    //       return;
-    //     }
-    //     if (opcion === "Otro") {
-    //       const esp = (data.alquila_servicio_especificar || "").trim();
-    //       if (!esp) {
-    //         showToast("err", "❌ <strong>Falta completar.</strong><br>Especificá el servicio (pregunta 6.a).");
-    //         btnSend.disabled = false;
-    //         btnSend.textContent = "Enviar";
-    //         return;
-    //       }
-    //       data.alquila_servicio_detalle = esp;   // <-- lo que va al sheet
-    //     } else {
-    //       data.alquila_servicio_detalle = opcion; // <-- lo que va al sheet
-    //     }
-    //   } else {
-    //     data.alquila_servicio_detalle = "";
-    //   }
-
-    //   // Limpiar claves auxiliares para que el servidor no reciba basura
-    //   delete data.alquila_servicio_opcion;
-    //   delete data.alquila_servicio_especificar;
-
-
-    //   // UX
-    //   btnSend.disabled = true;
-    //   btnSend.textContent = "Enviando…";
-
-    //   // Llamada a Apps Script (sin CORS, porque corre dentro del web app)
-    //   google.script.run
-    //     .withSuccessHandler((res)=>{
-    //       btnSend.disabled = false;
-    //       btnSend.textContent = "Enviar";
-    //       showToast("ok", "✅ <strong>Enviado.</strong> Gracias. El registro se guardó correctamente.");
-    //       // opcional: limpiar
-    //       // f.reset(); toggleConditional();
-    //     })
-    //     .withFailureHandler((err)=>{
-    //       btnSend.disabled = false;
-    //       btnSend.textContent = "Enviar";
-    //       const msg = (err && err.message) ? err.message : String(err);
-    //       showToast("err", `❌ <strong>No se pudo guardar.</strong><br>${msg}`);
-    //     })
-    //     .submitForm(data);
-    // });
 
     f.addEventListener("submit", (e)=>{
     hideToast();
 
-    // Asegurar Q8 según Q7 antes de validar
     const c = contrataRadios();
     const contrataSi = (c && c.value === "Si");
 
@@ -861,7 +720,6 @@
     }
 
 
-    // Validación HTML5
     if (!f.checkValidity()) {
         e.preventDefault();
         f.reportValidity();
@@ -869,7 +727,6 @@
         return;
     }
 
-    // Resolver 6.a -> mandarlo en hidden input (alquila_servicio_detalle)
     const a = alquilaRadios();
     if (a && a.value === "Si") {
         const opcion = (alquila_opcion?.value || "").trim();
@@ -893,14 +750,11 @@
         alquilaHidden.value = "";
     }
 
-    // UX
     submitting = true;
     btnSend.disabled = true;
     btnSend.textContent = "Registrando encuesta...";
 
-    // IMPORTANTE:
-    // NO usamos e.preventDefault()
-    // dejamos que el form haga POST al WebApp (iframe oculto)
+
 
     showOverlay();
     setState('loading');
@@ -908,7 +762,6 @@
 
     setTimeout(() => {
     if (!submitting) return;
-    // sigue “enviando” demasiado tiempo -> error
     setState('error');
     closeBtn.classList.remove('hidden');
     btnSend.disabled = false;
@@ -920,7 +773,6 @@
     });
 
 
-    // init
     toggleConditional();
   </script>
 
