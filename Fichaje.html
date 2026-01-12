@@ -407,8 +407,7 @@
         const query = encodeURIComponent(`SELECT D, B, C, A WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC, A DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
-        console.log(`DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`)
-        console.log(url);
+
         try {
             const resp = await fetch(url);
             const texto = await resp.text();
@@ -464,7 +463,7 @@
         
         const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
 
-        console.log(ultimoFichaje);
+
 
         if (ultimoFichaje === 'E') {
         
@@ -480,12 +479,6 @@
             document.getElementById('toggleBtn').classList.add('green');
         }
 
-        console.log(ultimoFichaje);
-        console.log(ultfec);
-        console.log(ulthor);
-        console.log(ultid);
-        console.log(dateFich);
-        console.log(horaFich);
 
         
 
