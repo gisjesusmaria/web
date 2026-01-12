@@ -1,4 +1,4 @@
-<!-- 03012026_0350 -->
+<!-- 12012026_1909 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -325,7 +325,6 @@
 
         try {
 
-            //DeviceInfoGlobal = await getDeviceInfo();  
 
             const idResponse = await fetch('https://fichmjm.gisjesusmaria.workers.dev/' + v, { cache: 'no-cache' });
             if (!idResponse.ok) throw new Error('Worker offline');
@@ -405,21 +404,23 @@
         const sheetName = config.B;        
 
 
-        
         const query = encodeURIComponent(`SELECT D, B, C, A WHERE E = ${dni} and M != 'invalido' ORDER BY B DESC, C DESC, A DESC LIMIT 1`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}&tq=${query}`;
         
+        console.log(`DeviceID: ${deviceInfoGlobal["Fingerprint"]} | Browser: ${deviceInfoGlobal["Navegador"]}`)
+        console.log(url);
         try {
             const resp = await fetch(url);
             const texto = await resp.text();
             const lineas = texto.trim().split('\n');
             
-            if (lineas.length < 1 || !lineas[0].trim()) return null;
+            if (lineas.length < 2 || !lineas[1].trim()) return null;
 
-            const tipo = lineas[0].split(',')[0].replace(/"/g, '').trim();
 
-            ultfec = lineas[0].split(',')[1].replace(/"/g, '').trim();
-            ulthor = lineas[0].split(',')[2].replace(/"/g, '').trim();
+            const tipo = lineas[1].split(',')[0].replace(/"/g, '').trim();
+
+            ultfec = lineas[1].split(',')[1].replace(/"/g, '').trim();
+            ulthor = lineas[1].split(',')[2].replace(/"/g, '').trim();
 
             if (ulthor) {
                 let [h, m] = ulthor.split(':').map(part => part.trim());
@@ -428,7 +429,7 @@
                 ulthor = `${h}:${m}`;
             }
 
-            ultid = lineas[0].split(',')[3].replace(/"/g, '').trim();
+            ultid = lineas[1].split(',')[3].replace(/"/g, '').trim();
 
             const ahora1 = new Date();
             horaFich = ahora1.toTimeString().substr(0,5); 
@@ -463,6 +464,7 @@
         
         const ultimoFichaje = await getUltimoFichaje(dni, hojaEmp);
 
+        console.log(ultimoFichaje);
 
         if (ultimoFichaje === 'E') {
         
@@ -478,6 +480,12 @@
             document.getElementById('toggleBtn').classList.add('green');
         }
 
+        console.log(ultimoFichaje);
+        console.log(ultfec);
+        console.log(ulthor);
+        console.log(ultid);
+        console.log(dateFich);
+        console.log(horaFich);
 
         
 
@@ -724,7 +732,6 @@
             }            
 
 
-
             if (mode === 'E') {
                 const [hora, minutos] = horaFich.split(':').map(Number);
                 if (hora === 23 && minutos >= 31) {
@@ -732,12 +739,11 @@
                     ahora.setHours(0, 0, 0, 0);
                     dateFich = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
                     horaFich = '00:00';
-                    observaciones = (observaciones || 'ok') + 'T';
+                    observaciones = (observaciones || 'ok') + 'T';  // Opcional: agregar nota para identificar
                 }
             }
 
             
-
 
 
             if (ultfec && ulthor && dateFich === ultfec) {
@@ -887,16 +893,11 @@
             info["Max Touch Points"]
         ].join('|');
 
-        // Hash simple (mismo que antes)
         let hash = 0;
         for (let i = 0; i < stableProps.length; i++) {
             hash = ((hash << 5) - hash + stableProps.charCodeAt(i)) | 0;
         }
         info["Fingerprint"] = Math.abs(hash).toString(36).substring(0, 12);
-
-        // Nota: Eliminamos el canvas y fonts porque Brave los randomiza/farblea, causando cambios.
-        // Si necesitas más unicidad, considera agregar más propiedades estables, pero esto debería ser consistente across Chromium browsers.
-
 
         return info;
     }
