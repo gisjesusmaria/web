@@ -1,4 +1,4 @@
-<!-- 10012026_1528 -->
+<!-- 12012026_1834 -->
 <!doctype html>
 <html lang="es">
 <head>
@@ -356,7 +356,7 @@
         <div>
           <div style="font-weight:800;font-size:15px;margin-bottom:4px;">Formulario</div>
           <div style="color:var(--muted);font-size:13px;line-height:1.35;">
-            Completá los datos y presioná <b>Enviar</b>.
+            Completá los datos y presioná <b>Enviar</b>. Los campos obligatorios replican el Google Form.
           </div>
         </div>
         <div class="chip">Operativo Festival 2026</div>
@@ -367,7 +367,6 @@
     <form id="f" method="POST" target="hidden_iframe">
 
         <div class="grid">
-          <!-- 1 -->
           <div class="field">
             <label>1- ¿A qué rubro pertenece su comercio? <span class="req">*</span></label>
             <select name="rubro" id="rubro" required>
@@ -398,7 +397,7 @@
               </label>
               <input type="text" name="proveedores_otra_localidad" id="proveedores_otra_localidad"
                      placeholder="Escribí la localidad" />
-              <div class="hint">Este campo no es obligatorio.</div>
+              <div class="hint">Este campo no es obligatorio (igual que en el Form).</div>
             </div>
           </div>
 
@@ -426,7 +425,6 @@
               <label class="radio"><input type="radio" name="alquila_servicio" value="Si" required> Sí</label>
               <label class="radio"><input type="radio" name="alquila_servicio" value="No" required> No</label>
             </div>
-
 
 
             <div id="wrap_alquila_det" style="display:none;margin-top:10px;">
@@ -483,10 +481,9 @@
                 <option>Sinsacate</option>
                 <option>Otra localidad</option>
               </select>
-              <div class="hint">Este campo no es obligatorio.</div>
+              <div class="hint">Este campo no es obligatorio (igual que en el Form).</div>
             </div>
           </div>
-
 
             <div id="wrap_personal_cantidad" class="field" style="grid-column: 1 / -1; display:none;">
             <label>8- ¿Cuántas personas contrata en total durante las noches del Festival? <span class="req">*</span></label>
@@ -501,6 +498,23 @@
                 inputmode="numeric"
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+            <label>¿Cuál es su promedio de facturación diaria?</label>
+
+            <input
+                type="text"
+                name="fact_diaria"
+                id="fact_diaria"
+                placeholder="Ej.: 250000"
+                autocomplete="off"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <div class="hint">Este campo no es obligatorio.</div>
+            </div>
+
 
         </div>
 
@@ -592,16 +606,12 @@
 
     const WEB_APP_URL = "https://encade.gisjesusmaria.workers.dev";
 
-
     f.action = WEB_APP_URL;
 
     const hiddenIframe = document.getElementById("hidden_iframe");
     const alquilaHidden = document.getElementById("alquila_servicio_detalle_hidden");
 
     let submitting = false;
-
-
-
 
     hiddenIframe.addEventListener("load", () => {
     if (!submitting) return;
@@ -637,7 +647,6 @@
       toast.scrollIntoView({behavior:"smooth", block:"nearest"});
     }
     function hideToast(){ toast.style.display = "none"; }
-
 
 
     function toggleConditional(){
@@ -754,8 +763,6 @@
     btnSend.disabled = true;
     btnSend.textContent = "Registrando encuesta...";
 
-
-
     showOverlay();
     setState('loading');
 
@@ -779,4 +786,3 @@
 
 </body>
 </html>
-
