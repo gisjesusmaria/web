@@ -1,4 +1,4 @@
-<!-- 09012026_1811 -->
+<!-- 05012026_1058 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -940,6 +940,7 @@
     if (!esOtra) q10.value = '';
     });
 
+
     document.addEventListener("DOMContentLoaded", () => {
 
     const q9 = document.getElementById("q9");       
@@ -959,6 +960,7 @@
     });
 
     });  
+
 
 
       const q15Radios = document.querySelectorAll('input[name="q15"]');
@@ -1074,7 +1076,7 @@
         }
 
 
-        for(const name of ['q17','q18','q19','q20','q21','q22']){
+        for(const name of ['q17','q18','q19','q20','q21','q22','qEyP']){
         if(!requireRadioGroup(name)) return;
         }
 
@@ -1319,6 +1321,7 @@
         q22: document.getElementById('q22'),
         q24: document.getElementById('q24'),
         q25: document.getElementById('q25'),
+        qEyP: document.getElementById('qEyP'),
     };
     return map[name] || null;
     }
@@ -1367,7 +1370,3 @@
 
 </body>
 </html>
-
-
-
-
