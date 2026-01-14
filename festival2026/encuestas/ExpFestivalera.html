@@ -1,4 +1,4 @@
-<!-- 05012026_1058 -->
+<!-- 14012026_1245 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -485,6 +485,7 @@
   </p>
 
   <form id="myForm" novalidate>
+    <!-- q1 -->
     <label for="q1" class="required">Encuestador/a</label>
     <select id="q1" name="q1" required class="native-select">
       <option value="">Selecciona.</option>
@@ -499,6 +500,7 @@
     </select>
     <div class="swankySelect" data-for="q1"></div>
 
+    <!-- q2 -->
     <label for="q2" class="required">Lugar de Procedencia</label>
     <select id="q2" name="q2" required class="native-select">
       <option value="">Selecciona.</option>
@@ -510,7 +512,12 @@
     </select>
     <div class="swankySelect" data-for="q2"></div>
 
+    <!-- <div id="q3-container" class="hidden">
+      <label id="q3-label" for="q3">1.a- En caso de ser del interior de la provincia, de otra provincia, o del exterior, especificar localidad, provincia o país</label>
+      <input type="text" id="q3" name="q3">
+    </div> -->
 
+    <!-- q4 transport -->
     <label class="required">¿En qué transporte viniste a la ciudad?</label>
     <div class="transport" id="q4">
       <label><input type="radio" name="q4" value="Auto" required><img class="transport-icon transport-auto" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/autoR.png" alt="Auto"></label>
@@ -520,6 +527,7 @@
       <label><input type="radio" name="q4" value="Otro"><img class="transport-icon transport-otro" src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/otroR.png" alt="Otro"></label>
     </div>
 
+    <!-- q5 -->
     <label for="q5" class="required">¿Cuántos kilómetros viajaste aproximadamente?</label>
     <select id="q5" name="q5" required class="native-select">
       <option value="">Selecciona.</option>
@@ -532,16 +540,18 @@
     </select>
     <div class="swankySelect" data-for="q5"></div>
 
+    <!-- q6 -->
     <label for="q6" class="required">¿Con quién viniste al festival?</label>
     <select id="q6" name="q6" required class="native-select">
       <option value="">Selecciona.</option>
-      <option value="Solo/a">Solo/a</option>
+      <option value="Solo">Solo/a</option>
       <option value="En pareja">En pareja</option>
       <option value="Grupo familiar">Grupo familiar</option>
       <option value="Grupo de amigos">Grupo de amigos</option>
     </select>
     <div class="swankySelect" data-for="q6"></div>
 
+    <!-- q7 -->
     <label for="q7" class="required">Edad de la persona encuestada</label>
     <select id="q7" name="q7" required class="native-select">
       <option value="">Selecciona.</option>
@@ -555,6 +565,7 @@
     </select>
     <div class="swankySelect" data-for="q7"></div>
 
+    <!-- q8 -->
     <label for="q8" class="required">Cantidad de días que permanecerás en la ciudad</label>
     <select id="q8" name="q8" required class="native-select">
       <option value="">Selecciona.</option>
@@ -566,6 +577,7 @@
     </select>
     <div class="swankySelect" data-for="q8"></div>
 
+    <!-- q9 -->
     <label for="q9" class="required">En caso de alojarte en la zona, ¿En qué ciudad lo haces?</label>
     <select id="q9" name="q9" required class="native-select">
       <option value="">Selecciona.</option>
@@ -578,6 +590,8 @@
     <div class="swankySelect" data-for="q9"></div>
 
     <div id="q10-container" class="hidden">
+      <!-- <label for="q10">En caso de ser otra, especificar cuál</label>
+      <input type="text" id="q10" name="q10"> -->
 
         <label for="q10">
         En caso de ser otra, especificar cuál
@@ -588,6 +602,7 @@
 
     </div>
 
+    <!-- q11 -->
     <label for="q11" class="required">Cantidad de noches que ingresarás al Anfiteatro</label>
     <select id="q11" name="q11" required class="native-select">
       <option value="">Selecciona.</option>
@@ -599,6 +614,7 @@
     </select>
     <div class="swankySelect" data-for="q11"></div>
 
+    <!-- q12 -->
     <label for="q12" class="required">¿Es la primera vez que ingresas al Anfiteatro?</label>
     <select id="q12" name="q12" required class="native-select">
       <option value="">Selecciona.</option>
@@ -607,17 +623,40 @@
     </select>
     <div class="swankySelect" data-for="q12"></div>
 
+    <!-- q13 -->
+    <!-- <label for="q13" class="required">¿Por qué venís al Festival de Jesús María?</label>
+    <select id="q13" name="q13" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Por el show artístico (espectáculo musical)">Por el show artístico (espectáculo musical)</option>
+      <option value="Por la jineteada">Por la jineteada</option>
+      <option value="Para recorrer los alrededores del Anfiteatro">Para recorrer los alrededores del Anfiteatro</option>
+    </select>
+    <div class="swankySelect" data-for="q13"></div> -->
+
+    <!-- q13 (MULTI) -->
+    <!-- <label class="required">¿Por qué venís al Festival de Jesús María?</label>
+    <div class="multiChoice" id="q13Multi">
+    <label><input type="checkbox" name="q13" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
+    <label><input type="checkbox" name="q13" value="Por la jineteada"> Por la jineteada</label>
+    <label><input type="checkbox" name="q13" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label>
+    </div> -->
+
+
     <label class="required">¿Por qué venís al Festival de Jesús María?</label>
 
     <div class="multiChoice" id="q13Multi">
+    <!-- ✅ este hidden es el que viaja como q13 -->
     <input type="hidden" id="q13" name="q13" value="">
 
+    <!-- ✅ los checks ya NO se llaman q13 -->
     <label><input type="checkbox" name="q13_cb" value="Por el show artístico (espectáculo musical)"> Por el show artístico (espectáculo musical)</label>
     <label><input type="checkbox" name="q13_cb" value="Por la jineteada"> Por la jineteada</label>
+    <!-- <label><input type="checkbox" name="q13_cb" value="Para recorrer los alrededores del Anfiteatro"> Para recorrer los alrededores del Anfiteatro</label> -->
     <label><input type="checkbox" name="q13_cb" value="Para visitar los alrededores del Anfiteatro"> Para visitar los alrededores del Anfiteatro</label>
     </div>
 
 
+    <!-- q14 -->
     <label for="q14" class="required">Teniendo en cuenta alojamiento, comida, movilidad y gastos varios, ¿Cuál es el gasto aproximado por persona por día</label>
     <select id="q14" name="q14" required class="native-select">
       <option value="">Selecciona.</option>
@@ -651,6 +690,7 @@
     </div>
 
 
+    <!-- q15 satisfacción -->
     <label class="required">Experiencia de alojamiento</label>
     <div class="satisfaction" id="q15">
       <label><input type="radio" name="q15" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -665,6 +705,7 @@
       <textarea id="q16" name="q16"></textarea>
     </div>
 
+    <!-- q17 -->
     <label class="required">Limpieza de calles</label>
     <div class="satisfaction" id="q17">
       <label><input type="radio" name="q17" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -674,6 +715,7 @@
       <label><input type="radio" name="q17" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <!-- q18 -->
     <label class="required">Limpieza de baños</label>
     <div class="satisfaction" id="q18">
       <label><input type="radio" name="q18" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -683,6 +725,7 @@
       <label><input type="radio" name="q18" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <!-- q19 -->
     <label class="required">Seguridad</label>
     <div class="satisfaction" id="q19">
       <label><input type="radio" name="q19" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -692,6 +735,7 @@
       <label><input type="radio" name="q19" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <!-- q20 -->
     <label class="required">Propuesta gastronómica</label>
     <div class="satisfaction" id="q20">
       <label><input type="radio" name="q20" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -701,6 +745,7 @@
       <label><input type="radio" name="q20" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <!-- q21 -->
     <label class="required">Oferta cultural y turística</label>
     <div class="satisfaction" id="q21">
       <label><input type="radio" name="q21" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -710,6 +755,7 @@
       <label><input type="radio" name="q21" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>
 
+    <!-- q22 -->
     <label class="required">Manejo de Tránsito</label>
     <div class="satisfaction" id="q22">
       <label><input type="radio" name="q22" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
@@ -728,6 +774,7 @@
       <label><input type="radio" name="qEyP" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
     </div>    
 
+    <!-- q23 -->
     <label for="q23" class="required">¿Visitaste el Patio de Doña Pipa?</label>
     <select id="q23" name="q23" required class="native-select">
       <option value="">Selecciona.</option>
@@ -748,13 +795,49 @@
       </div>
     </div>
 
+    <!-- q25 -->
+    <!-- <label class="required">19- En una escala del 1 al 5, ¿Cómo calificarías tu experiencia general en el festival?</label>
+    <div class="satisfaction" id="q25">
+      <label><input type="radio" name="q25" value="1" required><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita1.png" alt="1"></label>
+      <label><input type="radio" name="q25" value="2"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita2.png" alt="2"></label>
+      <label><input type="radio" name="q25" value="3"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita3.png" alt="3"></label>
+      <label><input type="radio" name="q25" value="4"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita4.png" alt="4"></label>
+      <label><input type="radio" name="q25" value="5"><img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/festival2026/encuestas/carita5.png" alt="5"></label>
+    </div> -->
 
+    <!-- q26 -->
     <label for="q26" class="required">¿Qué es lo que MÁS te gustó de la visita a nuestra ciudad?</label>
     <textarea id="q26" name="q26" required></textarea>
 
     <label for="qMen" class="required">¿Qué es lo que MENOS te gustó de la visita a nuestra ciudad?</label>
     <textarea id="qMen" name="qMen" required></textarea>    
 
+
+
+    <!-- qMedios -->
+    <label for="qMedios" class="required">¿A través de qué medio te informas sobre el festival?</label>
+    <select id="qMedios" name="qMedios" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Redes sociales">Redes sociales</option>
+      <option value="Canales de streaming">Canales de streaming</option>
+      <option value="Canales de tv">Canales de tv</option>
+      <option value="Medios locales">Medios locales</option>
+      <option value="Medios nacionales">Medios nacionales</option>
+      <option value="Medios provinciales">Medios provinciales</option>
+      <option value="Otro">Otro</option>
+    </select>
+    <div class="swankySelect" data-for="qMedios"></div>
+
+    <div id="qMediosOtro-container" class="hidden">
+      <label for="qMediosOtro">
+        En caso de ser "Otro", especificar cuál
+        <span id="qMediosOtro-asterisk" class="required-asterisk hidden">*</span>
+      </label>
+      <input type="text" id="qMediosOtro" name="qMediosOtro">
+    </div>
+
+    
+    <!-- q27 -->
     <label for="q27" class="required">Tenés pensado visitar el Festival en la edición 2027?</label>
     <select id="q27" name="q27" required class="native-select">
       <option value="">Selecciona.</option>
@@ -764,6 +847,7 @@
     </select>
     <div class="swankySelect" data-for="q27"></div>
 
+    <!-- Map -->
     <div id="map-container">
       <label class="required">Ubicación actual (aproximada para referencia)</label>
       <div id="map" style="height: 300px; margin-top: 10px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);"></div>
@@ -923,6 +1007,49 @@
 
     function initConditionalLogic(){
 
+        // const q2 = document.getElementById('q2');
+        // const q3Container = document.getElementById('q3-container');
+        // const q3Label = document.getElementById('q3-label');
+
+        // q2.addEventListener('change', () => {
+        // const esVecino =
+        //     q2.value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+
+        // const noEligioNada = q2.value === '';
+
+        // const debeMostrarQ3 = !(esVecino || noEligioNada);
+
+        // q3Container.classList.toggle('hidden', !debeMostrarQ3);
+
+        // // ✅ asterisco rojo solo cuando corresponde
+        // q3Label.classList.toggle('required', debeMostrarQ3);
+        // });
+
+
+
+    //   const q9 = document.getElementById('q9');
+    //   const q10Container = document.getElementById('q10-container');
+    //   q9.addEventListener('change', () => {
+    //     q10Container.classList.toggle('hidden', q9.value !== 'Otra');
+    //   });
+
+
+    // const q9 = document.getElementById('q9');
+    // const q10Container = document.getElementById('q10-container');
+    // const q10 = document.getElementById('q10');
+
+    // q9.addEventListener('change', () => {
+    // const esOtra = q9.value === 'Otra';
+
+    // q10Container.classList.toggle('hidden', !esOtra);
+
+    // // 🔒 obligatorio solo si eligió "Otra"
+    // q10.toggleAttribute('required', esOtra);
+
+    // // opcional: si deja de ser "Otra", limpio el campo
+    // if (!esOtra) q10.value = '';
+    // });
+
     const q9 = document.getElementById('q9');
     const q10Container = document.getElementById('q10-container');
     const q10 = document.getElementById('q10');
@@ -931,10 +1058,13 @@
     q9.addEventListener('change', () => {
     const esOtra = q9.value === 'Otra';
 
+    // mostrar / ocultar input
     q10Container.classList.toggle('hidden', !esOtra);
 
+    // obligatorio dinámico
     q10.toggleAttribute('required', esOtra);
 
+    // ⭐ mostrar / ocultar asterisco rojo
     q10Asterisk.classList.toggle('hidden', !esOtra);
 
     if (!esOtra) q10.value = '';
@@ -943,8 +1073,8 @@
 
     document.addEventListener("DOMContentLoaded", () => {
 
-    const q9 = document.getElementById("q9");       
-    const qAloj = document.getElementById("qAloj"); 
+    const q9 = document.getElementById("q9");       // Ciudad alojamiento
+    const qAloj = document.getElementById("qAloj"); // Tipo de alojamiento
 
     if (!q9 || !qAloj) return;
 
@@ -953,13 +1083,31 @@
         if (q9.value === "No se hospeda (viene y regresa a su hogar en el día)") {
         qAloj.value = "En casa propia";
 
-        
+        // 🔄 importante para que SwankySelect se actualice
         qAloj.dispatchEvent(new Event("change", { bubbles: true }));
         }
 
     });
 
-    });  
+    });    
+
+    // qMedios: mostrar "Otro" + required dinámico
+    const qMedios = document.getElementById('qMedios');
+    const qMediosOtroContainer = document.getElementById('qMediosOtro-container');
+    const qMediosOtro = document.getElementById('qMediosOtro');
+    const qMediosOtroAsterisk = document.getElementById('qMediosOtro-asterisk');
+
+    if (qMedios) {
+      qMedios.addEventListener('change', () => {
+        const esOtro = qMedios.value === 'Otro';
+
+        qMediosOtroContainer.classList.toggle('hidden', !esOtro);
+        qMediosOtro.toggleAttribute('required', esOtro);
+        qMediosOtroAsterisk.classList.toggle('hidden', !esOtro);
+
+        if (!esOtro) qMediosOtro.value = '';
+      });
+    }
 
 
 
@@ -982,12 +1130,15 @@
       q2.dispatchEvent(new Event('change', { bubbles:true }));
       q9.dispatchEvent(new Event('change', { bubbles:true }));
       q23.dispatchEvent(new Event('change', { bubbles:true }));
+      qMedios?.dispatchEvent(new Event('change', { bubbles:true }));
+
     }
 
     function initSubmit(){
       const form = document.getElementById('myForm');
-      const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
+      //const scriptURL = "https://encjuv.gisjesusmaria.workers.dev";
 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwfFppb4iDKun2_X3Pj7jbyIZthY9BiqyaICsooNquPs1bLCqwwbN3Di0nXvZ2010LaHg/exec';
 
         form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -1018,6 +1169,7 @@
         return true;
         }
 
+        // q10 obligatorio si q9 == "Otra"
         const q9Val = document.getElementById('q9')?.value;
         if (q9Val === 'Otra') {
         if (!requireText('q10', 'Es obligatorio indicar la ciudad si elegiste "Otra".')) return;
@@ -1052,48 +1204,86 @@
         if(!requireSelect('q2')) return;
 
 
+        
+        // const q2Value = document.getElementById('q2').value;
+        // const q3Container = document.getElementById('q3-container');
+        // const q3 = document.getElementById('q3');
+
+        // const esVecino =
+        // q2Value === 'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)';
+
+        // if (!esVecino) {
+        // if (!q3.value.trim()) {
+        //     q3.classList.add('fieldError');
+        //     showErrorHint(q3, 'Este campo es obligatorio según tu lugar de procedencia.');
+        //     scrollToEl(q3);
+        //     q3.focus();
+        //     return;
+        // }
+        // }
 
 
 
         if(!requireRadioGroup('q4', 'Te faltó elegir un transporte.')) return;
 
 
+        // for(const id of ['q5','q6','q7','q8','q9','q11','q12','q13','q14']){
+        // if(!requireSelect(id)) return;
+        // }
+
         for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14','qAloj']){
         if(!requireSelect(id)) return;
         }
 
+        // q13 (multi)
+        //if(!requireCheckboxGroup('q13', 'q13Multi')) return;
 
+        // q13 (multi)
         if(!requireCheckboxGroup('q13_cb', 'q13Multi')) return;
 
 
-
+        // q15 caritas
         if(!requireRadioGroup('q15')) return;
 
-
+        // q16 condicional si q15 = 1 o 2
         const q15Checked = form.querySelector('input[name="q15"]:checked');
         if(q15Checked && (q15Checked.value === '1' || q15Checked.value === '2')){
         if(!requireText('q16', 'Este campo es obligatorio si calificaste 1 o 2.')) return;
         }
 
-
+        // q17..q22 caritas
         for(const name of ['q17','q18','q19','q20','q21','q22','qEyP']){
         if(!requireRadioGroup(name)) return;
         }
 
-
+        // q23 lista
         if(!requireSelect('q23')) return;
 
+        // q24 condicional (solo si q23 == "Si")
         const q23 = document.getElementById('q23');
         if(q23 && q23.value === 'Si'){
         if(!requireRadioGroup('q24', 'Te faltó calificar este espacio.')) return;
         }
 
+        // q25 caritas
         if(!requireRadioGroup('q25')) return;
 
+        // q26 textarea
         if(!requireText('q26')) return;
         
         if(!requireText('qMen')) return;
 
+        // qMedios obligatorio
+        if(!requireSelect('qMedios', 'Te faltó elegir por qué medio te informas.')) return;
+
+        // qMediosOtro obligatorio si eligió "Otro"
+        const qMediosVal = document.getElementById('qMedios')?.value;
+        if (qMediosVal === 'Otro') {
+          if (!requireText('qMediosOtro', 'Es obligatorio especificar cuál si elegiste "Otro".')) return;
+        }
+
+
+        // q27 lista
         if(!requireSelect('q27')) return;
 
 
@@ -1126,6 +1316,53 @@
         showOverlay();
         setState('loading');
 
+        // try {
+        //     const res = await fetch(scriptURL, {
+        //     method: 'POST',
+        //     body: new FormData(form)
+        //     });
+
+        //     if (!res.ok) throw new Error();
+
+        //     setState('success');
+
+            
+        //     setTimeout(() => {
+        //     hideOverlay();
+
+            
+        //     form.reset();
+
+            
+        //     document.getElementById('q3-container').classList.add('hidden');
+        //     document.getElementById('q10-container').classList.add('hidden');
+        //     document.getElementById('q16-container').classList.add('hidden');
+        //     document.getElementById('q24-container').classList.add('hidden');
+
+            
+        //     clearValidationUI(form);
+
+            
+        //     document.querySelectorAll('select.native-select').forEach(sel => {
+        //         sel.dispatchEvent(new Event('change', { bubbles:true }));
+        //     });
+
+            
+        //     const firstSwanky = document.querySelector('.swankySelect[data-for="q1"]');
+        //     if (firstSwanky) {
+        //         firstSwanky.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        //         firstSwanky.querySelector('.swankyBtn')?.focus();
+        //     } else {
+        //         window.scrollTo({ top: 0, behavior: 'smooth' });
+        //     }
+        //     }, 1700);
+
+
+        // } catch {
+        //     setState('error');
+        // } finally {
+        //     submitBtn.disabled = false;
+        // }
 
         try {
             const res = await fetch(scriptURL, {
@@ -1137,8 +1374,10 @@
 
             setState('success');
 
+            // Reset inmediato del form
             form.reset();
 
+            // Resets manuales para forzar en todos los elementos
             document.querySelectorAll('select.native-select').forEach(sel => {
                 sel.value = '';
                 sel.dispatchEvent(new Event('change', { bubbles: true }));
@@ -1158,12 +1397,32 @@
 
             document.getElementById('q13').value = '';
 
+            // Ocultar conditionals
             document.getElementById('q10-container').classList.add('hidden');
             document.getElementById('q16-container').classList.add('hidden');
             document.getElementById('q24-container').classList.add('hidden');
+            document.getElementById('qMediosOtro-container').classList.add('hidden');
+
+            // Si tenés q3-container en esta versión, agregalo: document.getElementById('q3-container').classList.add('hidden');
 
             clearValidationUI(form);
 
+            // // Resetear mapa y geolocalización (forzar nueva posición)
+            // const latInput = document.getElementById('latitude');
+            // const lngInput = document.getElementById('longitude');
+            // if (navigator.geolocation) {
+            //     navigator.geolocation.getCurrentPosition(position => {
+            //         const lat = position.coords.latitude;
+            //         const lng = position.coords.longitude;
+            //         latInput.value = Math.round(lat * 1000000);
+            //         lngInput.value = Math.round(lng * 1000000);
+            //         map.setView([lat, lng], 19);
+            //         // Si querés remover el marker viejo, agregá una var global marker = L.marker... en initMap, y acá: if (marker) map.removeLayer(marker); luego marker = L.marker([lat, lng], {...}).addTo(map);
+            //     }, () => {}, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+            // }
+
+
+            // Resetear mapa y geolocalización (forzar nueva posición)
             const latInput = document.getElementById('latitude');
             const lngInput = document.getElementById('longitude');
             if (navigator.geolocation) {
@@ -1173,6 +1432,7 @@
                     latInput.value = Math.round(lat * 1000000);
                     lngInput.value = Math.round(lng * 1000000);
                     map.setView([lat, lng], 19);
+                    // Si querés remover el marker viejo, agregá una var global marker = L.marker... en initMap, y acá: if (marker) map.removeLayer(marker); luego marker = L.marker([lat, lng], {...}).addTo(map);
                 }, () => {
                     const defaultLat = -30.9744111;
                     const defaultLng = -64.0922491;
@@ -1181,6 +1441,7 @@
                     lngInput.value = Math.round(defaultLng * 1000000);
 
                     map.setView([defaultLat, defaultLng], 19);
+                    // Si querés remover el marker viejo, etc.
                 }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
             }            
 
@@ -1219,6 +1480,24 @@
       const latInput = document.getElementById('latitude');
       const lngInput = document.getElementById('longitude');
 
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition(position => {
+      //     const lat = position.coords.latitude;
+      //     const lng = position.coords.longitude;
+
+      //     // latInput.value = lat;
+      //     // lngInput.value = lng;
+
+      //     latInput.value = Math.round(lat * 1000000);
+      //     lngInput.value = Math.round(lng * 1000000);          
+
+      //     map.setView([lat, lng], 19);
+      //     //L.marker([lat, lng]).addTo(map);
+      //     L.marker([lat, lng], { icon: L.divIcon({ className: 'blue-marker', html: '<div style="background: blue; width: 20px; height: 20px; border-radius: 50%;"></div>' }) }).addTo(map);
+      //   }, () => {
+          
+      //   }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+      // }
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -1370,4 +1649,3 @@
 
 </body>
 </html>
-
