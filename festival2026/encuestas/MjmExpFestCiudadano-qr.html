@@ -1,4 +1,4 @@
-<!-- 05012026_1106_Ciud -->
+<!-- 14012026_1840_Ciud -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -485,6 +485,7 @@
   </p>
 
   <form id="myForm" novalidate>
+
     <input type="hidden" id="q1" name="q1" value="Ciudadano">
 
     <label for="q2" class="required">Lugar de Procedencia</label>
@@ -594,6 +595,7 @@
       <option value="No">No</option>
     </select>
     <div class="swankySelect" data-for="q12"></div>
+
 
 
     <label class="required">¿Por qué venís al Festival de Jesús María?</label>
@@ -743,6 +745,29 @@
 
     <label for="qMen" class="required">¿Qué es lo que MENOS te gustó de la visita a nuestra ciudad?</label>
     <textarea id="qMen" name="qMen" required></textarea>    
+
+
+    <label for="qMedios" class="required">¿A través de qué medio te informas sobre el festival?</label>
+    <select id="qMedios" name="qMedios" required class="native-select">
+      <option value="">Selecciona.</option>
+      <option value="Redes sociales">Redes sociales</option>
+      <option value="Canales de streaming">Canales de streaming</option>
+      <option value="Canales de tv">Canales de tv</option>
+      <option value="Medios locales">Medios locales</option>
+      <option value="Medios nacionales">Medios nacionales</option>
+      <option value="Medios provinciales">Medios provinciales</option>
+      <option value="Otro">Otro</option>
+    </select>
+    <div class="swankySelect" data-for="qMedios"></div>
+
+    <div id="qMediosOtro-container" class="hidden">
+      <label for="qMediosOtro">
+        En caso de ser "Otro", especificar cuál
+        <span id="qMediosOtro-asterisk" class="required-asterisk hidden">*</span>
+      </label>
+      <input type="text" id="qMediosOtro" name="qMediosOtro">
+    </div>
+
 
     <label for="q27" class="required">Tenés pensado visitar el Festival en la edición 2027?</label>
     <select id="q27" name="q27" required class="native-select">
@@ -943,13 +968,30 @@
         if (q9.value === "No se hospeda (viene y regresa a su hogar en el día)") {
         qAloj.value = "En casa propia";
 
-       
         qAloj.dispatchEvent(new Event("change", { bubbles: true }));
         }
 
     });
 
     });  
+
+
+    const qMedios = document.getElementById('qMedios');
+    const qMediosOtroContainer = document.getElementById('qMediosOtro-container');
+    const qMediosOtro = document.getElementById('qMediosOtro');
+    const qMediosOtroAsterisk = document.getElementById('qMediosOtro-asterisk');
+
+    if (qMedios) {
+      qMedios.addEventListener('change', () => {
+        const esOtro = qMedios.value === 'Otro';
+
+        qMediosOtroContainer.classList.toggle('hidden', !esOtro);
+        qMediosOtro.toggleAttribute('required', esOtro);
+        qMediosOtroAsterisk.classList.toggle('hidden', !esOtro);
+
+        if (!esOtro) qMediosOtro.value = '';
+      });
+    }
 
 
 
@@ -973,6 +1015,7 @@
       q2.dispatchEvent(new Event('change', { bubbles:true }));
       q9.dispatchEvent(new Event('change', { bubbles:true }));
       q23.dispatchEvent(new Event('change', { bubbles:true }));
+      qMedios?.dispatchEvent(new Event('change', { bubbles:true }));
     }
 
     function initSubmit(){
@@ -1043,17 +1086,17 @@
         if(!requireSelect('q2')) return;
 
 
-
+        
 
 
         if(!requireRadioGroup('q4', 'Te faltó elegir un transporte.')) return;
 
 
 
+
         for(const id of ['q5','q6','q7','q8','q9','q11','q12','q14','qAloj']){
         if(!requireSelect(id)) return;
         }
-
 
         if(!requireCheckboxGroup('q13_cb', 'q13Multi')) return;
 
@@ -1081,6 +1124,13 @@
         if(!requireText('q26')) return;
         
         if(!requireText('qMen')) return;
+
+        if(!requireSelect('qMedios', 'Te faltó elegir por qué medio te informas.')) return;
+
+        const qMediosVal = document.getElementById('qMedios')?.value;
+        if (qMediosVal === 'Otro') {
+          if (!requireText('qMediosOtro', 'Es obligatorio especificar cuál si elegiste "Otro".')) return;
+        }
 
         if(!requireSelect('q27')) return;
 
@@ -1113,6 +1163,7 @@
 
         showOverlay();
         setState('loading');
+
 
         try {
             const res = await fetch(scriptURL, {
@@ -1148,6 +1199,7 @@
             document.getElementById('q10-container').classList.add('hidden');
             document.getElementById('q16-container').classList.add('hidden');
             document.getElementById('q24-container').classList.add('hidden');
+            document.getElementById('qMediosOtro-container').classList.add('hidden');
 
             clearValidationUI(form);
 
@@ -1207,6 +1259,7 @@
       const latInput = document.getElementById('latitude');
       const lngInput = document.getElementById('longitude');
 
+    
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -1358,4 +1411,3 @@
 
 </body>
 </html>
-
