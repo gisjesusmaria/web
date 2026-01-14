@@ -523,7 +523,7 @@
     <label for="q6" class="required">¿Con quién viniste al festival?</label>
     <select id="q6" name="q6" required class="native-select">
       <option value="">Selecciona.</option>
-      <option value="Solo/a">Solo/a</option>
+      <option value="Solo">Solo/a</option>
       <option value="En pareja">En pareja</option>
       <option value="Grupo familiar">Grupo familiar</option>
       <option value="Grupo de amigos">Grupo de amigos</option>
@@ -930,6 +930,7 @@
     if (!esOtra) q10.value = '';
     });
 
+
     document.addEventListener("DOMContentLoaded", () => {
 
     const q9 = document.getElementById("q9");       
@@ -942,13 +943,14 @@
         if (q9.value === "No se hospeda (viene y regresa a su hogar en el día)") {
         qAloj.value = "En casa propia";
 
-        
+       
         qAloj.dispatchEvent(new Event("change", { bubbles: true }));
         }
 
     });
 
     });  
+
 
 
 
@@ -1063,7 +1065,7 @@
         if(!requireText('q16', 'Este campo es obligatorio si calificaste 1 o 2.')) return;
         }
 
-        for(const name of ['q17','q18','q19','q20','q21','q22']){
+        for(const name of ['q17','q18','q19','q20','q21','q22','qEyP']){
         if(!requireRadioGroup(name)) return;
         }
 
@@ -1307,6 +1309,7 @@
         q22: document.getElementById('q22'),
         q24: document.getElementById('q24'),
         q25: document.getElementById('q25'),
+        qEyP: document.getElementById('qEyP'),
     };
     return map[name] || null;
     }
@@ -1355,5 +1358,3 @@
 
 </body>
 </html>
-
-
