@@ -1,4 +1,4 @@
-<!-- 15012026_0648 -->
+<!-- 15012026_0805 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +11,6 @@
     <style>
         body { background-color: #f8f9fa; font-family: 'Arial', sans-serif; }
         .card { box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: none; }
-
 
         .chart-container { 
         height: 355px;
@@ -28,7 +27,7 @@
         th.sortable.desc::after { content: " ↓"; opacity: 0.9; }
 
         .chart-box{
-        height: 300px;   
+        height: 300px;  
         position: relative;
         }
         .chart-box canvas{
@@ -50,7 +49,7 @@
         #app.locked {
         filter: blur(6px);
         opacity: 0;
-        pointer-events: none;       
+        pointer-events: none;      
         user-select: none;
         }
 
@@ -58,11 +57,12 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        display: none;              
+        display: none;             
         align-items: center;
         justify-content: center;
         padding: 24px;
 
+        
         background: radial-gradient(1200px 700px at 20% 10%, rgba(240,90,40,.35), transparent 60%),
                     radial-gradient(900px 600px at 80% 30%, rgba(5,17,242,.25), transparent 55%),
                     linear-gradient(135deg, #0b1020 0%, #111827 55%, #0b1020 100%);
@@ -160,9 +160,30 @@
         }
 
 
+
+
+
+        .wordcloud-card .wordcloud-box{
+        height: 450px;      
+        padding: 10px;      
+        box-sizing: border-box;
+        }
+
+        .wordcloud-card .wordcloud-box canvas{
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        }
+
+
+
+
     </style>
 </head>
 <body>
+
+
+
 
     <div id="login-overlay">
     <div class="login-card">
@@ -227,7 +248,6 @@
             </div>
         </div>
 
-       
         <div class="row mb-4">
         <div class="col-md-4">
             <div class="card bg-light">
@@ -339,7 +359,6 @@
         </div>
         </div>
 
- 
 
 
         <div class="row mb-4">
@@ -472,7 +491,6 @@
 
         <div class="row mb-4">
 
- 
             <div class="col-6">
                 <div class="card">
                 <div class="card-body">
@@ -481,7 +499,6 @@
                 </div>
                 </div>
             </div>
-
 
             <div class="col-6">
                 <div class="card">
@@ -495,18 +512,45 @@
         </div>
 
 
-
         <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">¿Tenés pensado visitar el Festival en la edición 2027?</h5>
-                <div class="chart-box chart-volver">
-                <canvas id="chart-volver-2027"></canvas>
+
+            <div class="col-md-6">
+                <div class="card wordcloud-card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Qué es lo que menos te gustó del Festival?</h5>
+                        <div class="wordcloud-box">
+                            <canvas id="wc-menos"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="card wordcloud-card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Qué es lo que más te gustó del Festival?</h5>
+                        <div class="wordcloud-box">
+                            <canvas id="wc-mas"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
+
+
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Tenés pensado visitar el Festival en la edición 2027?</h5>
+                        <div class="chart-box chart-volver">
+                            <canvas id="chart-volver-2027"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -549,6 +593,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
+
 
 <script>
 
@@ -556,7 +602,7 @@
     const _ = ['sta','tic/vers','ion.t','xt'];
     const v = _.join('');
 
-
+    
     let allData = []; 
     let colorMap = {};
     let map = L.map('map', { maxZoom: 19, dragging: true, scrollWheelZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, touchZoom: true }).setView([-30.981, -64.092], 14);
@@ -580,6 +626,7 @@
 
     let chartLugar, chartEdad, chartAlojamiento, chartCalles, chartBanos, chartSeguridad, chartGastronomica, chartCultural, chartTransito, chartEstacionamiento;
 
+    
     let extraCharts = {}; 
 
 
@@ -587,6 +634,7 @@
     let valCharts = {};  
 
     let donaPipaValChart = null; 
+
 
     function parseFecha(str) {
         if (!str) return new Date(0);
@@ -600,6 +648,7 @@
 
 
     let tableSort = { col: null, dir: 'asc' }; 
+
     function renderTable(rows) {
     let data = [...rows];
 
@@ -688,7 +737,6 @@
         ths.forEach(x => x.classList.remove('asc', 'desc'));
         th.classList.add(tableSort.dir);
 
-
         renderTable(window.__lastFilteredRows || []);
         });
     });
@@ -732,6 +780,7 @@
         counts['No indicado'] = (counts['No indicado'] || 0) + 1;
         return;
         }
+
         const cleaned = raw.replace(/[^\d.,-]/g, '').replace(',', '.');
         const n = Number(cleaned);
 
@@ -916,7 +965,6 @@
     rows.forEach(r => {
         const key = ((r[colIndex] ?? '') + '').trim();
 
-
         if (!key) return;
 
         if (key in counts) counts[key] += 1;
@@ -965,11 +1013,10 @@
 
 
 
-
     function pluginsLegendCountsRight() {
     return {
         legend: {
-        position: 'right', 
+        position: 'right', // o 'bottom'
         labels: {
             generateLabels(chart) {
             const ds = chart.data.datasets[0];
@@ -983,6 +1030,144 @@
         }
         }
     };
+    }
+
+
+    const STOPWORDS_ES = new Set([
+        'a','al','call','como','con','cuando','de','dentro','deberia','deberian','del','donde','el','en','es','estar',
+        'está','están','falta','festival','fue','fueron','hay','jesús','jesus','jm','la','las','le',
+        'les','lo','los','mas','más','maria','me','menos','medio','mi','mis','muy','mucha','mucho','nos','o','para','pero','por',
+        'porque','poco','poca','que','qué','que','se','ser','sin','son','su','sus','te','tu','tus','un','una','unas',
+        'unos','y','ya'
+    ]);
+
+
+    const BIGRAM_WHITELIST = new Set([
+        'bano sucio','buen ambiente','buen artista','buena comida','buena onda','buena organizacion',
+        'dona pipa','doña pipa','falta organizacion', 'falta bano','food track','la comida','largas filas','mal sonido',
+        'mala comida','mala organizacion','mucho calor','mucha gente','mucha limpieza','musica alta',
+        'muy organizado','ninguna critica','oferta cultural','poco espacio','precio alto','precio bajo',
+        'vendedor ambulante'
+    ]);
+
+
+
+    function normalizeWord(w) {
+    if (w === 'calles') return 'calle';
+    if (w === 'call') return 'calle';
+
+    if (w.endsWith('es') && w.length > 4) {
+        return w.slice(0, -2);
+    }
+    if (w.endsWith('s') && w.length > 3) {
+        return w.slice(0, -1);
+    }
+    return w;
+    }
+
+
+
+    function stripAccents(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+
+
+
+    function buildWordFreq(rows, colIndex) {
+    const freq = {};
+
+    rows.forEach(r => {
+        const raw = ((r[colIndex] ?? '') + '').trim();
+        if (!raw) return;
+
+        let text = stripAccents(raw.toLowerCase());
+        text = text.replace(/[^a-z0-9\s]/g, ' ');
+        const words = text.split(/\s+/).filter(Boolean);
+
+        const used = new Array(words.length).fill(false);
+
+        for (let i = 0; i < words.length - 1; i++) {
+        let w1 = words[i];
+        let w2 = words[i + 1];
+
+        if (
+            w1.length < 3 || w2.length < 3 ||
+            STOPWORDS_ES.has(w1) || STOPWORDS_ES.has(w2)
+        ) continue;
+
+        w1 = normalizeWord(w1);
+        w2 = normalizeWord(w2);
+
+        if (STOPWORDS_ES.has(w1) || STOPWORDS_ES.has(w2)) continue; // ✅ nuevo
+
+        const bg = `${w1} ${w2}`;
+
+        if (BIGRAM_WHITELIST.has(bg)) {
+            const key = bg.replace(' ', '_');
+            freq[key] = (freq[key] || 0) + 1;
+            used[i] = true;
+            used[i + 1] = true;
+        }
+        }
+
+        for (let i = 0; i < words.length; i++) {
+        if (used[i]) continue;
+
+        let w = words[i];
+        if (w.length < 3) continue;
+
+
+
+        if (STOPWORDS_ES.has(w)) continue;
+
+        w = normalizeWord(w);
+        if (STOPWORDS_ES.has(w)) continue;   
+
+        freq[w] = (freq[w] || 0) + 1;
+
+
+        }
+    });
+
+    return freq;
+    }
+
+
+
+    function drawWordCloud(canvasId, freqObj) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    const entries = Object.entries(freqObj)
+        .sort((a,b) => b[1] - a[1])
+        .slice(0, 50);
+
+    const box = canvas.parentElement;
+    const w = box.clientWidth || 400;
+    const h = box.clientHeight || 320;
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!entries.length) {
+        ctx.font = '16px Arial';
+        ctx.fillText('Sin datos', 12, 28);
+        return;
+    }
+
+    WordCloud(canvas, {
+        list: entries.map(([w, n]) => [w.replace(/_/g, ' '), n]),
+        gridSize: Math.round(12 * (w / 600)),
+        weightFactor: (size) => Math.min(72, 10 + size * 8),
+        rotateRatio: 0.02,
+        rotationSteps: 2,
+        backgroundColor: 'transparent',
+        drawOutOfBound: false,
+        shrinkToFit: true
+    });
     }
 
 
@@ -1038,6 +1223,7 @@
             OPT.edadPersona
         );
         }
+
 
 
 
@@ -1151,7 +1337,6 @@
         valCharts[v.id] = new Chart(canvas, {
             type: 'doughnut',
             data: { labels: labelsVal, datasets: [{ data: dataVal, backgroundColor: bgColors }] },
- 
 
             options: {
             responsive: true,
@@ -1221,7 +1406,7 @@
             }]
             },
             
-            
+        
 
             options: {
             responsive: true,
@@ -1249,12 +1434,22 @@
         }
 
 
+        {
+        const freqMas   = buildWordFreq(filtered, 26); 
+        const freqMenos = buildWordFreq(filtered, 27); 
+
+        drawWordCloud('wc-mas', freqMas);
+        drawWordCloud('wc-menos', freqMenos);
+        }
+
+
+
 
         markerLayer.clearLayers();
         encLayers = {};
         let encCounts = {};
         filtered.forEach(d => {
-            const enc = (d[1] || 'Desconocido').trim(); // Trim
+            const enc = (d[1] || 'Desconocido').trim();
             encCounts[enc] = (encCounts[enc] || 0) + 1;
             const lat = parseInt(d[29]) / 1000000;
             const lng = parseInt(d[30]) / 1000000;
@@ -1457,9 +1652,6 @@
 
 
 
-
-
-
     function initLoginGate() {
     if (isLoggedIn()) {
         lockUI(false);
@@ -1507,6 +1699,7 @@
 
     }
 
+    
     initLoginGate();
 
 
@@ -1597,6 +1790,14 @@
             fitMapToMarkers();
         })
         .catch(err => console.error('Error fetching data:', err));
+
+
+        window.addEventListener('resize', () => {
+        const rows = window.__lastFilteredRows || [];
+        drawWordCloud('wc-mas', buildWordFreq(rows, 26));
+        drawWordCloud('wc-menos', buildWordFreq(rows, 27));
+        });
+
 </script>
 
 </body>
