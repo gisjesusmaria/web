@@ -1,10 +1,9 @@
-<!-- 02012026_1052 -->
+<!-- 15012026_0950 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Acreditación Espacio Jesús María</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -598,6 +597,61 @@
         }        
 
 
+        /* ===== COLORES DE FONDO POR CIRCUITO ===== */
+
+        .checkbox-item.circuito-verde {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-color: transparent;
+        }
+
+        .checkbox-item.circuito-violeta {
+            background: linear-gradient(135deg, #9333ea, #a855f7);
+            border-color: transparent;
+        }
+
+        .checkbox-item.circuito-naranja {
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            border-color: transparent;
+        }
+
+        /* Texto en blanco */
+        .checkbox-item.circuito-verde label,
+        .checkbox-item.circuito-violeta label,
+        .checkbox-item.circuito-naranja label {
+            color: #fff;
+        }
+
+        /* Hover suave */
+        .checkbox-item.circuito-verde:hover,
+        .checkbox-item.circuito-violeta:hover,
+        .checkbox-item.circuito-naranja:hover {
+            filter: brightness(1.08);
+        }
+
+        /* Cuando está seleccionado */
+        .checkbox-item input[type="checkbox"]:checked + label {
+            font-weight: 700;
+        }
+
+
+        /* ===== FIX: texto blanco al seleccionar circuitos con fondo ===== */
+
+        .checkbox-item.circuito-verde input[type="checkbox"]:checked + label,
+        .checkbox-item.circuito-violeta input[type="checkbox"]:checked + label,
+        .checkbox-item.circuito-naranja input[type="checkbox"]:checked + label {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* ===== EFECTO VISUAL AL SELECCIONAR ===== */
+        .checkbox-item.circuito-verde:has(input:checked),
+        .checkbox-item.circuito-violeta:has(input:checked),
+        .checkbox-item.circuito-naranja:has(input:checked) {
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.35);
+        }
+
+
+
 
     </style>
 </head>
@@ -608,9 +662,7 @@
                 <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad de Jesús María">
             </div>
             
-
             <h1><span class="emoji">🏇</span> Espacio Jesús María 2026</h1>
-
             <p>Recorridos turísticos y de gestión</p>
         </div>
 
@@ -639,7 +691,7 @@
                     <input type="text" id="cargo" name="cargo" class="uppercase-input" required>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group">  
                     <label for="institucion">Institución *</label>
                     <input type="text" id="institucion" name="institucion" class="uppercase-input" required>
                 </div>                
@@ -648,7 +700,6 @@
                     <label for="localidad">Ciudad *</label>
                     <input type="text" id="localidad" name="localidad" class="uppercase-input" required>
                 </div>
-
 
 
                 <div class="form-group">
@@ -670,18 +721,29 @@
                 <div class="form-group">
                     <label>Experiencias de Interés *</label>
                     <div class="checkbox-group">
-                        <div class="checkbox-item">
+
+                        <div class="checkbox-item circuito-verde">
                             <input type="checkbox" id="circuito7" name="circuitos" value="Espacio Jesus Maria">
-                            <label for="circuito7">Espacio Jesús María 19 a 00 hs. (Espacio de encuentro institucional)</label>
-                        </div>                        
-                        <div class="checkbox-item">
+                            <label for="circuito7">
+                                Espacio Jesús María 19 a 00 hs. (Espacio de encuentro institucional)
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item circuito-violeta">
                             <input type="checkbox" id="circuito1" name="circuitos" value="Festival desde adentro">
-                            <label for="circuito1">Ciudad festivalera 20 hs. (Duración aproximada 1:15 Hs. Visita guiada por el corazón del operativo festival.)</label>
+                            <label for="circuito1">
+                                Ciudad festivalera 20 hs. (Duración aproximada 1:15 Hs. Visita guiada por el corazón del operativo festival.)
+                            </label>
                         </div>
-                        <div class="checkbox-item">
+
+                        <div class="checkbox-item circuito-naranja">
                             <input type="checkbox" id="circuito2" name="circuitos" value="Experiencia Jesús María">
-                            <label for="circuito2">Experiencia Jesús María 9 a 12 hs. (Recorridos turísticos y de gestión municipal)</label>
+                            <label for="circuito2">
+                                Experiencia Jesús María 9 a 12 hs. (Recorridos turísticos y de gestión municipal)
+                            </label>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -712,8 +774,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="form-group">
                     <label for="telefono">Teléfono (10 dígitos) *</label>
                     <small><em>Si su teléfono NO es línea de Argentina ingrese signo + y el número, tal como lo tiene configurado en Whatsapp.</em></small>
@@ -743,7 +803,6 @@
             <div class="credential-card" id="credentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-                    
                     <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="credentialInfo"></div>
@@ -811,7 +870,6 @@
             <div class="credential-card" id="consultCredentialCard">
                 <div class="credential-header">
                     <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Municipalidad" crossorigin="anonymous">
-                    
                     <h3>Acreditación Espacio Jesús María</h3>
                 </div>
                 <div class="credential-info" id="consultCredentialInfo"></div>
@@ -843,7 +901,6 @@
 
         const SCRIPT_URL = "https://acreditacion.gisjesusmaria.workers.dev"
 
-        
 
         
 
@@ -877,34 +934,27 @@
 
 
 
-        
-
         const circuitosCheckboxes = document.querySelectorAll('input[name="circuitos"]');
         const circuitosContainer = document.querySelector('.checkbox-group'); // opcional, para resaltar todo el bloque
-
 
         function validarCircuitos() {
             const seleccionados = document.querySelectorAll('input[name="circuitos"]:checked').length;
             
             if (seleccionados === 0) {
-                
                 circuitosCheckboxes.forEach(cb => {
                     cb.closest('.checkbox-item').style.borderColor = '#c62828';
                     cb.closest('.checkbox-item').style.boxShadow = '0 0 0 3px rgba(198, 40, 40, 0.1)';
                 });
-                
                 
                 errorMessage.textContent = 'Por favor, seleccione al menos una experiencia de interés.';
                 errorMessage.classList.add('active');
                 
                 return false;
             } else {
-                
                 circuitosCheckboxes.forEach(cb => {
                     cb.closest('.checkbox-item').style.borderColor = '';
                     cb.closest('.checkbox-item').style.boxShadow = '';
                 });
-                
                 
                 if (errorMessage.textContent.includes('experiencia de interés')) {
                     errorMessage.classList.remove('active');
@@ -914,16 +964,14 @@
             }
         }
 
-
         circuitosCheckboxes.forEach(cb => {
             cb.addEventListener('change', validarCircuitos);
         });
 
-
         form.addEventListener('submit', function(e) {
             if (!validarCircuitos()) {
                 e.preventDefault(); 
-                window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' });
+                window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' }); 
             }
         });        
 
@@ -945,23 +993,19 @@
 
 
 
-   
+
 
 
         document.getElementById('telefono').addEventListener('input', function() {
             let v = this.value.trim();
 
-
             const hasPlus = v.startsWith('+');
 
             if (hasPlus) {
-
                 let digits = v.slice(1).replace(/\D/g, '');
-
                 digits = digits.substring(0, 15);
                 v = '+' + digits;
             } else {
-
                 v = v.replace(/\D/g, '').substring(0, 10);
             }
 
@@ -970,14 +1014,12 @@
             const digitsCount = hasPlus ? v.length - 1 : v.length;
 
             if (hasPlus) {
-                
                 if (digitsCount >= 11) {
                     this.setCustomValidity('');
                 } else {
                     this.setCustomValidity('Con el signo + debe ingresar al menos 11 dígitos numéricos.');
                 }
             } else {
-                
                 if (digitsCount === 10) {
                     this.setCustomValidity('');
                 } else {
@@ -987,29 +1029,26 @@
         });
 
 
-
-        const FECHA_INICIO = '2026-01-08';
-        const FECHA_FIN    = '2026-01-18';
+        const FECHA_FIN = '2026-01-18';
 
         const fechaVisitaInput = document.getElementById('fechaVisita');
         const fechaConsultaInput = document.getElementById('fechaConsulta');
 
-        
-        fechaVisitaInput.min = FECHA_INICIO;
-        fechaVisitaInput.max = FECHA_FIN;
-
-        
         const today = new Date().toISOString().split('T')[0];
+
+        fechaVisitaInput.min = today;       
+        fechaVisitaInput.max = FECHA_FIN;   
+
         fechaConsultaInput.min = today;
 
-        
+
         fechaVisitaInput.addEventListener('change', function() {
             const selected = this.value;
             const errorMessage = document.getElementById('errorMessage');
 
-            if (selected < FECHA_INICIO || selected > FECHA_FIN) {
-                this.setCustomValidity('Solo se permiten acreditaciones para fechas entre el 8 y el 18 de enero de 2026.');
-                errorMessage.textContent = '❌ Las acreditaciones solo se pueden emitir del 8 al 18 de enero de 2026.';
+            if (selected < today || selected > FECHA_FIN) {
+                this.setCustomValidity('Solo se permiten acreditaciones desde hoy hasta el 18 de enero de 2026.');
+                errorMessage.textContent = '❌ Las acreditaciones solo se pueden emitir desde hoy hasta el 18 de enero de 2026.';
                 errorMessage.classList.add('active');
             } else {
                 this.setCustomValidity('');
@@ -1017,19 +1056,22 @@
                     errorMessage.classList.remove('active');
                 }
             }
+
         });
 
-        
         form.addEventListener('submit', function(e) {
             const selected = fechaVisitaInput.value;
 
-            if (selected < FECHA_INICIO || selected > FECHA_FIN) {
+
+            if (selected < today || selected > FECHA_FIN) {
                 e.preventDefault();
-                document.getElementById('errorMessage').textContent = '❌ Fecha no permitida. Solo se pueden registrar acreditaciones entre el 8 y el 18 de enero de 2026.';
+                document.getElementById('errorMessage').textContent =
+                    '❌ Fecha no permitida. Solo se puede registrar desde hoy hasta el 18 de enero de 2026.';
                 document.getElementById('errorMessage').classList.add('active');
                 window.scrollTo({ top: document.getElementById('errorMessage').offsetTop - 100, behavior: 'smooth' });
                 return;
             }
+
         });
 
 
@@ -1147,8 +1189,6 @@
             e.preventDefault();
             errorMessage.classList.remove('active');
 
-
-
             if (document.querySelectorAll('input[name="circuitos"]:checked').length === 0) {
                 errorMessage.textContent = 'Por favor, seleccione al menos una experiencia de interés.';
                 errorMessage.classList.add('active');
@@ -1159,20 +1199,17 @@
                 return;
             }            
 
-
             
             
             const telefonoInput = document.getElementById('telefono');
             let rawTel = telefonoInput.value.trim();
             const hasPlus = rawTel.startsWith('+');
 
-
             let digits = hasPlus
                 ? rawTel.slice(1).replace(/\D/g, '')
                 : rawTel.replace(/\D/g, '');
 
             if (hasPlus) {
-
                 if (digits.length < 11) {
                     telefonoInput.setCustomValidity('Con el signo + no puede ingresar menos de 11 dígitos.');
                     telefonoInput.reportValidity();
@@ -1180,11 +1217,9 @@
                     errorMessage.classList.add('active');
                     return;
                 }
-                
                 digits = digits.substring(0, 15);
                 telefonoInput.value = '+' + digits;
             } else {
-                
                 if (digits.length !== 10) {
                     telefonoInput.setCustomValidity('El teléfono debe contener exactamente 10 dígitos numéricos sin el signo +.');
                     telefonoInput.reportValidity();
@@ -1195,7 +1230,6 @@
                 telefonoInput.value = digits.substring(0, 10);
             }
 
-            
             telefonoInput.setCustomValidity('');
             errorMessage.classList.remove('active');
 
@@ -1218,7 +1252,7 @@
                 nombre: document.getElementById('nombre').value,
                 cuil: document.getElementById('cuil').value,
                 cargo: document.getElementById('cargo').value,
-                institucion: document.getElementById('institucion').value,
+                institucion: document.getElementById('institucion').value,  
                 localidad: document.getElementById('localidad').value,
                 dominio: document.getElementById('dominio').value,
                 fechaVisita: document.getElementById('fechaVisita').value,
@@ -1269,7 +1303,7 @@
                     setTimeout(() => showCredential(currentFormData, 'credentialInfo', 'qrcode'), 100);
 
                     const cuil = currentFormData.cuil;
-                    const fechaSinFormato = currentFormData.fechaVisita;
+                    const fechaSinFormato = currentFormData.fechaVisita; 
                     const email = currentFormData.mail;
 
 
@@ -1805,7 +1839,6 @@
         }
 
 
-        
         const cantidadSelect = document.getElementById('cantidadAcompanantes');
         cantidadSelect.addEventListener('change', function() {
             const container = document.getElementById('acompanantesContainer');
@@ -1813,7 +1846,6 @@
             const num = parseInt(this.value) || 0;
 
             for (let i = 1; i <= num; i++) {
-                
                 const groupNombre = document.createElement('div');
                 groupNombre.classList.add('form-group');
 
@@ -1840,7 +1872,6 @@
                 groupNombre.appendChild(nombreInput);
                 container.appendChild(groupNombre);
 
-                
                 const groupCargo = document.createElement('div');
                 groupCargo.classList.add('form-group');
 
