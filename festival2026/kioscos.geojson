@@ -450,7 +450,7 @@
         "titular.nombre": "FALLA DAUDA",
         "titular.dni": "19061912",
         "titular.tel": "1157991106",
-        "montoadj": "4230420",
+        "montoadj": "4230249",
         "pago1.importe": "1500000",
         "pago1.fecha": "2025-12-15",
         "pago1.comprobante": "25817091",
@@ -482,7 +482,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 21
+        "_index": 21,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
