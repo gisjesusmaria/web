@@ -15744,7 +15744,7 @@
         "titular.nombre": "PACE JAVIER EMILIANO",
         "titular.dni": "40483559",
         "titular.tel": "3525-454558",
-        "montoadj": "3500000",
+        "montoadj": "4500000",
         "pago1.importe": "500000",
         "pago1.fecha": "2025-12-03",
         "pago1.comprobante": "25792063",
@@ -15776,7 +15776,17 @@
         "pago10.fecha": null,
         "pago10.comprobante": null,
         "esdejesusmaria": "NO",
-        "_index": 254
+        "_index": 254,
+        "pago1": {},
+        "pago2": {},
+        "pago3": {},
+        "pago4": {},
+        "pago5": {},
+        "pago6": {},
+        "pago7": {},
+        "pago8": {},
+        "pago9": {},
+        "pago10": {}
       },
       "geometry": {
         "type": "Polygon",
