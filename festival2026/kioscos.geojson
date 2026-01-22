@@ -2598,9 +2598,9 @@
         "pago9.importe": "166500",
         "pago9.fecha": "2025-12-15",
         "pago9.comprobante": "Bonificacion 5%",
-        "pago10.importe": null,
-        "pago10.fecha": null,
-        "pago10.comprobante": null,
+        "pago10.importe": "333000",
+        "pago10.fecha": "2026-01-22",
+        "pago10.comprobante": "Bonificacion 10%",
         "esdejesusmaria": "SI",
         "_index": 80
       },
