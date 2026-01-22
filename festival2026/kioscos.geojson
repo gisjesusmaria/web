@@ -13247,12 +13247,12 @@
       "properties": {
         "id": 219,
         "nomenc": "DP-FOOD-04",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "dimensiones irregulares",
+        "rubro": "FOOD TRUCK.",
+        "titular.nombre": "MONJE MARIANO",
+        "titular.dni": "26330326",
+        "titular.tel": "3525432155",
+        "montoadj": "4500000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -13283,7 +13283,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 219
       },
       "geometry": {
