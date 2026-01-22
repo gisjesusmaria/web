@@ -13535,12 +13535,12 @@
       "properties": {
         "id": 223,
         "nomenc": "DP-FOOD-01",
-        "medidas": null,
-        "rubro": null,
-        "titular.nombre": null,
-        "titular.dni": null,
-        "titular.tel": null,
-        "montoadj": null,
+        "medidas": "dimensiones irregulares",
+        "rubro": "FOOD TRUCK.",
+        "titular.nombre": "VARGAS ALEJANDRO",
+        "titular.dni": "27683376",
+        "titular.tel": "3525536791",
+        "montoadj": "4500000",
         "pago1.importe": null,
         "pago1.fecha": null,
         "pago1.comprobante": null,
@@ -13571,7 +13571,7 @@
         "pago10.importe": null,
         "pago10.fecha": null,
         "pago10.comprobante": null,
-        "esdejesusmaria": "NO",
+        "esdejesusmaria": "SI",
         "_index": 223
       },
       "geometry": {
