@@ -1,4 +1,4 @@
-<!-- 22012026_1141 -->
+<!-- 22012026_1222 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapa para EPH - Sectores</title>
 
-  <!-- Favicon (mismo del sitio adjunto) -->
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
 
-  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -58,7 +56,6 @@
       border: 1px solid rgba(0,0,0,.06);
     }
 
-    /* Barra de opciones (estilo “card” simple) */
     .toolbar{
       display:flex;
       align-items:center;
@@ -121,7 +118,6 @@
       width: 100%;
     }
 
-    /* Etiquetas (sector) */
     .sector-label{
       background: rgba(255,255,255,.92);
       border: 1px solid rgba(0,0,0,.20);
@@ -134,7 +130,6 @@
       white-space: nowrap;
     }
 
-    /* Loader */
     .status{
       display:flex;
       align-items:center;
@@ -163,7 +158,6 @@
       display:none;
     }
 
-    /* Leaflet tweaks */
     .leaflet-control-layers{
       border-radius: 12px;
       box-shadow: var(--shadow);
@@ -182,13 +176,11 @@
     font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* Fuente del input + botón (para que se note el cambio) */
     #sectorSearch,
     #btnSectorGo{
     font-family: "Segoe UI", system-ui, Arial, sans-serif !important;
     }
 
-    /* Placeholder (con prefijos) */
     #sectorSearch::placeholder{
     font-family: "Segoe UI", system-ui, Arial, sans-serif !important;
     font-weight: 600;
@@ -204,7 +196,6 @@
     }
 
 
-    /* Contenedor buscador de sectores */
     .sector-search{
     display: flex;
     align-items: center;
@@ -213,7 +204,6 @@
     flex-wrap: wrap;
     }
 
-    /* Input */
     #sectorSearch{
     padding: 7px 12px;
     border-radius: 999px;
@@ -224,13 +214,11 @@
     max-width: 100%;
     }
 
-    /* Botón */
     #btnSectorGo{
     padding: 7px 14px;
     border-radius: 999px;
     }
 
-    /* Mobile */
     @media (max-width: 600px){
     .sector-search{
         width: 100%;
@@ -245,12 +233,41 @@
     }
 
 
+    .user-dot{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0066ff;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 3px rgba(0,102,255,.35), 0 8px 18px rgba(0,0,0,.25);
+    }
+
+    .user-dot.pulse{
+    position: relative;
+    }
+    .user-dot.pulse::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+    width: 46px;
+    height: 46px;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    border: 2px solid rgba(0,102,255,.35);
+    animation: userPulse 1.6s ease-out infinite;
+    }
+    @keyframes userPulse{
+    0%   { transform: translate(-50%,-50%) scale(.25); opacity: .8; }
+    100% { transform: translate(-50%,-50%) scale(1.05); opacity: 0; }
+    }
+
+
 
   </style>
 </head>
 
 <body>
-  <!-- Logo (mismo del sitio adjunto) -->
   <img
     src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png"
     alt="Logo Municipalidad"
@@ -262,7 +279,6 @@
   <div class="wrap">
     <div class="toolbar">
       <div class="toolbar-left">
-        <!-- <span class="pill">Base: OSM / Google Satellite</span> -->
 
         <input type="text" 
             id="sectorSearch" 
@@ -289,11 +305,6 @@
 
         <button class="btn" id="btnZoom">Zoom a todo</button>
 
-        <!-- <div class="status" id="status">
-          <span class="spinner" id="spinner"></span>
-          <span id="statusText">Cargando GeoJSON…</span>
-        </div> -->
-
         <div class="status" id="status">
         <span class="spinner" id="spinner"></span>
         <span id="statusText">Cargando GeoJSON…</span>
@@ -301,31 +312,6 @@
         <span class="pill" id="lblLat">Lat: —</span>
         <span class="pill" id="lblLng">Lng: —</span>
         <span class="pill" id="lblZoom">Zoom: —</span>
-
-        <!-- <input
-        id="sectorSearch"
-        list="sectorOptions"
-        placeholder="Buscar sector…"
-        style="padding:7px 10px;border-radius:999px;border:1px solid rgba(11,94,215,.25);font-weight:800;font-size:13px;outline:none;min-width:220px;"
-        /> -->
-
-        <!-- <input type="text" 
-            id="sectorSearch" 
-            list="sectorOptions"
-            placeholder="Buscar sector…" 
-            style="padding:7px 10px;border-radius:999px;border:1px solid rgba(11,94,215,.25);font-weight:800;font-size:13px;outline:none;min-width:220px;"
-            autocomplete="off"
-            maxlength="6"
-            pattern="[0-9]*"  
-            inputmode="numeric"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,8)">
-
-
-        <datalist id="sectorOptions"></datalist>
-
-        <button class="btn" id="btnSectorGo" style="padding:7px 10px;border-radius:999px;">
-            Buscar
-        </button> -->
 
         </div>
 
@@ -338,7 +324,6 @@
     <div id="map"></div>
   </div>
 
-  <!-- Leaflet -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -346,23 +331,19 @@
   ></script>
 
   <script>
-    // === Config ===
     const GEOJSON_URL = "https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/eph/mzweb.geojson";
 
-    // === Map init ===
     const map = L.map("map", {
-      center: [-31.0, -64.1], // fallback
+      center: [-31.0, -64.1], 
       zoom: 13,
       zoomControl: true
     });
 
-    // Base layers
     const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 22,
       attribution: "&copy; OpenStreetMap contributors"
     }).addTo(map);
 
-    // Google Satellite (endpoint no oficial)
     const googleSat = L.tileLayer("https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
       maxZoom: 22,
       attribution: "Imagery © Google"
@@ -373,10 +354,8 @@
       "Google Satellite": googleSat
     };
 
-    // Controls
     L.control.layers(baseLayers, null, { position: "topright", collapsed: true }).addTo(map);
 
-    // UI refs
     const statusEl = document.getElementById("status");
     const statusText = document.getElementById("statusText");
     const spinner = document.getElementById("spinner");
@@ -384,14 +363,12 @@
     const toggleLabels = document.getElementById("toggleLabels");
     const btnZoom = document.getElementById("btnZoom");
 
-    // Layers holders
     let geoLayer = null;
     let labelLayer = L.layerGroup().addTo(map);
     let lastBounds = null;
 
 
-    // === Índice de sectores para búsqueda ===
-    let sectorIndex = new Map(); // key: "sector" normalizado -> { sectorOriginal, layer }
+    let sectorIndex = new Map();
 
     const sectorSearch  = document.getElementById("sectorSearch");
     const sectorOptions = document.getElementById("sectorOptions");
@@ -405,9 +382,7 @@
     }
 
     function poblarDatalistSectores(){
-    // limpia
     sectorOptions.innerHTML = "";
-    // ordena por texto visible
     const items = Array.from(sectorIndex.values())
         .map(x => x.sectorOriginal)
         .filter(Boolean)
@@ -426,7 +401,6 @@
 
     const hit = sectorIndex.get(key);
     if (!hit) {
-        // fallback: búsqueda “contiene” si no hay match exacto
         const foundKey = Array.from(sectorIndex.keys()).find(k => k.includes(key));
         if (!foundKey) {
         alert("No se encontró el sector: " + valor);
@@ -441,19 +415,90 @@
         map.fitBounds(b.pad(0.10));
     }
 
-    // abre popup (si tiene) y “destaca” un toque
     try { layer.openPopup(); } catch(e){}
 
-    // flash
     const orig = { weight: 2, fillOpacity: 0.18 };
     layer.setStyle?.({ weight: 5, fillOpacity: 0.35 });
     setTimeout(() => layer.setStyle?.(orig), 600);
     }
 
 
+    let userMarker = null;
+    let userAccuracyCircle = null;
+    let geoWatchId = null;
+    let userHasCenteredOnce = false;
+
+    const userIcon = L.divIcon({
+    className: "",
+    html: `<div class="user-dot pulse"></div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+    });
+
+    function startUserLocation() {
+    if (!("geolocation" in navigator)) {
+        console.warn("Geolocalización no soportada en este navegador.");
+        return;
+    }
+
+    if (geoWatchId !== null) return;
+
+    geoWatchId = navigator.geolocation.watchPosition(
+        (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const acc = Math.max(10, pos.coords.accuracy || 0);
+
+        const latlng = [lat, lng];
+
+        if (!userMarker) {
+            userMarker = L.marker(latlng, { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
+        } else {
+            userMarker.setLatLng(latlng);
+        }
+
+        if (!userAccuracyCircle) {
+            userAccuracyCircle = L.circle(latlng, {
+            radius: acc,
+            weight: 2,
+            opacity: 0.8,
+            fillOpacity: 0.15
+            }).addTo(map);
+        } else {
+            userAccuracyCircle.setLatLng(latlng);
+            userAccuracyCircle.setRadius(acc);
+        }
+
+        if (!userHasCenteredOnce) {
+            userHasCenteredOnce = true;
+            map.setView(latlng, Math.max(map.getZoom(), 17));
+        }
+        },
+        (err) => {
+        console.warn("Error geolocalización:", err);
+        },
+        {
+        enableHighAccuracy: true,
+        maximumAge: 2000,   
+        timeout: 15000
+        }
+    );
+    }
+
+    function stopUserLocation() {
+    if (geoWatchId !== null) {
+        navigator.geolocation.clearWatch(geoWatchId);
+        geoWatchId = null;
+    }
+    }
+
+    startUserLocation();
+
+    window.addEventListener("beforeunload", stopUserLocation);
 
 
-    // Helpers
+
+
     function setStatus(text, loading=true){
       statusText.textContent = text;
       spinner.style.display = loading ? "inline-block" : "none";
@@ -469,17 +514,15 @@
 
     function styleFeature(){
       return {
-        color: "#0b5ed7",
+        color: "#ea580c",
         weight: 2,
         opacity: 0.95,
-        fillColor: "#1976d2",
-        fillOpacity: 0.18
+        fillColor: "#fb923c",
+        fillOpacity: 0.30
       };
     }
 
-    // Centroid simple (sirve para Polygon/MultiPolygon)
     function centroidOfCoords(coords){
-      // coords: array of [lng,lat]
       let sumX = 0, sumY = 0, n = 0;
       for (const p of coords){
         if (!p || p.length < 2) continue;
@@ -488,20 +531,18 @@
         n++;
       }
       if (!n) return null;
-      return [sumY / n, sumX / n]; // [lat,lng]
+      return [sumY / n, sumX / n];
     }
 
     function getFeatureCentroid(feature){
       const g = feature && feature.geometry;
       if (!g) return null;
 
-      // Polygon: coordinates = [ [ring1], [ring2] ... ]
       if (g.type === "Polygon"){
         const ring = (g.coordinates && g.coordinates[0]) || [];
         return centroidOfCoords(ring);
       }
 
-      // MultiPolygon: coordinates = [ [ [ring1] ], [ [ring1] ] ... ]
       if (g.type === "MultiPolygon"){
         const firstPoly = (g.coordinates && g.coordinates[0]) || [];
         const ring = (firstPoly && firstPoly[0]) || [];
@@ -545,7 +586,6 @@
         layer.setStyle({ weight: 2, fillOpacity: 0.18 });
       });
 
-      // Popup básico
       const rows = Object.entries(props)
         .slice(0, 30)
         .map(([k,v]) => `<tr><td style="padding:2px 6px;font-weight:800;color:#0b3f9b;">${k}</td><td style="padding:2px 6px;">${String(v)}</td></tr>`)
@@ -570,7 +610,6 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
-        // Remove previous
         if (geoLayer) map.removeLayer(geoLayer);
         clearLabels();
 
@@ -579,11 +618,6 @@
 
         geoLayer = L.geoJSON(data, {
           style: styleFeature,
-
-        //   onEachFeature: (feature, layer) => {
-        //     bindFeatureInteractions(feature, layer);
-        //     addLabel(feature);
-        //   }
 
             onEachFeature: (feature, layer) => {
             bindFeatureInteractions(feature, layer);
@@ -598,13 +632,11 @@
 
         }).addTo(map);
 
-        // Fit bounds
         lastBounds = geoLayer.getBounds();
         if (lastBounds && lastBounds.isValid()){
           map.fitBounds(lastBounds.pad(0.05));
         }
 
-        // Label toggle initial
         if (!toggleLabels.checked){
           map.removeLayer(labelLayer);
         } else if (!map.hasLayer(labelLayer)){
@@ -624,7 +656,6 @@
       }
     }
 
-    // UI events
     toggleLabels.addEventListener("change", () => {
       if (toggleLabels.checked){
         if (!map.hasLayer(labelLayer)) labelLayer.addTo(map);
@@ -640,7 +671,6 @@
     });
 
 
-    // === Indicadores Lat / Lng / Zoom ===
     const lblLat  = document.getElementById("lblLat");
     const lblLng  = document.getElementById("lblLng");
     const lblZoom = document.getElementById("lblZoom");
@@ -652,43 +682,11 @@
     lblZoom.textContent = "Zoom: " + map.getZoom();
     }
 
-    // actualizar al mover o hacer zoom
     map.on("moveend zoomend", actualizarIndicadores);
 
-    // inicial
     actualizarIndicadores();
 
 
-    // // === Indicadores Lat / Lng / Zoom (visibles desde zoom 17+) ===
-    // const lblLat  = document.getElementById("lblLat");
-    // const lblLng  = document.getElementById("lblLng");
-    // const lblZoom = document.getElementById("lblZoom");
-
-    // function actualizarIndicadores() {
-    //   const zoom = map.getZoom();
-
-    //   // mostrar / ocultar según zoom
-    //   const visible = zoom >= 17;
-    //   lblLat.style.display  = visible ? "inline-flex" : "none";
-    //   lblLng.style.display  = visible ? "inline-flex" : "none";
-    //   lblZoom.style.display = visible ? "inline-flex" : "none";
-
-    //   if (!visible) return;
-
-    //   const c = map.getCenter();
-    //   lblLat.textContent  = "Lat: "  + c.lat.toFixed(5);
-    //   lblLng.textContent  = "Lng: "  + c.lng.toFixed(5);
-    //   lblZoom.textContent = "Zoom: " + zoom;
-    // }
-
-    // // eventos
-    // map.on("moveend zoomend", actualizarIndicadores);
-
-    // // inicial
-    // actualizarIndicadores();
-
-
-    // === Etiquetas de sectores: visibles solo desde zoom 17+ ===
     function actualizarVisibilidadEtiquetasSectores() {
       const visiblePorZoom = map.getZoom() >= 17;
       const visiblePorToggle = toggleLabels.checked;
@@ -702,15 +700,12 @@
       }
     }
 
-    // cuando cambia zoom o se mueve (con zoomend alcanza, pero moveend no molesta)
     map.on("zoomend", actualizarVisibilidadEtiquetasSectores);
 
-    // cuando tildás/destildás el checkbox, también reevaluar
     toggleLabels.addEventListener("change", actualizarVisibilidadEtiquetasSectores);
 
 
 
-    // Go
     loadGeoJSON();
 
 
