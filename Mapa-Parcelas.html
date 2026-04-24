@@ -1,4 +1,4 @@
-<!-- release Mapa-Parcelas_22092025_1250 -->
+<!--24042026_0716 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -77,6 +77,22 @@
             position: absolute;
             z-index: 2000;
         }
+
+        .parcela-tooltip {
+            background: rgba(17, 24, 39, 0.92);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.55rem 0.7rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .parcela-tooltip strong {
+            color: #93c5fd;
+        }
+
     </style>
 </head>
 <body class="bg-gray-100">
@@ -147,7 +163,7 @@
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DEL MAPA ---
+
         const initialCoords = [-30.9833, -64.0942];
         const map = L.map('map').setView(initialCoords, 15);
         
@@ -168,9 +184,6 @@
         };
         L.control.layers(baseMaps).addTo(map);
 
-        // --- LÓGICA DE CARGA OPTIMIZADA DE WFS ---
-
-        // Elementos del DOM
         const loader = document.getElementById('loader');
         const messageOverlay = document.getElementById('message');
         const barrioFilterInput = document.getElementById('barrio-filter');
@@ -183,7 +196,6 @@
         const infoLng = document.getElementById('info-lng');
         const infoZoom = document.getElementById('info-zoom');
 
-        // Constantes y variables globales
         const WFS_BASE_URL = "https://idecor-ws.mapascordoba.gob.ar/geoserver/idecor/Jesus_Maria_Parcelas/wfs";
         const WFS_PARAMS = {
             service: 'WFS',
@@ -206,9 +218,7 @@
         const highlightStyle = { color: "#ffc107", weight: 3, fillColor: "#ffc107", fillOpacity: 0.5 };
         const selectedStyle = { color: "#dc3545", weight: 4, fillColor: "#dc3545", fillOpacity: 0.6 };
 
-        /**
-         * Muestra u oculta un mensaje en el centro del mapa.
-         */
+
         function showMapMessage(text, isError = false) {
             if (text) {
                 messageOverlay.textContent = text;
@@ -219,9 +229,7 @@
             }
         }
         
-        /**
-         * Actualiza el panel de información del mapa (lat, lng, zoom).
-         */
+
         function updateMapInfo() {
             const center = map.getCenter();
             const zoom = map.getZoom();
@@ -230,9 +238,7 @@
             infoZoom.textContent = zoom;
         }
 
-        /**
-         * Formatea la nomenclatura.
-         */
+
         function formatNomenclatura(nomencla) {
             if (typeof nomencla !== 'string' || nomencla.length !== 13) {
                 return nomencla || 'No disponible';
@@ -244,9 +250,7 @@
             return `${baseNomencla.substring(0, 2)}-${baseNomencla.substring(2, 4)}-${baseNomencla.substring(4, 7)}-${baseNomencla.substring(7, 10)}-${baseNomencla.substring(10, 13)}`;
         }
         
-        /**
-         * Limpia la información mostrada en el panel inferior.
-         */
+
         function clearInfoPanel() {
             document.getElementById('nomencmuni').value = '';
             document.getElementById('ubicacion').value = '';
@@ -262,9 +266,7 @@
             copyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
         }
 
-        /**
-         * Muestra la información de una parcela específica.
-         */
+
         function showInfoPanel(props) {
             document.getElementById('nomencmuni').value = formatNomenclatura(props.nomencmuni);
             document.getElementById('ubicacion').value = (props.ubicacion || 'No disponible').toUpperCase();
@@ -273,9 +275,7 @@
             infoContent.style.display = 'grid';
         }
         
-        /**
-         * Carga una lista de valores únicos para autocompletado.
-         */
+
         async function fetchAutocompleteList(propertyName, inputElement) {
             const params = new URLSearchParams({
                 ...WFS_PARAMS,
@@ -293,9 +293,7 @@
             }
         }
         
-        /**
-         * Construye el filtro CQL.
-         */
+
         function buildCqlFilter() {
             let filters = [];
             filters.push("(nomencmuni LIKE '%000' OR nomencmuni LIKE '%001')");
@@ -320,9 +318,7 @@
             return filters.join(' AND ');
         }
         
-        /**
-         * Limpia todos los resaltados y selecciones.
-         */
+
         function clearAllHighlights() {
             if (selectedLayer) {
                 if (geoJsonLayer) geoJsonLayer.resetStyle(selectedLayer);
@@ -335,9 +331,7 @@
             clearInfoPanel();
         }
 
-        /**
-         * Función principal que carga los datos WFS.
-         */
+
         function loadWfsData() {
             const isFilterActive = barrioFilterInput.value || ubicacionFilterInput.value || nomenclaturaFilterInput.value;
 
@@ -388,8 +382,23 @@
 
                     geoJsonLayer = L.geoJSON(data, {
                         style: defaultStyle,
-                        onEachFeature: function (feature, layer) {
-                            layer.on({
+                            onEachFeature: function (feature, layer) {
+                                const direccionTooltip = (feature.properties.ubicacion || 'No disponible').toUpperCase();
+                                const barrioTooltip = (feature.properties.dsbarrio || 'No disponible').toUpperCase();
+
+                                layer.bindTooltip(`
+                                    <div>
+                                        <strong>Dirección:</strong> ${direccionTooltip}<br>
+                                        <strong>Barrio:</strong> ${barrioTooltip}
+                                    </div>
+                                `, {
+                                    sticky: true,
+                                    direction: 'top',
+                                    opacity: 1,
+                                    className: 'parcela-tooltip'
+                                });
+
+                                layer.on({
                                 mouseover: e => {
                                     if (e.target !== selectedLayer && !highlightedLayers.includes(e.target)) e.target.setStyle(highlightStyle);
                                 },
@@ -439,15 +448,12 @@
                 });
         }
         
-        /**
-         * Función que se ejecuta al aplicar un filtro.
-         */
+
         function applyFilter() {
             fitBoundsOnNextLoad = true;
             loadWfsData();
         }
 
-        // --- EVENTOS ---
         map.on('moveend', loadWfsData);
         map.on('move', updateMapInfo);
         
@@ -525,7 +531,6 @@
             clearAllHighlights();
         });
 
-        // --- INICIALIZACIÓN ---
         clearInfoPanel();
         updateMapInfo();
 
