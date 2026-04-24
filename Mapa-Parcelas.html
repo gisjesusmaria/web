@@ -440,7 +440,7 @@
                 .catch(error => {
                     if (error.name !== 'AbortError') {
                         console.error('No se pudieron cargar los datos WFS:', error.message);
-                        showMapMessage('Error al cargar las parcelas. Verifique la conexión o intente más tarde.', true);
+                        
                     }
                 })
                 .finally(() => {
