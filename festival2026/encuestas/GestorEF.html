@@ -1,10 +1,10 @@
-<!-- 15012026_0805 -->
+<!-- 22052026_2029 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Experiencia Festivalera</title>
+    <title>Dashboard Festival Mayo 2026</title>
     <link rel="icon" href="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -27,7 +27,7 @@
         th.sortable.desc::after { content: " ↓"; opacity: 0.9; }
 
         .chart-box{
-        height: 300px;  
+        height: 300px;   /* ajustá a gusto */
         position: relative;
         }
         .chart-box canvas{
@@ -57,12 +57,11 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        display: none;             
+        display: none;              
         align-items: center;
         justify-content: center;
         padding: 24px;
 
-        
         background: radial-gradient(1200px 700px at 20% 10%, rgba(240,90,40,.35), transparent 60%),
                     radial-gradient(900px 600px at 80% 30%, rgba(5,17,242,.25), transparent 55%),
                     linear-gradient(135deg, #0b1020 0%, #111827 55%, #0b1020 100%);
@@ -159,10 +158,6 @@
         display: block;
         }
 
-
-
-
-
         .wordcloud-card .wordcloud-box{
         height: 450px;      
         padding: 10px;      
@@ -182,17 +177,14 @@
 </head>
 <body>
 
-
-
-
     <div id="login-overlay">
     <div class="login-card">
         <div class="login-logo">
         <img src="https://raw.githubusercontent.com/gisjesusmaria/web/refs/heads/main/Logos/Logo01ConFondoWide.png" alt="Logo Municipalidad">
         </div>
 
-        <h3 class="login-title">Ingreso a Dashboards</h3>
-        <div class="login-sub">Encuesta Experiencia Festivalera</div>
+        <h3 class="login-title">Ingreso a Dashboard</h3>
+        <div class="login-sub">Encuesta Festival Mayo 2026</div>
 
         <label class="form-label">Usuario</label>
         <input id="login-user" class="form-control" autocomplete="username">
@@ -227,7 +219,7 @@
             </div>
         </div>
         
-        <h1 class="text-center mb-5 display-5 fw-bold" style="color: #f05a28;">Dashboard Experiencia Festivalera</h1>
+        <h1 class="text-center mb-5 display-5 fw-bold" style="color: #f05a28;">Dashboard Festival Mayo 2026</h1>
         
         
 
@@ -283,6 +275,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Lugar de Procedencia</h5>
+                        <!-- <canvas id="chart-lugar"></canvas> -->
                         <div class="chart-box">
                         <canvas id="chart-lugar"></canvas>
                         </div>
@@ -292,6 +285,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                        <!-- <h5 class="card-title">Edad de los Encuestados</h5> -->
                          <h5 class="card-title">Edad de la persona encuestada</h5>
                         <canvas id="chart-edad"></canvas>
                     </div>
@@ -322,15 +316,7 @@
         </div>
 
         <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">¿Con quién viniste al festival?</h5>
-                <canvas id="chart-compania"></canvas>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Cantidad de días que permanecerás en la ciudad</h5>
@@ -358,64 +344,6 @@
             </div>
         </div>
         </div>
-
-
-
-        <div class="row mb-4">
-
-        <div class="col-md-6 d-flex flex-column gap-3">
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Cantidad de noches que ingresarás al Anfiteatro</h5>
-                    <canvas id="chart-noches"></canvas>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">¿Por qué medio te informaste sobre el Festival?</h5>
-                    <canvas id="chart-medios-info"></canvas>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">En caso de ingresar, ¿Es la primera vez que ingresas al festival?</h5>
-                    <canvas id="chart-primera-vez"></canvas>
-                </div>
-            </div>
-        </div>
-
-        </div>
-
-
-
-        <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">¿Por qué venís al Festival de Jesús María?</h5>
-                <canvas id="chart-motivos"></canvas>
-            </div>
-            </div>
-        </div>
-        </div>
-
-        <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Gasto aproximado por persona por día (alojamiento, comida, movilidad, etc.)</h5>
-                <canvas id="chart-gasto-dia"></canvas>
-            </div>
-            </div>
-        </div>
-        </div>
-
 
 
         <h2 class="text-center mb-4">Valoraciones</h2>
@@ -489,73 +417,6 @@
         </div>
 
 
-        <div class="row mb-4">
-
-            <div class="col-6">
-                <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">¿Visitaste el Patio de Doña Pipa?</h5>
-                    <canvas id="chart-dona-pipa-visita"></canvas>
-                </div>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Valoración del Patio de Doña Pipa (solo si visitó)</h5>
-                    <canvas id="chart-dona-pipa-valoracion"></canvas>
-                </div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="row mb-4">
-
-            <div class="col-md-6">
-                <div class="card wordcloud-card">
-                    <div class="card-body">
-                        <h5 class="card-title">¿Qué es lo que menos te gustó del Festival?</h5>
-                        <div class="wordcloud-box">
-                            <canvas id="wc-menos"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card wordcloud-card">
-                    <div class="card-body">
-                        <h5 class="card-title">¿Qué es lo que más te gustó del Festival?</h5>
-                        <div class="wordcloud-box">
-                            <canvas id="wc-mas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">¿Tenés pensado visitar el Festival en la edición 2027?</h5>
-                        <div class="chart-box chart-volver">
-                            <canvas id="chart-volver-2027"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
         <h2 class="text-center mb-4">Mapa de Encuestas (Colores por Encuestador)</h2>
         <div class="row">
             <div class="col-md-9">
@@ -578,10 +439,10 @@
             <thead>
             <tr>
                 <th class="sortable" data-col="0">Id</th>
-                <th class="sortable" data-col="31">Fecha</th>
-                <th class="sortable" data-col="32">Hora</th>
+                <th class="sortable" data-col="22">Fecha</th>
+                <th class="sortable" data-col="23">Hora</th>
                 <th class="sortable" data-col="1">Encuestador</th>
-                <th class="sortable" data-col="6">Edad</th>
+                <th class="sortable" data-col="5">Edad</th>
             </tr>
             </thead>
             <tbody id="tbody"></tbody>
@@ -602,7 +463,7 @@
     const _ = ['sta','tic/vers','ion.t','xt'];
     const v = _.join('');
 
-    
+   
     let allData = []; 
     let colorMap = {};
     let map = L.map('map', { maxZoom: 19, dragging: true, scrollWheelZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, touchZoom: true }).setView([-30.981, -64.092], 14);
@@ -610,14 +471,13 @@
     
     let markerLayer = L.layerGroup().addTo(map);
 
-
-
     function fitMapToMarkers() {
         if (markerLayer.getLayers().length > 0) {
             map.fitBounds(markerLayer.getBounds().pad(0.3));
         }
     }
 
+  
 
 
     let encLayers = {}; 
@@ -626,7 +486,6 @@
 
     let chartLugar, chartEdad, chartAlojamiento, chartCalles, chartBanos, chartSeguridad, chartGastronomica, chartCultural, chartTransito, chartEstacionamiento;
 
-    
     let extraCharts = {}; 
 
 
@@ -647,7 +506,7 @@
 
 
 
-    let tableSort = { col: null, dir: 'asc' }; 
+    let tableSort = { col: null, dir: 'asc' }; // dir: 'asc' | 'desc'
 
     function renderTable(rows) {
     let data = [...rows];
@@ -660,15 +519,13 @@
         const av = a[col];
         const bv = b[col];
 
-
-
         if (col === 0) {
         const an = Number(av ?? 0);
         const bn = Number(bv ?? 0);
         return (an - bn) * dirMul;
         }
 
-        if (col === 6) {
+        if (col === 5) {
         const order = [
             '15 a 19',
             '20 a 29',
@@ -688,15 +545,13 @@
         return (aIdx - bIdx) * dirMul;
         }
 
-
-
-        if (col === 31) {
+        if (col === 22) {
             const ad = parseFecha(av).getTime();
             const bd = parseFecha(bv).getTime();
             return (ad - bd) * dirMul;
         }
 
-        if (col === 32) {
+        if (col === 23) {
             const as = String(av ?? '').trim();
             const bs = String(bv ?? '').trim();
             return as.localeCompare(bs, 'es', { numeric: true }) * dirMul;
@@ -712,10 +567,10 @@
     tbody.innerHTML = data.map(d => `
         <tr>
         <td>${d[0] || ''}</td>
-        <td>${d[31] || ''}</td>
-        <td>${d[32] || ''}</td>
+        <td>${d[22] || ''}</td>
+        <td>${d[23] || ''}</td>
         <td>${((d[1] || '') + '').trim()}</td>
-        <td>${d[6] || ''}</td>
+        <td>${d[5] || ''}</td>
         </tr>
     `).join('');
     }
@@ -809,6 +664,7 @@
     function baseChartOptions(type) {
     return {
         responsive: true,
+        //maintainAspectRatio: false,
         maintainAspectRatio: true,
         plugins: {
         legend: { display: type === 'doughnut', position: 'bottom' },
@@ -822,8 +678,6 @@
         : undefined
     };
     }
-
-
 
     let url = 'https://gestexpfestgviz.gisjesusmaria.workers.dev/' + v;
 
@@ -861,7 +715,6 @@
     });
     }
 
-
     const OPT = {
     procedencia: [
     'Vecino de la zona (Jesús María, Colonia Caroya, Sinsacate)',
@@ -892,8 +745,6 @@
         'Más de 1000 km'
     ],
 
-    compania: ['Solo/a', 'En pareja', 'Grupo familiar', 'Grupo de amigos'],
-
     dias: ['Vive acá', '1 día', '1 a 3 días', '3 a 7 días', '7 a 10 días'],
 
     ciudadAloj: [
@@ -903,16 +754,6 @@
         'Otra',
         'No se hospeda (viene y regresa a su hogar en el día)'
     ],
-
-    nochesAnfi: [
-        'Ninguna',
-        '1 noche',
-        'Entre 2 y 5 noches',
-        'Entre 6 y 9 noches',
-        'Más de 9 noches'
-    ],
-
-    primeraVez: ['Si', 'No'],
 
     gasto: [
         'Menos de $80.000',
@@ -931,18 +772,6 @@
         'Camping',
         'En casa de amigos/familiares',
         'En casa propia'
-    ],
-
-    visitasteDonaPipa: [
-        'Si',
-        'No',
-        'No lo conozco'
-    ],
-
-    pensasVolver: [
-        'Si',
-        'No',
-        'No se'
     ],
 
     mediosInfo: [
@@ -965,14 +794,15 @@
     rows.forEach(r => {
         const key = ((r[colIndex] ?? '') + '').trim();
 
+        // Si dijiste que nunca hay vacíos, esto debería casi no ocurrir.
         if (!key) return;
 
         if (key in counts) counts[key] += 1;
+        //else counts[otherLabel] += 1; // valores inesperados
     });
 
     return counts;
     }
-
 
 
     url = url + '?sheet=Data&tq=select%20*%20where%20A%20%3E%200';
@@ -1010,8 +840,6 @@
         }
     });
     }
-
-
 
     function pluginsLegendCountsRight() {
     return {
@@ -1051,11 +879,11 @@
     ]);
 
 
-
     function normalizeWord(w) {
     if (w === 'calles') return 'calle';
     if (w === 'call') return 'calle';
 
+    // plurales comunes en español
     if (w.endsWith('es') && w.length > 4) {
         return w.slice(0, -2);
     }
@@ -1070,7 +898,6 @@
     function stripAccents(s) {
     return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
-
 
 
 
@@ -1118,7 +945,6 @@
         if (w.length < 3) continue;
 
 
-
         if (STOPWORDS_ES.has(w)) continue;
 
         w = normalizeWord(w);
@@ -1141,6 +967,7 @@
 
     const entries = Object.entries(freqObj)
         .sort((a,b) => b[1] - a[1])
+        //.slice(0, 80); // top palabras (ajustable)
         .slice(0, 50);
 
     const box = canvas.parentElement;
@@ -1159,9 +986,12 @@
     }
 
     WordCloud(canvas, {
+        //list: entries,
         list: entries.map(([w, n]) => [w.replace(/_/g, ' '), n]),
+        //gridSize: Math.round(8 * (w / 600)), // densidad
         gridSize: Math.round(12 * (w / 600)),
         weightFactor: (size) => Math.min(72, 10 + size * 8),
+        //rotateRatio: 0.08,      // pocas rotadas (más legible)
         rotateRatio: 0.02,
         rotationSteps: 2,
         backgroundColor: 'transparent',
@@ -1180,25 +1010,22 @@
         if (!isNaN(toDate)) toDate.setDate(toDate.getDate() + 1);
 
         const filtered = allData.filter(d => {
-            const enc = (d[1] || '').trim(); 
+            const enc = (d[1] || '').trim(); // Agregamos trim para eliminar espacios invisibles
             const okEnc = !selectedEnc || enc === selectedEnc;
-            const fecha = parseFecha(d[31]);
+            const fecha = parseFecha(d[22]);
             let okDate = true;
             if (!isNaN(fromDate.getTime())) okDate = okDate && fecha >= fromDate;
             if (!isNaN(toDate.getTime())) okDate = okDate && fecha < toDate;
             return okEnc && okDate;
         });
 
-        const countSi = filtered.filter(d => (d[1] || '').trim() === 'Ciudadano').length; 
+        const countSi = filtered.filter(d => (d[1] || '').trim() === 'Ciudadano').length; // Trim aquí también
         const countNo = filtered.length - countSi;
         document.getElementById('count-si').innerText = countSi;
         document.getElementById('count-no').innerText = countNo;
 
         const countTotal = filtered.length;
         document.getElementById('count-total').innerText = countTotal;
-
-
-
 
         {
         const c = countByFixedOptions(filtered, 2, OPT.procedencia);
@@ -1211,11 +1038,9 @@
         );
         }
 
-
-
-        
+    
         {
-        const c = countByFixedOptions(filtered, 6, OPT.edadPersona);
+        const c = countByFixedOptions(filtered, 5, OPT.edadPersona);
         renderChartFixed(
             'chart-edad',
             'bar',
@@ -1223,9 +1048,6 @@
             OPT.edadPersona
         );
         }
-
-
-
 
         {
         const c = countByFixedOptions(filtered, 3, OPT.transporte);
@@ -1238,38 +1060,22 @@
         }
 
         {
-        const c = countByFixedOptions(filtered, 5, OPT.compania);
-        renderChartFixed('chart-compania', 'bar', c, OPT.compania);
-        }
-
-        {
-        const c = countByFixedOptions(filtered, 7, OPT.dias);
+        const c = countByFixedOptions(filtered, 6, OPT.dias);
         renderChartFixed('chart-dias', 'bar', c, OPT.dias);
         }
 
         {
-        const c = countByFixedOptions(filtered, 8, OPT.ciudadAloj);
+        const c = countByFixedOptions(filtered, 7, OPT.ciudadAloj);
         renderChartFixed('chart-ciudad-aloj', 'bar', c, OPT.ciudadAloj, { indexAxis: 'y' });
         }
 
         {
-        const c = countByFixedOptions(filtered, 14, OPT.tipoAloj);
+        const c = countByFixedOptions(filtered, 10, OPT.tipoAloj);
         renderChartFixed('chart-tipo-aloj', 'bar', c, OPT.tipoAloj, { indexAxis: 'y' });
         }
 
         {
-        const c = countByFixedOptions(filtered, 10, OPT.nochesAnfi);
-        renderChartFixed('chart-noches', 'bar', c, OPT.nochesAnfi);
-        }
-
-        {
-        const c = countByFixedOptions(filtered, 11, OPT.primeraVez);
-        renderChartFixed('chart-primera-vez', 'doughnut', c, OPT.primeraVez);
-        }
-
-
-        {
-        const c = countByFixedOptions(filtered, 33, OPT.mediosInfo);
+        const c = countByFixedOptions(filtered, 24, OPT.mediosInfo);
         renderChartFixed(
             'chart-medios-info',
             'bar',
@@ -1282,36 +1088,29 @@
 
 
         {
-        const c = countByColumnSplit(filtered, 12, '|');
-
-
-        renderChart('chart-motivos', 'bar', c, { indexAxis: 'y' });
-        }
-
-        {
-        const c = countByFixedOptions(filtered, 13, OPT.gasto);
+        const c = countByFixedOptions(filtered, 9, OPT.gasto);
         renderChartFixed('chart-gasto-dia', 'bar', c, OPT.gasto);
         }
 
 
 
         const valColumns = [
-        { id: 'chart-alojamiento', col: 15, title: 'Experiencia de Alojamiento' },
-        { id: 'chart-calles', col: 17, title: 'Limpieza de calles' },
-        { id: 'chart-banos', col: 18, title: 'Limpieza de baños' },
-        { id: 'chart-seguridad', col: 19, title: 'Seguridad' },
-        { id: 'chart-gastronomica', col: 20, title: 'Propuesta gastronómica' },
-        { id: 'chart-cultural', col: 21, title: 'Oferta cultural y turística' },
-        { id: 'chart-transito', col: 22, title: 'Manejo del Tránsito' },
-        { id: 'chart-estacionamiento', col: 23, title: 'Estacionamiento y playas' }
+        { id: 'chart-alojamiento', col: 11, title: 'Experiencia de Alojamiento' },
+        { id: 'chart-calles', col: 13, title: 'Limpieza de calles' },
+        { id: 'chart-banos', col: 14, title: 'Limpieza de baños' },
+        { id: 'chart-seguridad', col: 15, title: 'Seguridad' },
+        { id: 'chart-gastronomica', col: 16, title: 'Propuesta gastronómica' },
+        { id: 'chart-cultural', col: 17, title: 'Oferta cultural y turística' },
+        { id: 'chart-transito', col: 18, title: 'Manejo del Tránsito' },
+        { id: 'chart-estacionamiento', col: 19, title: 'Estacionamiento y playas' }
         ];
 
         const colorMapping = {
-        '1': '#FF0000',  
-        '2': '#FFA500',  
-        '3': '#FFFF00',  
-        '4': '#90EE90',  
-        '5': '#006400'   
+        '1': '#FF0000',  // Rojo
+        '2': '#FFA500',  // Naranja
+        '3': '#FFFF00',  // Amarillo
+        '4': '#90EE90',  // Verde claro
+        '5': '#006400'   // Verde oscuro
         };
 
         valColumns.forEach((v) => {
@@ -1337,122 +1136,23 @@
         valCharts[v.id] = new Chart(canvas, {
             type: 'doughnut',
             data: { labels: labelsVal, datasets: [{ data: dataVal, backgroundColor: bgColors }] },
-
             options: {
             responsive: true,
             plugins: pluginsLegendCountsRight()
             }
 
-
-
         });
         });
-
-
-
-        {
-        const c = countByFixedOptions(filtered, 24, OPT.visitasteDonaPipa);
-
-        renderChartFixed(
-        'chart-dona-pipa-visita',
-        'doughnut',
-        c,
-        OPT.visitasteDonaPipa,
-        {
-            plugins: { legend: { position: 'right' } }
-        }
-        );
-
-        }
-
-        {
-        const onlyVisited = filtered.filter(r => ((r[24] ?? '') + '').trim() === 'Si');
-
-        let vals = {};
-        onlyVisited.forEach(r => {
-            const key = ((r[25] ?? 'N/A') + '').trim();
-            vals[key] = (vals[key] || 0) + 1;
-        });
-
-        const labelsVal = Object.keys(vals);
-        const dataVal = Object.values(vals);
-
-        const colorMapping = {
-            '1': '#FF0000',
-            '2': '#FFA500',
-            '3': '#FFFF00',
-            '4': '#90EE90',
-            '5': '#006400'
-        };
-
-        const bgColors = labelsVal.map(label => colorMapping[label] || '#808080');
-
-        const canvas = document.getElementById('chart-dona-pipa-valoracion');
-
-        if (donaPipaValChart) {
-            donaPipaValChart.destroy();
-        } else {
-            const existing = Chart.getChart(canvas);
-            if (existing) existing.destroy();
-        }
-
-        donaPipaValChart = new Chart(canvas, {
-            type: 'doughnut',
-            data: {
-            labels: labelsVal.length ? labelsVal : ['Sin datos'],
-            datasets: [{
-                data: dataVal.length ? dataVal : [1],
-                backgroundColor: labelsVal.length ? bgColors : ['#d0d0d0']
-            }]
-            },
-            
-        
-
-            options: {
-            responsive: true,
-            plugins: pluginsLegendCountsRight()
-            }
-
-
-        });
-        }
-
-        {
-        const c = countByFixedOptions(filtered, 28, OPT.pensasVolver);
-
-        renderChartFixed(
-        'chart-volver-2027',
-        'doughnut',
-        c,
-        OPT.pensasVolver,
-        {
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'right' } }
-        }
-        );
-
-        }
-
-
-        {
-        const freqMas   = buildWordFreq(filtered, 26); 
-        const freqMenos = buildWordFreq(filtered, 27); 
-
-        drawWordCloud('wc-mas', freqMas);
-        drawWordCloud('wc-menos', freqMenos);
-        }
-
-
 
 
         markerLayer.clearLayers();
         encLayers = {};
         let encCounts = {};
         filtered.forEach(d => {
-            const enc = (d[1] || 'Desconocido').trim();
+            const enc = (d[1] || 'Desconocido').trim(); // Trim
             encCounts[enc] = (encCounts[enc] || 0) + 1;
-            const lat = parseInt(d[29]) / 1000000;
-            const lng = parseInt(d[30]) / 1000000;
+            const lat = parseInt(d[20]) / 1000000;
+            const lng = parseInt(d[21]) / 1000000;
             if (!isNaN(lat) && !isNaN(lng)) {
                 if (!encLayers[enc]) {
                     encLayers[enc] = L.layerGroup().addTo(markerLayer);
@@ -1465,9 +1165,9 @@
                     opacity: 1,
                     fillOpacity: 0.85
                 });
-                const fecha = d[31] || 'Sin fecha';
-                const hora = d[32] || 'Sin hora';
-                const edad = d[6] || 'No indicada';
+                const fecha = d[22] || 'Sin fecha';
+                const hora = d[23] || 'Sin hora';
+                const edad = d[5] || 'No indicada';
                 const lugar = d[2] || 'No indicado';
                 const id = d[0]
 
@@ -1601,7 +1301,6 @@
 
     const AUTH_URL = 'https://gestexpfest.gisjesusmaria.workers.dev/';
 
-
     function showLogin(show) {
     document.getElementById('login-overlay').style.display = show ? 'flex' : 'none';
     }
@@ -1630,10 +1329,6 @@
     return !!sessionStorage.getItem('authToken');
     }
 
-
-
-
-
     async function login(user, pass) {
     const params = new URLSearchParams();
     params.append('action', 'validaruser');
@@ -1650,9 +1345,8 @@
     return data;
     }
 
-
-
     function initLoginGate() {
+    // Bloquea la UI de entrada
     if (isLoggedIn()) {
         lockUI(false);
         return;
@@ -1673,10 +1367,10 @@
         setLoading(true);
 
         try {
-        const r = await login(user, pass); 
+        const r = await login(user, pass); // tu función login() que ya funciona (form-urlencoded)
         if (r.ok) {
             sessionStorage.setItem('authToken', r.token || 'ok');
-            lockUI(false);       
+            lockUI(false);       // ✅ muestra dashboards y habilita scroll
         } else {
             msg.textContent = r.msg || 'Usuario o clave incorrectos.';
         }
@@ -1692,14 +1386,13 @@
 
     passInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        e.preventDefault(); 
+        e.preventDefault(); // evita submits raros
         document.getElementById('login-btn').click();
     }
     });
 
     }
 
-    
     initLoginGate();
 
 
@@ -1709,9 +1402,9 @@
         .then(res => res.text())
         .then(csv => {
             const parsed = Papa.parse(csv, { header: false, skipEmptyLines: true });
-            allData = parsed.data.slice(1); 
+            allData = parsed.data.slice(1); // Ignorar headers, usar data rows
 
-            const uniqueEnc = [...new Set(allData.map(d => (d[1] || '').trim()))]; 
+            const uniqueEnc = [...new Set(allData.map(d => (d[1] || '').trim()))]; // Trim aquí
             let encList = uniqueEnc.filter(e => e && e !== 'Ciudadano');
             encList.sort();
 
@@ -1732,15 +1425,11 @@
 
             uniqueEnc.forEach((e, i) => colorMap[e] = colors[i % colors.length]);
 
-            if (colorMap['Ciudadano']) colorMap['Ciudadano'] = '#0511f2';
-            if (colorMap['Ana']) colorMap['Ana'] = '#a927f5';
-            if (colorMap['Eliana']) colorMap['Eliana'] = '#03a869';
-            if (colorMap['Facundo']) colorMap['Facundo'] = '#f57607';
-            if (colorMap['Fiona']) colorMap['Fiona'] = '#8acc06';
-            if (colorMap['Marcos']) colorMap['Marcos'] = '#bd862d';
-            if (colorMap['Pilar']) colorMap['Pilar'] = '#FF0000';
-            if (colorMap['Sofia']) colorMap['Sofia'] = '#99845a';
-            if (colorMap['Victoria']) colorMap['Victoria'] = '#2f88d6';
+
+            if (colorMap['Lara']) colorMap['Lara'] = '#03a869';
+            if (colorMap['Mailen']) colorMap['Mailen'] = '#a927f5';
+            if (colorMap['Tadeo']) colorMap['Tadeo'] = '#0511f2';
+
 
             document.getElementById('select-enc').addEventListener('change', updateDashboard);
             document.getElementById('from-date').addEventListener('change', updateDashboard);
@@ -1752,9 +1441,9 @@
                 let toDate = new Date(document.getElementById('to-date').value);
                 if (!isNaN(toDate)) toDate.setDate(toDate.getDate() + 1);
                 const filtered = allData.filter(d => {
-                    const enc = (d[1] || '').trim(); 
+                    const enc = (d[1] || '').trim(); // Trim en download también
                     const okEnc = !selectedEnc || enc === selectedEnc;
-                    const fecha = parseFecha(d[31]);
+                    const fecha = parseFecha(d[22]);
                     let okDate = true;
                     if (!isNaN(fromDate.getTime())) okDate = okDate && fecha >= fromDate;
                     if (!isNaN(toDate.getTime())) okDate = okDate && fecha < toDate;
@@ -1762,10 +1451,10 @@
                 });
                 const exportData = filtered.map(d => ({
                     Id: d[0],
-                    Fecha: d[31],
-                    Hora: d[32],
+                    Fecha: d[22],
+                    Hora: d[23],
                     Encuestador: d[1],
-                    Edad: d[6]
+                    Edad: d[5]
                 }));
                 const ws = XLSX.utils.json_to_sheet(exportData);
                 const wb = XLSX.utils.book_new();
@@ -1776,7 +1465,7 @@
                 const yyyy = now.getFullYear();
                 const HH = String(now.getHours()).padStart(2, '0');
                 const Mm = String(now.getMinutes()).padStart(2, '0');
-                const filename = `ExperienciaFestivalera_${dd}${mm}${yyyy}_${HH}${Mm}.xlsx`;
+                const filename = `FestivalMayo2026_${dd}${mm}${yyyy}_${HH}${Mm}.xlsx`;
                 XLSX.writeFile(wb, filename);
             });
 
@@ -1784,19 +1473,10 @@
             initTableSort();
 
             updateDashboard();
-
-            
             
             fitMapToMarkers();
         })
         .catch(err => console.error('Error fetching data:', err));
-
-
-        window.addEventListener('resize', () => {
-        const rows = window.__lastFilteredRows || [];
-        drawWordCloud('wc-mas', buildWordFreq(rows, 26));
-        drawWordCloud('wc-menos', buildWordFreq(rows, 27));
-        });
 
 </script>
 
