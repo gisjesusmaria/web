@@ -415,9 +415,17 @@
           </div>
 
           <div class="field" style="grid-column: 1 / -1;">
-            <label>5- Está de acuerdo con este tipo de eventos? <span class="req">*</span></label>
-            <textarea name="compra_cantidad" id="compra_cantidad" required
-                      placeholder="Ej.: 20 kg, 10 cajas, 50 unidades…"></textarea>
+            <label>5- ¿Está de acuerdo con este tipo de eventos? <span class="req">*</span></label>
+          
+            <div class="inline" role="radiogroup" aria-label="Está de acuerdo con este tipo de eventos">
+              <label class="radio">
+                <input type="radio" name="compra_cantidad" value="Si" required> Sí
+              </label>
+          
+              <label class="radio">
+                <input type="radio" name="compra_cantidad" value="No" required> No
+              </label>
+            </div>
           </div>
 
           <div class="field">
