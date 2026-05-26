@@ -405,13 +405,13 @@
           <div class="field" style="grid-column: 1 / -1;">
             <label>3- ¿Contrató Personal adicional para el fin de semana??</label>
             <textarea name="proveedores_principales" id="proveedores_principales"
-                      placeholder="Ej.: Proveedor A, Proveedor B…"></textarea>
+                      placeholder=""></textarea>
           </div>
 
           <div class="field" style="grid-column: 1 / -1;">
-            <label>4- ¿Cuál fue su facturación aproximada? (viernes, sábado y domingo) **sólo a los efectos de relevar el impacto económico** <span class="req">*</span></label>
+            <label>4- ¿Cuál fue su facturación aproximada? (sábado y domingo) **sólo a los efectos de relevar el impacto económico** <span class="req">*</span></label>
             <textarea name="productos_top4" id="productos_top4" required
-                      placeholder="Enumeralos o separalos con comas"></textarea>
+                      placeholder=""></textarea>
           </div>
 
           <div class="field" style="grid-column: 1 / -1;">
@@ -508,21 +508,7 @@
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             </div>
 
-            <div class="field" style="grid-column: 1 / -1;">
-            <label>¿Cuál es su promedio de facturación diaria?</label>
-
-            <input
-                type="text"
-                name="fact_diaria"
-                id="fact_diaria"
-                placeholder="Ej.: 250000"
-                autocomplete="off"
-                pattern="[0-9]*"
-                inputmode="numeric"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-            <div class="hint">Este campo no es obligatorio.</div>
-            </div>
+            <input type="hidden" name="fact_diaria" id="fact_diaria" value="">
 
 
         </div>
